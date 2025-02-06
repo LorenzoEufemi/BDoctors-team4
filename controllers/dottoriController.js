@@ -22,7 +22,8 @@ const index = (req, res, next) => {
 const show = (req, res, next) => {
     const slug = req.params.slug;
 
-    //dettaglio dottore
+    //dettaglio dottoreLorenzo Eufemi
+    
     const sql = `
         SELECT dottori.*, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) AS vote_avg
         FROM dottori
