@@ -1,6 +1,5 @@
 const dbConnection = require("../data/dbConnection");
 
-
 const index = (req, res, next) => {
     const sql = `
     SELECT *
@@ -18,8 +17,6 @@ const index = (req, res, next) => {
     });
 };
 
-
-
 module.exports = {
     index,
-}
+};
