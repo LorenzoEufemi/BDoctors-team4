@@ -1,0 +1,17 @@
+{
+  "name": "bdoctors-team4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file=.env app.js",
+    "dev": "node --env-file=.env --watch app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0",
+    "slugify": "^1.6.6"
+  }
+}
