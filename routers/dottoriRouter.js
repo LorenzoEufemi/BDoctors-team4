@@ -1,5 +1,6 @@
 const express = require ("express");
 const router = express.Router();
+const dottoriController = require ("../controllers/dottoriController")
 
 router.get("/", dottoriController.index);
 
