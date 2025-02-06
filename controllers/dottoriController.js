@@ -16,10 +16,7 @@ const index = (req, res, next) => {
             status: "success",
             data: dottori
         })
-
     });
-
-
 };
 
 const show = (req, res, next) => {
@@ -27,18 +24,20 @@ const show = (req, res, next) => {
 
     //dettaglio dottore
     const sql = `
- SELECT *, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) as voto_avg
- FROM dottori
- WHERE slug = ?
- `
+        SELECT dottori.*, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) AS vote_avg
+        FROM dottori
+        JOIN recensioni
+        ON recensioni.dottore_id = dottori.id
+        WHERE dottori.slug = ?;
+    `
 
     const recensioniSql = `
-SELECT recensioni.* 
-FROM recensioni
-JOIN dottori
-ON dottori.id = recensioni.dottore_id
-WHERE dottori.slug = ?
-`
+        SELECT recensioni.*
+        FROM recensioni
+        JOIN dottori
+        ON recensioni.dottore_id = dottori.id
+        WHERE dottori.slug = ?;
+    `
 
     dbConnection.query(sql, [slug], (err, dottore) => {
         if (err) {
