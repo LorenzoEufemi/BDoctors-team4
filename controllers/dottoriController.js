@@ -3,10 +3,10 @@ const slugify = require("slugify");
 
 const index = (req, res, next) => {
     const filters = req.query;
-    let sql = `
-    SELECT *
-    FROM dottori
-    `;
+    let sql = 
+    `SELECT *
+    FROM dottori`
+    ;
     const params = [];
     dbConnection.query(sql, params, (err, dottori) => {
         if (err) {
@@ -23,21 +23,21 @@ const show = (req, res, next) => {
     const slug = req.params.slug;
 
     //dettaglio dottore
-    const sql = `
-        SELECT dottori.*, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) AS vote_avg
+    const sql = 
+       ` SELECT dottori.*, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) AS vote_avg
         FROM dottori
         JOIN recensioni
         ON recensioni.dottore_id = dottori.id
-        WHERE dottori.slug = ?;
-    `
+        WHERE dottori.slug = ?`;
+    
 
-    const recensioniSql = `
-        SELECT recensioni.*
+    const recensioniSql = 
+       ` SELECT recensioni.*
         FROM recensioni
         JOIN dottori
         ON recensioni.dottore_id = dottori.id
-        WHERE dottori.slug = ?;
-    `
+        WHERE dottori.slug = ?`;
+    
 
     dbConnection.query(sql, [slug], (err, dottore) => {
         if (err) {
