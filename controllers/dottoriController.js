@@ -22,16 +22,10 @@ const index = (req, res, next) => {
 const show = (req, res, next) => {
     const slug = req.params.slug;
 
-<<<<<<< HEAD
     //dettaglio dottoreLorenzo Eufemi
     
     const sql = `
         SELECT dottori.*, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) AS vote_avg
-=======
-    //dettaglio dottore
-    const sql = 
-       ` SELECT dottori.*, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) AS vote_avg
->>>>>>> 146c90d2992b31517220e74c924ba635448115cf
         FROM dottori
         JOIN recensioni
         ON recensioni.dottore_id = dottori.id
