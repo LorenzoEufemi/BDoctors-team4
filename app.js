@@ -12,7 +12,7 @@ app.use(cors({
     origin: process.env.FRONTEND_URL,
 }));
 
-// Static Files Middleware
+// Static Files Middlewarenp
 app.use(express.static("public"));
 
 // Json Middleware
