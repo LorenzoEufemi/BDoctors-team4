@@ -12,7 +12,7 @@ const checkEmailValid = (req, res, next) => {
         //ciclo tutte le lettere dalla email e segno ogni volta che c'è una @
         for (let char of email) {
             if (char === "@"){
-                count += count
+                count ++
             }
         }
         // se alla fine del conteggio c'è solo una @ va tutto bene e si va avanti

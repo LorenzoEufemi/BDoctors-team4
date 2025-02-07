@@ -97,7 +97,7 @@ const store = (req, res, next) => {
     //se req.file esiste accede a filename e carichi cmq img - altrimenti imgname=undefined e non da errori
     const imageName = req.file?.filename;
     //specializzazione ??
-    const { nome, cognome, telefono, email, via, citta } = req.body
+    const { nome, cognome, telefono, email, via, citta, specializzazione } = req.body
     const slug = slugify(`${nome} ${cognome}`, {
         lower: true,
         strict: true,
@@ -129,7 +129,7 @@ const store = (req, res, next) => {
 
     //ciclo caratteri telefono
     for (let char of telefono) {
-        if (!(char >= "0" && char <= "9") && (char !== ("+" && telefono[0]))  ) {
+        if (!(char >= "0" && char <= "9") && (char !== ("+" && telefono[0]))) {
             return res.status(400).json({
                 status: "fail",
                 message: "Deve contenere solo numeri e il segno + va messo unicamente davanti al numero"
@@ -137,15 +137,14 @@ const store = (req, res, next) => {
         }
     }
 
-  for(let key in req.body ) {
-    if(key.trim().length === 0 ) {
-        return res.status(400).json({
-            status: "fail",
-            message: "Non ci possono essere campi vuoti"
-        })
-  }
-
-  }
+    for (let key in req.body) {
+        if (key.trim().length === 0) {
+            return res.status(400).json({
+                status: "fail",
+                message: "Non ci possono essere campi vuoti"
+            })
+        }
+    }
 
     const sql = `
     INSERT INTO dottori(slug, nome, cognome, telefono, email, via, citta, immagine)
@@ -155,10 +154,33 @@ const store = (req, res, next) => {
         if (err) {
             return next(new Error(err.message))
         }
-        //201 inserimento dati
-        return res.status(201).json({
-            status: "success",
-            message: "Dottore aggiunto con successo"
+
+        //aggiungiamo campo specializzazione
+
+        const sqlNewIDDoctor = `
+    select id
+    from dottori
+    where slug = ?
+    `
+        dbConnection.query(sqlNewIDDoctor, [slug], (err, results) => {
+            if (err) {
+                return next(new Error(err.message))
+            }
+
+            const sqlTabellaPonte = `
+INSERT INTO dottore_specializzazioni(dottore_id, specializzazione_id)
+VALUES(?, ?)
+    `
+
+            dbConnection.query(sqlTabellaPonte, [results, specializzazione], (err, risultati) => {
+                if (err) {
+                    return next(new Error(err.message))
+                }
+                return res.status(201).json({
+                    status: "success",
+                    message: "Dottore aggiunto con successo"
+                })
+            })
         })
     })
 }
@@ -166,7 +188,7 @@ const store = (req, res, next) => {
 
 const storeRecensioni = (req, res, next) => {
     const id = req.params.id;
-    const {paziente, voto, recensione} = req.body;
+    const { paziente, voto, recensione } = req.body;
 
     // Validation voto
     if (isNaN(voto) || voto < 0 || voto > 5) {
@@ -175,9 +197,9 @@ const storeRecensioni = (req, res, next) => {
             message: "Il voto deve essere compreso tra 0 e 5"
         });
     }
-    
+
     // Validation paziente
-    if (paziente.lenght <= 3) {
+    if (paziente.length <= 3) {
         return res.status(400).json({
             status: "fail",
             message: "Nome e Cognome incompleto, almeno 4 caratteri"
@@ -185,7 +207,7 @@ const storeRecensioni = (req, res, next) => {
     }
 
     // Validation recensione
-    if (recensione && recensione.lenght > 0 && recensione.lenght < 5) {
+    if (recensione && recensione.length > 0 && recensione.length < 5) {
         return res.statu(400).json({
             status: "fail",
             message: "La recensione deve essere più lunga"
@@ -217,7 +239,7 @@ const storeRecensioni = (req, res, next) => {
             if (err) {
                 return next(new Error("Errore interno del server"));
             }
-            res.statu(201).json({
+            res.status(201).json({
                 status: "success",
                 message: "Recensione aggiunta"
             });
