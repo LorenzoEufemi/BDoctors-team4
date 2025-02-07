@@ -3,6 +3,8 @@ const slugify = require("slugify");
 
 const index = (req, res, next) => {
     const filters = req.query;
+    // console.log(filters);
+    
     let sql = `
     SELECT dottori.*, GROUP_CONCAT(specializzazioni.specializzazione) AS specializzazioni
     FROM dottori
