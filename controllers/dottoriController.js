@@ -72,6 +72,7 @@ const show = (req, res, next) => {
         if (err) {
             return next(new Error(err.message))
         }
+        console.log(dottore)
         if (dottore.length === 0 || dottore[0].slug === null) {
             return res.status(404).json({
                 status: "fail",
