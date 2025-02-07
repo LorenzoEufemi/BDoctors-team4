@@ -2,8 +2,9 @@ const express = require ("express");
 const router = express.Router();
 const dottoriController = require ("../controllers/dottoriController")
 const checkSlugExist = require ("../middlewares/checkSlugExist")
+const checkNameExist = require ("../middlewares/checkNameExist")
 
-router.get("/", dottoriController.index);
+router.get("/",checkNameExist, dottoriController.index);
 
 router.get("/:slug", checkSlugExist, dottoriController.show);
 
