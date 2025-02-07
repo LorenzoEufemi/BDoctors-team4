@@ -171,8 +171,7 @@ const store = (req, res, next) => {
 INSERT INTO dottore_specializzazioni(dottore_id, specializzazione_id)
 VALUES(?, ?)
     `
-
-            dbConnection.query(sqlTabellaPonte, [results, specializzazione], (err, risultati) => {
+            dbConnection.query(sqlTabellaPonte, [results[0].id, specializzazione], (err, risultati) => {
                 if (err) {
                     return next(new Error(err.message))
                 }
@@ -184,7 +183,6 @@ VALUES(?, ?)
         })
     })
 }
-
 
 const storeRecensioni = (req, res, next) => {
     const id = req.params.id;
