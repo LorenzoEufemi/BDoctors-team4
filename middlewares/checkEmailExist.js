@@ -3,10 +3,10 @@ const dbConnection = require("../data/dbConnection")
 const checkEmailExist = (req, res, next) => {
 
     //prendo la mail dal body
-    const email = req.body.email.trim()
+    const email = req.body.email.trim();
 
     //faccio il param che servirà per la query params
-    const params = `%${email}%`
+    const params = `%${email}%`;
 
     //costruisco la query
     const sql = `
@@ -33,8 +33,8 @@ const checkEmailExist = (req, res, next) => {
             else {
                 next()
             }
-        })
-}
+        });
+};
 
 
-module.exports = checkEmailExist
+module.exports = checkEmailExist;

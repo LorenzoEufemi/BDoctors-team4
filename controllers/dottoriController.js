@@ -3,14 +3,13 @@ const slugify = require("slugify");
 
 const index = (req, res, next) => {
     const filters = req.query;
-    // console.log(filters);
 
     let sql = `
-    SELECT dottori.*, GROUP_CONCAT(specializzazioni.specializzazione) AS specializzazioni
-    FROM dottori
-    LEFT JOIN dottore_specializzazioni ON dottore_specializzazioni.dottore_id = dottori.id
-    LEFT JOIN specializzazioni ON dottore_specializzazioni.specializzazione_id = specializzazioni.id
-  `;
+      SELECT dottori.*, GROUP_CONCAT(specializzazioni.specializzazione) AS specializzazioni
+      FROM dottori
+      LEFT JOIN dottore_specializzazioni ON dottore_specializzazioni.dottore_id = dottori.id
+      LEFT JOIN specializzazioni ON dottore_specializzazioni.specializzazione_id = specializzazioni.id
+    `;
 
     const params = [];
     const conditions = [];
@@ -53,11 +52,11 @@ const index = (req, res, next) => {
 const show = (req, res, next) => {
     const slug = req.params.slug;
 
-    //dettaglio dottoreLorenzo Eufemi
+    //dettaglio dottore
     const sql = `
         SELECT dottori.*, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) AS vote_avg
         FROM dottori
-        JOIN recensioni
+        LEFT JOIN recensioni
         ON recensioni.dottore_id = dottori.id
         WHERE dottori.slug = ?`;
 
@@ -94,24 +93,16 @@ const show = (req, res, next) => {
 
 // Aggiunta dottore - Move to Controller
 const store = (req, res, next) => {
+
     //se req.file esiste accede a filename e carichi cmq img - altrimenti imgname=undefined e non da errori
     const imageName = req.file?.filename;
+
     //specializzazione ??
     const { nome, cognome, telefono, email, via, citta, specializzazione } = req.body
     const slug = slugify(`${nome} ${cognome}`, {
         lower: true,
         strict: true,
     })
-
-    //VALIDAZIONI
-    // Esiste già nel sistema un utente con l’email inserita
-    //  La mail inserita non è una mail valida
-    //  Il nome è inferiore a 3 lettere
-    //  Il cognome è inferiore a 3 lettere
-    //  Uno dei campi è vuoto
-    //  L’indirizzo è inferiore a 5 lettere - ok
-    // Il numero di telefono contiene lettere o simboli diversi da “+”
-    // - “+”, se presente, deve essere all’inizio
 
     if ((nome.length && cognome.length) <= 3) {
         return res.status(400).json({
@@ -124,8 +115,8 @@ const store = (req, res, next) => {
         return res.status(400).json({
             status: "fail",
             message: "L`indirizzo deve essere piu'lungo di 5 caratteri"
-        })
-    }
+        });
+    };
 
     //ciclo caratteri telefono
     for (let char of telefono) {
@@ -133,44 +124,46 @@ const store = (req, res, next) => {
             return res.status(400).json({
                 status: "fail",
                 message: "Deve contenere solo numeri e il segno + va messo unicamente davanti al numero"
-            })
-        }
-    }
+            });
+        };
+    };
 
     for (let key in req.body) {
         if (key.trim().length === 0) {
             return res.status(400).json({
                 status: "fail",
                 message: "Non ci possono essere campi vuoti"
-            })
-        }
-    }
+            });
+        };
+    };
 
     const sql = `
-    INSERT INTO dottori(slug, nome, cognome, telefono, email, via, citta, immagine)
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?)
-    `
+      INSERT INTO dottori(slug, nome, cognome, telefono, email, via, citta, immagine)
+      VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
     dbConnection.query(sql, [slug, nome, cognome, telefono, email, via, citta, imageName], (err, dottori) => {
         if (err) {
             return next(new Error(err.message))
-        }
+        };
 
         //aggiungiamo campo specializzazione
-
         const sqlNewIDDoctor = `
-    select id
-    from dottori
-    where slug = ?
-    `
-        dbConnection.query(sqlNewIDDoctor, [slug], (err, results) => {
+           select id
+           from dottori
+           where slug = ?
+         `;
+
+         dbConnection.query(sqlNewIDDoctor, [slug], (err, results) => {
             if (err) {
                 return next(new Error(err.message))
-            }
+            };
 
             const sqlTabellaPonte = `
-INSERT INTO dottore_specializzazioni(dottore_id, specializzazione_id)
-VALUES(?, ?)
-    `
+              INSERT INTO dottore_specializzazioni(dottore_id, specializzazione_id)
+              VALUES(?, ?)
+            `;
+
             dbConnection.query(sqlTabellaPonte, [results[0].id, specializzazione], (err, risultati) => {
                 if (err) {
                     return next(new Error(err.message))
@@ -178,11 +171,11 @@ VALUES(?, ?)
                 return res.status(201).json({
                     status: "success",
                     message: "Dottore aggiunto con successo"
-                })
-            })
-        })
-    })
-}
+                });
+            });
+        });
+    });
+};
 
 const storeRecensioni = (req, res, next) => {
     const id = req.params.id;
@@ -226,14 +219,14 @@ const storeRecensioni = (req, res, next) => {
                 status: "fail",
                 message: "Dottore non trovato"
             });
-        }
+        };
 
         const sql = `
-        INSERT INTO recensioni(dottore_id, paziente, recensione, voto)
-        VALUE (?, ?, ?, ?)
-        `;
+          INSERT INTO recensioni(dottore_id, paziente, recensione, voto)
+          VALUE (?, ?, ?, ?)
+         `;
 
-        dbConnection.query(sql, [id, paziente, recensione, voto], (err) => {
+         dbConnection.query(sql, [id, paziente, recensione, voto], (err) => {
             if (err) {
                 return next(new Error("Errore interno del server"));
             }

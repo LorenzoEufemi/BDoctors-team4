@@ -9,6 +9,6 @@ const checkCognomeValido = (req, res, next) => {
         
     }
     next()
-}
+};
 
 module.exports = checkCognomeValido

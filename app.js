@@ -23,7 +23,7 @@ app.use(express.json());
 app.use("/dottori", dottoriRouter);
 
 // Router Specializzazioni
-app.use("/specializzazioni", specializzazioniRouter)
+app.use("/specializzazioni", specializzazioniRouter);
 
 // Error Handler middleware
 app.use(errorsHandler);

@@ -30,6 +30,3 @@ router.post("/:id/recensioni", dottoriController.storeRecensioni)
 router.delete("/:slug", dottoriController.destroy);
 
 module.exports= router;
-
-
-
