@@ -4,7 +4,7 @@ const slugify = require("slugify");
 const index = (req, res, next) => {
     const filters = req.query;
     // console.log(filters);
-    
+
     let sql = `
     SELECT dottori.*, GROUP_CONCAT(specializzazioni.specializzazione) AS specializzazioni
     FROM dottori
@@ -26,11 +26,11 @@ const index = (req, res, next) => {
             }
         }
     };
-    
+
     if (conditions.length > 0) {
         sql += ` WHERE ${conditions.join(" AND ")}`;
     }
-    
+
     sql += ` GROUP BY dottori.id`;
 
     dbConnection.query(sql, params, (err, results) => {
@@ -45,7 +45,7 @@ const index = (req, res, next) => {
         }
         return res.status(200).json({
             status: "success",
-            data: results   
+            data: results
         })
     });
 };
@@ -60,15 +60,15 @@ const show = (req, res, next) => {
         JOIN recensioni
         ON recensioni.dottore_id = dottori.id
         WHERE dottori.slug = ?`;
-    
-    const recensioniSql =  `
+
+    const recensioniSql = `
         SELECT recensioni.*
         FROM recensioni
         JOIN dottori
         ON recensioni.dottore_id = dottori.id
         WHERE dottori.slug = ?
     `;
-    
+
     dbConnection.query(sql, [slug], (err, dottore) => {
         if (err) {
             return next(new Error(err.message))
@@ -92,9 +92,77 @@ const show = (req, res, next) => {
     });
 };
 
+// Aggiunta dottore - Move to Controller
 const store = (req, res, next) => {
+    //se req.file esiste accede a filename e carichi cmq img - altrimenti imgname=undefined e non da errori
+    const imageName = req.file?.filename;
+    //specializzazione ??
+    const { nome, cognome, telefono, email, via, citta } = req.body
+    const slug = slugify(`${nome} ${cognome}`, {
+        lower: true,
+        strict: true,
+    })
 
-};
+    //VALIDAZIONI
+    // Esiste già nel sistema un utente con l’email inserita
+    //  La mail inserita non è una mail valida
+    //  Il nome è inferiore a 3 lettere
+    //  Il cognome è inferiore a 3 lettere
+    //  Uno dei campi è vuoto
+    //  L’indirizzo è inferiore a 5 lettere - ok
+    // Il numero di telefono contiene lettere o simboli diversi da “+”
+    // - “+”, se presente, deve essere all’inizio
+
+    if ((nome.length && cognome.length) <= 3) {
+        return res.status(400).json({
+            status: "fail",
+            message: "Il nome e il cognome devono essere piu'lunghi di 3 caratteri"
+        })
+    }
+
+    if (via.length <= 5) {
+        return res.status(400).json({
+            status: "fail",
+            message: "L`indirizzo deve essere piu'lungo di 5 caratteri"
+        })
+    }
+
+    //ciclo caratteri telefono
+    for (let char of telefono) {
+        if (!(char >= "0" && char <= "9") && (char !== ("+" && telefono[0]))  ) {
+            return res.status(400).json({
+                status: "fail",
+                message: "Deve contenere solo numeri e il segno + va messo unicamente davanti al numero"
+            })
+        }
+    }
+
+  for(let key in req.body ) {
+    if(key.trim().length === 0 ) {
+        return res.status(400).json({
+            status: "fail",
+            message: "Non ci possono essere campi vuoti"
+        })
+  }
+
+  }
+
+    const sql = `
+    INSERT INTO dottori(slug, nome, cognome, telefono, email, via, citta, immagine)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+    `
+    dbConnection.query(sql, [slug, nome, cognome, telefono, email, via, citta, imageName], (err, dottori) => {
+        if (err) {
+            return next(new Error(err.message))
+        }
+        //201 inserimento dati
+        return res.status(201).json({
+            status: "success",
+            message: "Dottore aggiunto con successo"
+        })
+    })
+}
+
 
 const destroy = (req, res, next) => {
 
