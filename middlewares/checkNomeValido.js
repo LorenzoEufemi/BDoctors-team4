@@ -6,9 +6,8 @@ const checkNomeValido = (req, res, next) => {
             status: "fail",
             message: "il nome dev'essere di piu di 3 caratteri"
         })
-        
     }
-    next()
-}
+    next();
+};
 
-module.exports = checkNomeValido
+module.exports = checkNomeValido;
