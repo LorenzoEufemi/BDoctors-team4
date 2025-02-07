@@ -4,18 +4,46 @@ const slugify = require("slugify");
 const index = (req, res, next) => {
     const filters = req.query;
     let sql = `
-      SELECT *
-      FROM dottori
-    `;
+    SELECT dottori.*, GROUP_CONCAT(specializzazioni.specializzazione) AS specializzazioni
+    FROM dottori
+    LEFT JOIN dottore_specializzazioni ON dottore_specializzazioni.dottore_id = dottori.id
+    LEFT JOIN specializzazioni ON dottore_specializzazioni.specializzazione_id = specializzazioni.id
+  `;
 
     const params = [];
-    dbConnection.query(sql, params, (err, dottori) => {
+    const conditions = [];
+
+    for (const key in filters) {
+        if (filters[key]) {
+            if (key === "nome" || key === "cognome") {
+                conditions.push(`dottori.${key} LIKE ?`);
+                params.push(`%${filters[key]}%`);
+            } else if (key === "specializzazione") {
+                conditions.push("specializzazioni.specializzazione LIKE ?");
+                params.push(`%${filters[key]}%`);
+            }
+        }
+    };
+    
+    if (conditions.length > 0) {
+        sql += ` WHERE ${conditions.join(" AND ")}`;
+    }
+    
+    sql += ` GROUP BY dottori.id`;
+
+    dbConnection.query(sql, params, (err, results) => {
         if (err) {
             return next(new Error(err.message))
         }
+        if (results.length === 0) {
+            return res.status(404).json({
+                status: "fail",
+                message: "Dottore non trovato"
+            })
+        }
         return res.status(200).json({
             status: "success",
-            data: dottori
+            data: results   
         })
     });
 };
