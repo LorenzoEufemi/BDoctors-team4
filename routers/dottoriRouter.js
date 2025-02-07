@@ -2,7 +2,6 @@ const upload = require("../middlewares/fileUpload")
 const express = require ("express");
 const router = express.Router();
 
-const dottoriController = require ("../controllers/dottoriController")
 const checkSlugExist = require ("../middlewares/checkSlugExist")
 const checkNameExist = require ("../middlewares/checkNameExist")
 const dottoriController = require ("../controllers/dottoriController");
