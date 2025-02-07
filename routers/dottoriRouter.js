@@ -4,11 +4,12 @@ const router = express.Router();
 
 const checkSlugExist = require ("../middlewares/checkSlugExist")
 const checkNameExist = require ("../middlewares/checkNameExist")
+const checkCognomeExist = require("../middlewares/chekCognomeExist")
 const dottoriController = require ("../controllers/dottoriController");
 const dbConnection = require("../data/dbConnection");
 
 
-router.get("/",checkNameExist, dottoriController.index);
+router.get("/", checkNameExist, checkCognomeExist, dottoriController.index);
 
 router.get("/:slug", checkSlugExist, dottoriController.show);
 
