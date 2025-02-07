@@ -16,7 +16,7 @@ router.get("/:slug", checkSlugExist, dottoriController.show);
 router.post("/", upload.single("immagine"), dottoriController.store);
 
 //Add post function for review
-router.post("/:slug/recensioni",dottoriController.store)
+router.post("/:id/recensioni",dottoriController.store)
 
 router.delete("/:slug", dottoriController.destroy);
 

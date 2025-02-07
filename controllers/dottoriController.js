@@ -96,6 +96,68 @@ const store = (req, res, next) => {
 
 };
 
+const storeRecensioni = (req, res, next) => {
+    const id = req.params.id;
+    const {paziente, voto, recensione} = req.body;
+
+    // Validation voto
+    if (isNaN(voto) || voto < 0 || voto > 5) {
+        return res.statu(400).json({
+            status: "fail",
+            message: "Il voto deve essere compreso tra 0 e 5"
+        });
+    }
+    
+    // Validation paziente
+    if (paziente.lenght <= 3) {
+        return res.status(400).json({
+            status: "fail",
+            message: "Nome e Cognome incompleto, almeno 4 caratteri"
+        });
+    }
+
+    // Validation recensione
+    if (recensione && recensione.lenght > 0 && recensione.lenght < 5) {
+        return res.statu(400).json({
+            status: "fail",
+            message: "La recensione deve essere più lunga"
+        });
+    }
+
+    const dottoriSql = `
+      SELECT *
+      FROM dottori
+      WHERE id = ?
+    `
+    dbConnection.query(dottoriSql, [id], (err, results) => {
+        if (err) {
+            return next(new Error("Errore interno del server"));
+        }
+        if (results.length === 0) {
+            return res.status(404).json({
+                status: "fail",
+                message: "Dottore non trovato"
+            });
+        }
+
+        const sql = `
+        INSERT INTO recensioni(dottore_id, paziente, recensione, voto)
+        VALUE (?, ?, ?, ?)
+        `;
+
+        dbConnection.query(sql, [id, paziente, recensione, voto], (err) => {
+            if (err) {
+                return next(new Error("Errore interno del server"));
+            }
+            res.statu(201).json({
+                status: "success",
+                message: "Recensione aggiunta"
+            });
+        });
+    });
+};
+
+
 const destroy = (req, res, next) => {
 
 };
@@ -104,5 +166,6 @@ module.exports = {
     index,
     show,
     store,
+    storeRecensioni,
     destroy
 };
