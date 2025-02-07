@@ -3,7 +3,7 @@ const dottoriRouter = require("./routers/dottoriRouter");
 const specializzazioniRouter = require("./routers/specializzazioniRouter")
 const cors = require("cors");
 const notFound = require("./middlewares/NotFound");
-const errorsHandler = require("./middlewares/errorsHandler");
+const errorsHandler = require("./middlewares/errorHandlers");
 
 const app = express();
 const port = process.env.SERVER_PORT;
