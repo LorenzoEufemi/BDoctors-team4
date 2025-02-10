@@ -1,0 +1,33 @@
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+.textLogo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer; 
+    text-decoration: none;
+}
+
+.navLinks {
+    display: flex;
+    gap: 1rem;
+    list-style-type: none;
+    
+}
+
+.navLink {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.navLinkActive {
+    color: #2e88e9; 
+    text-decoration: none;
+}
