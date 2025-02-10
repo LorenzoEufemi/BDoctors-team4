@@ -5,10 +5,20 @@ import HomePage from "../pages/HomePage/HomePage";
 import SingleDoctor from "../pages/SingleDoctor/SingleDoctor";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
+import GlobalContext from "../context/GlobalContext";
+import { useState, useContext } from "react";
 
 function App() {
 
+  const [ricerca, setRicerca] = useState(null)
+
+  const GlobalProviderValue = {
+    setRicerca,
+    ricerca
+  }
+
   return (
+    <GlobalContext.Provider value={GlobalProviderValue}>
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
@@ -21,6 +31,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </GlobalContext.Provider>
   )
 };
 
