@@ -1,7 +1,10 @@
+import DocRegForm from "../../components/main/DocRegForm";
+
 function Login() {
     return (
         <>
-        <h1>Ciao sono Login </h1>
+        <h1>Registrati </h1>
+        <DocRegForm/>
         </>
     )
 };
