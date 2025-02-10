@@ -11,10 +11,13 @@ import { useState, useContext } from "react";
 function App() {
 
   const [ricerca, setRicerca] = useState(null)
+  const [specializzazioneNome, setSpecializzazioneNome] = useState("")
 
   const GlobalProviderValue = {
     setRicerca,
-    ricerca
+    ricerca,
+    specializzazioneNome,
+    setSpecializzazioneNome
   }
 
   return (

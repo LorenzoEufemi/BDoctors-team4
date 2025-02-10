@@ -7,7 +7,7 @@ function HomePage() {
 
     const [specializzazioni, setSpecializzazioni] = useState(null);
     
-    const { setRicerca } = useContext(GlobalContext)
+    const { setRicerca, setSpecializzazioneNome } = useContext(GlobalContext)
     
     const backurl = import.meta.env.VITE_BACKEND_URL
 
@@ -20,7 +20,10 @@ function HomePage() {
         })
     }, [])
     
-
+const handleSelect = (event) => {
+    setSpecializzazioneNome(event.target.key)
+    setRicerca(event.target.value)
+}
 
 
     return (
@@ -30,11 +33,11 @@ function HomePage() {
                 (specializzazioni === null) ? <p>aspetta</p> : 
                 <div>
                 <label htmlFor="specializzazioni">scegli la specializzazione</label>
-                <select name="specializzazioni" id="" onChange={(event) => setRicerca(event.target.value)}>
+                <select name="specializzazioni" id="specializzazioni" onChange={handleSelect}>
                     <option value="null">--</option>
                     {
                         specializzazioni.map(curElem => (
-                            <option value={curElem.specializzazione} key={curElem.id}>{curElem.specializzazione}</option>
+                            <option value={curElem.id} key={curElem.specializzazione}>{curElem.specializzazione}</option>
                         )
                         )  
                     }
