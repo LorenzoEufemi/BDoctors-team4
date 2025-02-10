@@ -26,14 +26,13 @@ const DocRegForm = () => {
 
     //chiamata specializzazioni
 
-useEffect(() => {
     
     axios.get(`${apiUrl}/specializzazioni`).then((resp) => {
         console.log(resp)
         setSpecial(resp.data.data)
     })
 
-}, []);
+
 
     const handleChange = (event) => {
         const { name, value, type } = event.target;
@@ -48,7 +47,7 @@ useEffect(() => {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         //creiamo oggetto formadata per simulare form -non usiamo json
         const dataToSend = new FormData()
@@ -57,12 +56,13 @@ useEffect(() => {
             dataToSend.append(key, formData[key])
         }
 
-        axios.post(`${apiUrl}dottori`, dataToSend, {
+        axios.post(`${apiUrl}/dottori`, dataToSend, {
             //diciamo al server che tra i dati c`e`anche un file
             headers: {
                 "Content-Type": "multipart/form-data",
             }
         }).then((resp) => {
+            console.log(resp)
             navigate("/")
         })
     }
@@ -86,10 +86,10 @@ useEffect(() => {
             <div>
                 <label htmlFor="Cognome">Cognome</label>
                 <input
-                    id='Cognome'
+                    id='cognome'
                     type="text"
                     placeholder='scrivi il tuo Cognome'
-                    name='Cognome'
+                    name='cognome'
                     value={formData.cognome}
                     onChange={handleChange} />
             </div>
@@ -152,10 +152,10 @@ useEffect(() => {
 
             <div>
                 <label htmlFor="file">Seleziona una specializzazione</label>
-                <select id='file'
+                <select id='specializzazione'
                     name='specializzazione'
                     value={formData.specializzazione}
-                    onChange={(event) => setSpecial(event.target.value)}>
+                    onChange={handleChange}>
                 {special.map((spec, index) => (
                     <option key={spec.id} value={spec.specializzazione}>{spec.specializzazione}</option>
                 ))}
