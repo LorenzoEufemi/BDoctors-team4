@@ -1,11 +1,10 @@
 import AppNavbar from "./navbar/AppNavbar";
 
-
 function AppHeader() {
     return (
-        <>
-        <AppNavbar />
-        </>
+        <header>
+            <AppNavbar />
+        </header>
     )
 };
 
