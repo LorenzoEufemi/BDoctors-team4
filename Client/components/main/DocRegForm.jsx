@@ -26,7 +26,7 @@ const DocRegForm = () => {
 
     //chiamata specializzazioni
     useEffect(() => {
-        axios.get(`${apiUrl}/specializzazioni`).then((resp) => {
+        axios.get(`${apiUrl}specializzazioni`).then((resp) => {
             console.log(resp)
             setSpecial(resp.data.data)
         })
@@ -56,7 +56,7 @@ const DocRegForm = () => {
             dataToSend.append(key, formData[key])
         }
 
-        axios.post(`${apiUrl}/dottori`, dataToSend, {
+        axios.post(`${apiUrl}dottori`, dataToSend, {
             //diciamo al server che tra i dati c`e`anche un file
             headers: {
                 "Content-Type": "multipart/form-data",
