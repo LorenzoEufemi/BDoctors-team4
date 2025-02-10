@@ -8,7 +8,7 @@ function AdvancedSearch() {
     const {ricerca, specializzazioneNome} = useContext(GlobalContext)
 
     const [dottori, setDottori] = useState(null)
-    console.log(specializzazioneNome);
+    // console.log(specializzazioneNome);
 
     const navigate = useNavigate()
     
