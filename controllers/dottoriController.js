@@ -33,6 +33,7 @@ const index = (req, res, next) => {
     sql += ` GROUP BY dottori.id`;
 
     dbConnection.query(sql, params, (err, results) => {
+
         if (err) {
             return next(new Error(err.message))
         }
@@ -42,6 +43,8 @@ const index = (req, res, next) => {
                 message: "Dottore non trovato"
             })
         }
+
+
         return res.status(200).json({
             status: "success",
             data: results
