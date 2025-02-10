@@ -1,4 +1,7 @@
+import { useParams } from "react-router-dom";
+
 function SingleDoctor() {
+ const { slug } = useParams();
 
     return (
         <>

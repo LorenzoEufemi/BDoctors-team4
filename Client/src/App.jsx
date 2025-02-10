@@ -14,7 +14,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/dottori" element={<AdvancedSearch />} >
-            <Route path="/:slug" element={<SingleDoctor />} />
+            <Route path=":slug" element={<SingleDoctor />} />
           </Route>
           <Route path="/accedi" element={<Login />} />
           <Route path="*" element={<NotFound />} />
