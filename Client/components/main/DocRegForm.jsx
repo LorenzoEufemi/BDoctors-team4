@@ -25,12 +25,12 @@ const DocRegForm = () => {
     const [special, setSpecial] = useState([])
 
     //chiamata specializzazioni
-
-    
-    axios.get(`${apiUrl}/specializzazioni`).then((resp) => {
-        console.log(resp)
-        setSpecial(resp.data.data)
-    })
+    useEffect(() => {
+        axios.get(`${apiUrl}/specializzazioni`).then((resp) => {
+            console.log(resp)
+            setSpecial(resp.data.data)
+        })
+    }, []);
 
 
 
@@ -156,15 +156,15 @@ const DocRegForm = () => {
                     name='specializzazione'
                     value={formData.specializzazione}
                     onChange={handleChange}>
-                {special.map((spec, index) => (
-                    <option key={spec.id} value={spec.specializzazione}>{spec.specializzazione}</option>
-                ))}
+                    {special.map((spec, index) => (
+                        <option key={spec.id} value={spec.specializzazione}>{spec.specializzazione}</option>
+                    ))}
                 </select>
 
             </div>
 
             <div>
-                <button className= "bnt" type='submit'>Salva i dati</button>
+                <button className="bnt" type='submit'>Salva i dati</button>
             </div>
 
 
