@@ -49,7 +49,6 @@ const index = (req, res, next) => {
             })
         }
 
-
         return res.status(200).json({
             status: "success",
             page, 
@@ -248,7 +247,6 @@ const storeRecensioni = (req, res, next) => {
         });
     });
 };
-
 
 const destroy = (req, res, next) => {
 
