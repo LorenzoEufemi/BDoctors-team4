@@ -3,7 +3,7 @@ const slugify = require("slugify");
 
 const index = (req, res, next) => {
     const filters = req.query;
-    let { page = 1, limit = 10} = req.query;
+    let { page = 1, limit = 10 } = req.query;
     page = parseInt(page);
     limit = parseInt(limit);
     const offset = (page - 1) * limit;
@@ -51,7 +51,7 @@ const index = (req, res, next) => {
 
         return res.status(200).json({
             status: "success",
-            page, 
+            page,
             limit,
             data: results
         })
@@ -85,7 +85,7 @@ const show = (req, res, next) => {
         if (dottore.length === 0 || dottore[0].slug === null) {
             return res.status(404).json({
                 status: "fail",
-                message: "Doctor not found"
+                message: "Dottore non trovato"
             })
         };
 
@@ -164,7 +164,7 @@ const store = (req, res, next) => {
            where slug = ?
          `;
 
-         dbConnection.query(sqlNewIDDoctor, [slug], (err, results) => {
+        dbConnection.query(sqlNewIDDoctor, [slug], (err, results) => {
             if (err) {
                 return next(new Error(err.message))
             };
@@ -236,7 +236,7 @@ const storeRecensioni = (req, res, next) => {
           VALUE (?, ?, ?, ?)
          `;
 
-         dbConnection.query(sql, [id, paziente, recensione, voto], (err) => {
+        dbConnection.query(sql, [id, paziente, recensione, voto], (err) => {
             if (err) {
                 return next(new Error("Errore interno del server"));
             }
