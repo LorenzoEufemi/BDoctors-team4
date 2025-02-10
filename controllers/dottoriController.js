@@ -3,6 +3,10 @@ const slugify = require("slugify");
 
 const index = (req, res, next) => {
     const filters = req.query;
+    let { page = 1, limit = 10} = req.query;
+    page = parseInt(page);
+    limit = parseInt(limit);
+    const offset = (page - 1) * limit;
 
     let sql = `
       SELECT dottori.*, GROUP_CONCAT(specializzazioni.specializzazione) AS specializzazioni
@@ -30,7 +34,8 @@ const index = (req, res, next) => {
         sql += ` WHERE ${conditions.join(" AND ")}`;
     }
 
-    sql += ` GROUP BY dottori.id`;
+    sql += ` GROUP BY dottori.id LIMIT ? OFFSET ?`;
+    params.push(limit, offset);
 
     dbConnection.query(sql, params, (err, results) => {
 
@@ -47,6 +52,8 @@ const index = (req, res, next) => {
 
         return res.status(200).json({
             status: "success",
+            page, 
+            limit,
             data: results
         })
     });
