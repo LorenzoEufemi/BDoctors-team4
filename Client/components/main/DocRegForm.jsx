@@ -45,10 +45,11 @@ const DocRegForm = () => {
             const newData = { ...formData, [name]: value }
             setFormData(newData)
         }
-    }
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         //creiamo oggetto formadata per simulare form -non usiamo json
         const dataToSend = new FormData()
 
@@ -57,6 +58,7 @@ const DocRegForm = () => {
         }
 
         axios.post(`${apiUrl}dottori`, dataToSend, {
+
             //diciamo al server che tra i dati c`e`anche un file
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -65,7 +67,7 @@ const DocRegForm = () => {
             console.log(resp)
             navigate("/")
         })
-    }
+    };
 
     return (
 
@@ -82,6 +84,7 @@ const DocRegForm = () => {
                     value={formData.nome}
                     onChange={handleChange} />
             </div>
+
             {/* Input Cognome */}
             <div>
                 <label htmlFor="Cognome">Cognome</label>
@@ -93,9 +96,10 @@ const DocRegForm = () => {
                     value={formData.cognome}
                     onChange={handleChange} />
             </div>
-            {/* Input Nome */}
+
+            {/* Input Email */}
             <div>
-                <label htmlFor="nome">Email</label>
+                <label htmlFor="email">Email</label>
                 <input
                     id='Email'
                     type="text"
@@ -104,6 +108,7 @@ const DocRegForm = () => {
                     value={formData.email}
                     onChange={handleChange} />
             </div>
+
             {/* Input Nome */}
             <div>
                 <label htmlFor="nome">Indirizzo</label>
@@ -115,7 +120,8 @@ const DocRegForm = () => {
                     value={formData.via}
                     onChange={handleChange} />
             </div>
-            {/* Input Nome */}
+
+            {/* Input Città */}
             <div>
                 <label htmlFor="citta">Citta'</label>
                 <input
@@ -126,7 +132,8 @@ const DocRegForm = () => {
                     value={formData.citta}
                     onChange={handleChange} />
             </div>
-            {/* Input Nome */}
+
+            {/* Input Telefono */}
             <div>
                 <label htmlFor="telefono">Telefono</label>
                 <input
@@ -137,7 +144,8 @@ const DocRegForm = () => {
                     value={formData.telefono}
                     onChange={handleChange} />
             </div>
-            {/* Input Nome */}
+
+            {/* Input imagine */}
             <div>
                 <label htmlFor="file">Immagine Profilo</label>
                 <input
@@ -149,7 +157,6 @@ const DocRegForm = () => {
             </div>
 
             {/* Input Specializzazione */}
-
             <div>
                 <label htmlFor="file">Seleziona una specializzazione</label>
                 <select id='specializzazione'
@@ -167,11 +174,8 @@ const DocRegForm = () => {
             <div>
                 <button className="bnt" type='submit'>Salva i dati</button>
             </div>
-
-
         </form>
+    );
+};
 
-    )
-}
-
-export default DocRegForm
+export default DocRegForm;

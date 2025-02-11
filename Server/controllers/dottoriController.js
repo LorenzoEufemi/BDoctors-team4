@@ -195,7 +195,7 @@ const storeRecensioni = (req, res, next) => {
 
     // Validation voto
     if (isNaN(voto) || voto < 0 || voto > 5) {
-        return res.statu(400).json({
+        return res.status(400).json({
             status: "fail",
             message: "Il voto deve essere compreso tra 0 e 5"
         });

@@ -6,10 +6,10 @@ import GlobalContext from "../../context/GlobalContext";
 function HomePage() {
 
     const [specializzazioni, setSpecializzazioni] = useState(null);
-    
+
     const { setRicerca, setSpecializzazioneNome } = useContext(GlobalContext)
-    
-    const backurl = import.meta.env.VITE_BACKEND_URL
+
+    const backurl = import.meta.env.VITE_BACKEND_URL;
 
     useEffect(() => {
         axios.get(`${backurl}specializzazioni`).then(result => {
@@ -18,31 +18,30 @@ function HomePage() {
             setSpecializzazioni(newArray)
             // console.log(specializzazioni);
         })
-    }, [])
-    
-const handleSelect = (event) => {
-    setSpecializzazioneNome(event.target.key)
-    setRicerca(event.target.value)
-}
+    }, []);
 
+    const handleSelect = (event) => {
+        setSpecializzazioneNome(event.target.key)
+        setRicerca(event.target.value)
+    };
 
     return (
         <>
             <h1>ciao sono Homepage</h1>
             {
-                (specializzazioni === null) ? <p>aspetta</p> : 
-                <div>
-                <label htmlFor="specializzazioni">scegli la specializzazione</label>
-                <select name="specializzazioni" id="specializzazioni" onChange={handleSelect}>
-                    <option value="null">--</option>
-                    {
-                        specializzazioni.map(curElem => (
-                            <option value={curElem.id} key={curElem.specializzazione}>{curElem.specializzazione}</option>
-                        )
-                        )  
-                    }
-                </select>
-                </div>
+                (specializzazioni === null) ? <p>aspetta</p> :
+                    <div>
+                        <label htmlFor="specializzazioni">scegli la specializzazione</label>
+                        <select name="specializzazioni" id="specializzazioni" onChange={handleSelect}>
+                            <option value="null">--</option>
+                            {
+                                specializzazioni.map(curElem => (
+                                    <option value={curElem.id} key={curElem.specializzazione}>{curElem.specializzazione}</option>
+                                )
+                                )
+                            }
+                        </select>
+                    </div>
             }
             <Link to="/dottori">cerca</Link>
         </>
