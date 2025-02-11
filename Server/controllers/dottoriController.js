@@ -9,10 +9,10 @@ const index = (req, res, next) => {
     const offset = (page - 1) * limit;
 
     let sql = `
-      SELECT dottori.*, GROUP_CONCAT(specializzazioni.specializzazione) AS specializzazioni
-      FROM dottori
-      LEFT JOIN dottore_specializzazioni ON dottore_specializzazioni.dottore_id = dottori.id
-      LEFT JOIN specializzazioni ON dottore_specializzazioni.specializzazione_id = specializzazioni.id
+      SELECT doctors.*, GROUP_CONCAT(specializations.specialization) AS specializations
+      FROM doctors
+      LEFT JOIN doctor_specializations ON doctor_specializations.doctor_id = doctors.id
+      LEFT JOIN specializations ON doctor_specializations.specialization_id = specializations.id
     `;
 
     const params = [];
@@ -20,11 +20,11 @@ const index = (req, res, next) => {
 
     for (const key in filters) {
         if (filters[key]) {
-            if (key === "nome" || key === "cognome") {
-                conditions.push(`dottori.${key} LIKE ?`);
+            if (key === "firstname" || key === "lastname") {
+                conditions.push(`doctors.${key} LIKE ?`);
                 params.push(`%${filters[key]}%`);
-            } else if (key === "specializzazione") {
-                conditions.push("specializzazioni.specializzazione LIKE ?");
+            } else if (key === "specialization") {
+                conditions.push("specializations.specialization LIKE ?");
                 params.push(`%${filters[key]}%`);
             }
         }
@@ -34,7 +34,7 @@ const index = (req, res, next) => {
         sql += ` WHERE ${conditions.join(" AND ")}`;
     }
 
-    sql += ` GROUP BY dottori.id LIMIT ? OFFSET ?`;
+    sql += ` GROUP BY doctors.id LIMIT ? OFFSET ?`;
     params.push(limit, offset);
 
     dbConnection.query(sql, params, (err, results) => {
@@ -45,7 +45,7 @@ const index = (req, res, next) => {
         if (results.length === 0) {
             return res.status(404).json({
                 status: "fail",
-                message: "Dottore non trovato"
+                message: "Doctor not found"
             })
         }
 
@@ -61,39 +61,39 @@ const index = (req, res, next) => {
 const show = (req, res, next) => {
     const slug = req.params.slug;
 
-    //dettaglio dottore
+    // Doctor details
     const sql = `
-        SELECT dottori.*, CAST(AVG(recensioni.voto) AS DECIMAL(10, 1)) AS vote_avg
-        FROM dottori
-        LEFT JOIN recensioni
-        ON recensioni.dottore_id = dottori.id
-        WHERE dottori.slug = ?`;
+        SELECT doctors.*, CAST(AVG(reviews.vote) AS DECIMAL(10, 1)) AS vote_avg
+        FROM doctors
+        LEFT JOIN reviews
+        ON reviews.doctor_id = doctors.id
+        WHERE doctors.slug = ?`;
 
-    const recensioniSql = `
-        SELECT recensioni.*
-        FROM recensioni
-        JOIN dottori
-        ON recensioni.dottore_id = dottori.id
-        WHERE dottori.slug = ?
+    const reviewsSql = `
+        SELECT reviews.*
+        FROM reviews
+        JOIN doctors
+        ON reviews.doctor_id = doctors.id
+        WHERE doctors.slug = ?
     `;
 
-    dbConnection.query(sql, [slug], (err, dottore) => {
+    dbConnection.query(sql, [slug], (err, doctor) => {
         if (err) {
             return next(new Error(err.message))
         }
-        console.log(dottore)
-        if (dottore.length === 0 || dottore[0].slug === null) {
+        console.log(doctor)
+        if (doctor.length === 0 || doctor[0].slug === null) {
             return res.status(404).json({
                 status: "fail",
-                message: "Dottore non trovato"
+                message: "Doctor not found"
             })
         };
 
-        dbConnection.query(recensioniSql, [slug], (err, reviews) => {
+        dbConnection.query(reviewsSql, [slug], (err, reviews) => {
             return res.status(200).json({
                 status: "success",
                 data: {
-                    ...dottore[0],
+                    ...doctor[0],
                     reviews
                 }
             });
@@ -101,38 +101,38 @@ const show = (req, res, next) => {
     });
 };
 
-// Aggiunta dottore - Move to Controller
+// Aggiunta doctor - Move to Controller
 const store = (req, res, next) => {
 
     //se req.file esiste accede a filename e carichi cmq img - altrimenti imgname=undefined e non da errori
     const imageName = req.file?.filename;
     console.log(`ImageName:${imageName}`)
 
-    //specializzazione ??
-    const { nome, cognome, telefono, email, via, citta, specializzazione, immagine} = req.body
-    console.log(`immagine:${immagine}`)
-    const slug = slugify(`${nome} ${cognome}`, {
+    //specialization ??
+    const { firstname, lastname, phone, email, address, city, specialization, image} = req.body
+    console.log(`image:${image}`)
+    const slug = slugify(`${firstname} ${lastname}`, {
         lower: true,
         strict: true,
     })
 
-    if ((nome.length && cognome.length) <= 3) {
+    if ((firstname.length && lastname.length) <= 3) {
         return res.status(400).json({
             status: "fail",
-            message: "Il nome e il cognome devono essere piu'lunghi di 3 caratteri"
+            message: "Il firstname e il lastname devono essere piu' lunghi di 3 caratteri"
         })
     }
 
-    if (via.length <= 5) {
+    if (address.length <= 5) {
         return res.status(400).json({
             status: "fail",
             message: "L`indirizzo deve essere piu'lungo di 5 caratteri"
         });
     };
 
-    //ciclo caratteri telefono
-    for (let char of telefono) {
-        if (!(char >= "0" && char <= "9") && (char !== ("+" && telefono[0]))) {
+    //ciclo caratteri phone
+    for (let char of phone) {
+        if (!(char >= "0" && char <= "9") && (char !== ("+" && phone[0]))) {
             return res.status(400).json({
                 status: "fail",
                 message: "Deve contenere solo numeri e il segno + va messo unicamente davanti al numero"
@@ -150,19 +150,19 @@ const store = (req, res, next) => {
     };
 
     const sql = `
-      INSERT INTO dottori(slug, nome, cognome, telefono, email, via, citta, immagine)
+      INSERT INTO doctors(slug, firstname, lastname, phone, email, address, city, image)
       VALUES(?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    dbConnection.query(sql, [slug, nome, cognome, telefono, email, via, citta, imageName], (err, dottori) => {
+    dbConnection.query(sql, [slug, firstname, lastname, phone, email, address, city, imageName], (err, doctors) => {
         if (err) {
             return next(new Error(err.message))
         };
 
-        //aggiungiamo campo specializzazione
+        //aggiungiamo campo specialization
         const sqlNewIDDoctor = `
            select id
-           from dottori
+           from doctors
            where slug = ?
          `;
 
@@ -172,79 +172,79 @@ const store = (req, res, next) => {
             };
 
             const sqlTabellaPonte = `
-              INSERT INTO dottore_specializzazioni(dottore_id, specializzazione_id)
+              INSERT INTO doctor_specializations(doctor_id, specialization_id)
               VALUES(?, ?)
             `;
 
-            dbConnection.query(sqlTabellaPonte, [results[0].id, specializzazione], (err, risultati) => {
+            dbConnection.query(sqlTabellaPonte, [results[0].id, specialization], (err, risultati) => {
                 if (err) {
                     return next(new Error(err.message))
                 }
                 return res.status(201).json({
                     status: "success",
-                    message: "Dottore aggiunto con successo"
+                    message: "doctor aggiunto con successo"
                 });
             });
         });
     });
 };
 
-const storeRecensioni = (req, res, next) => {
+const storereviews = (req, res, next) => {
     const id = req.params.id;
-    const { paziente, voto, recensione } = req.body;
+    const { patient, vote, review } = req.body;
 
-    // Validation voto
-    if (isNaN(voto) || voto < 0 || voto > 5) {
+    // Validation vote
+    if (isNaN(vote) || vote < 0 || vote > 5) {
         return res.status(400).json({
             status: "fail",
-            message: "Il voto deve essere compreso tra 0 e 5"
+            message: "Il vote deve essere compreso tra 0 e 5"
         });
     }
 
-    // Validation paziente
-    if (paziente.length <= 3) {
+    // Validation patient
+    if (patient.length <= 3) {
         return res.status(400).json({
             status: "fail",
-            message: "Nome e Cognome incompleto, almeno 4 caratteri"
+            message: "firstname e lastname incompleto, almeno 4 caratteri"
         });
     }
 
-    // Validation recensione
-    if (recensione && recensione.length > 0 && recensione.length < 5) {
+    // Validation review
+    if (review && review.length > 0 && review.length < 5) {
         return res.statu(400).json({
             status: "fail",
-            message: "La recensione deve essere più lunga"
+            message: "La review deve essere più lunga"
         });
     }
 
-    const dottoriSql = `
+    const doctorsSql = `
       SELECT *
-      FROM dottori
+      FROM doctors
       WHERE id = ?
     `
-    dbConnection.query(dottoriSql, [id], (err, results) => {
+    dbConnection.query(doctorsSql, [id], (err, results) => {
         if (err) {
             return next(new Error("Errore interno del server"));
         }
         if (results.length === 0) {
             return res.status(404).json({
                 status: "fail",
-                message: "Dottore non trovato"
+                message: "Doctor not found"
             });
         };
 
         const sql = `
-          INSERT INTO recensioni(dottore_id, paziente, recensione, voto)
+          INSERT INTO reviews(doctor_id, patient, review, vote)
           VALUE (?, ?, ?, ?)
          `;
 
-        dbConnection.query(sql, [id, paziente, recensione, voto], (err) => {
+        dbConnection.query(sql, [id, patient, review, vote], (err) => {
             if (err) {
                 return next(new Error("Errore interno del server"));
             }
             res.status(201).json({
                 status: "success",
-                message: "Recensione aggiunta"
+                message: "review aggiunta"
             });
         });
     });
@@ -258,6 +258,6 @@ module.exports = {
     index,
     show,
     store,
-    storeRecensioni,
+    storereviews,
     destroy
 };
