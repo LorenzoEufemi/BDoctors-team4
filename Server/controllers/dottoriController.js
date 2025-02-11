@@ -11,8 +11,8 @@ const index = (req, res, next) => {
     let sql = `
       SELECT doctors.*, GROUP_CONCAT(specializations.specialization) AS specializations
       FROM doctors
-      LEFT JOIN doctor_specializations ON doctor_specializations.doctor_id = doctors.id
-      LEFT JOIN specializations ON doctor_specializations.specialization_id = specializations.id
+      LEFT JOIN doctors_specializations ON doctors_specializations.doctor_id = doctors.id
+      LEFT JOIN specializations ON doctors_specializations.specialization_id = specializations.id
     `;
 
     const params = [];
@@ -105,12 +105,11 @@ const show = (req, res, next) => {
 const store = (req, res, next) => {
 
     //se req.file esiste accede a filename e carichi cmq img - altrimenti imgname=undefined e non da errori
-    const imageName = req.file?.filename;
-    console.log(`ImageName:${imageName}`)
+    const imageName = req.files?.image ? req.files.image[0].filename : null;
+    const resumeName = req.files?.resume ? req.files.resume[0].filename : null;
 
     //specialization ??
-    const { firstname, lastname, phone, email, address, city, specialization, image} = req.body
-    console.log(`image:${image}`)
+    const { firstname, lastname, phone, email, address, city, specialization} = req.body
     const slug = slugify(`${firstname} ${lastname}`, {
         lower: true,
         strict: true,
@@ -150,29 +149,29 @@ const store = (req, res, next) => {
     };
 
     const sql = `
-      INSERT INTO doctors(slug, firstname, lastname, phone, email, address, city, image)
-      VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO doctors(slug, firstname, lastname, phone, email, address, city, image, resume)
+      VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    dbConnection.query(sql, [slug, firstname, lastname, phone, email, address, city, imageName], (err, doctors) => {
+    dbConnection.query(sql, [slug, firstname, lastname, phone, email, address, city, imageName, resumeName], (err, doctors) => {
         if (err) {
             return next(new Error(err.message))
         };
 
         //aggiungiamo campo specialization
-        const sqlNewIDDoctor = `
+        const sqlNewIdDoctor = `
            select id
            from doctors
            where slug = ?
          `;
 
-        dbConnection.query(sqlNewIDDoctor, [slug], (err, results) => {
+        dbConnection.query(sqlNewIdDoctor, [slug], (err, results) => {
             if (err) {
                 return next(new Error(err.message))
             };
 
             const sqlTabellaPonte = `
-              INSERT INTO doctor_specializations(doctor_id, specialization_id)
+              INSERT INTO doctors_specializations(doctor_id, specialization_id)
               VALUES(?, ?)
             `;
 

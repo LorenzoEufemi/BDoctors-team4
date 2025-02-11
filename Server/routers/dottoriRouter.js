@@ -22,10 +22,10 @@ router.get("/", dottoriController.index);
 router.get("/:slug", checkSlugExist, dottoriController.show);
 
 //Aggiunta Multer
-router.post("/", upload.single("immagine"), checkNomeValido, checkCognomeValido, checkTelValido, checkEmailValid, checkEmailExist, dottoriController.store);
+router.post("/", upload.fields([{ name: "image" }, { name: "resume" }]), checkNomeValido, checkCognomeValido, checkTelValido, checkEmailValid, checkEmailExist, dottoriController.store);
 
 //Add post function for review
-router.post("/:id/recensioni", dottoriController.storereviews)
+router.post("/:id/reviews", dottoriController.storereviews);
 
 router.delete("/:slug", dottoriController.destroy);
 

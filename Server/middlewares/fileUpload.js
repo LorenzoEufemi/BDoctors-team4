@@ -1,25 +1,21 @@
-const multer = require("multer")
+const multer = require("multer");
+const path = require("path");
 
+// Configura lo storage
 const storage = multer.diskStorage({
-    destination: (req, file, callbackFn) => {
-
-        //da stabilire percorso cartella imagini
-        callbackFn(null, "public/images");
+    destination: (req, file, cb) => {
+        if (file.fieldname === "image") {
+            cb(null, "public/images/"); // Salva le immagini in "images/images"
+        } else {
+            cb(null, "public/resume/"); // Salva qualsiasi altro file in "uploads/files"
+        }
     },
-    filename: (req, file, callbackFn) => {
-
-        //estrazione nome originale del file
-        const orignalFileName = file.originalname;
-
-        //aggiungo timestamp davanti al nome originale per renderlo univoco
-        const uniqueName = `${Date.now()}-${orignalFileName}`;
-
-        //imposto nome finale file
-        callbackFn(null, uniqueName);
-    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname);
+    }
 });
 
-//creo istanza multer - passo opzione salvataggio
-const upload = multer({storage});
+// Configura Multer senza limiti di peso e senza restrizioni sul formato
+const upload = multer({ storage });
 
 module.exports = upload;
