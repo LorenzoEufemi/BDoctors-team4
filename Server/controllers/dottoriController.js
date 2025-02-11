@@ -106,9 +106,11 @@ const store = (req, res, next) => {
 
     //se req.file esiste accede a filename e carichi cmq img - altrimenti imgname=undefined e non da errori
     const imageName = req.file?.filename;
+    console.log(`ImageName:${imageName}`)
 
     //specializzazione ??
-    const { nome, cognome, telefono, email, via, citta, specializzazione } = req.body
+    const { nome, cognome, telefono, email, via, citta, specializzazione, immagine} = req.body
+    console.log(`immagine:${immagine}`)
     const slug = slugify(`${nome} ${cognome}`, {
         lower: true,
         strict: true,

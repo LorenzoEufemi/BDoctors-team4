@@ -37,7 +37,7 @@ const DocRegForm = () => {
     const handleChange = (event) => {
         const { name, value, type } = event.target;
 
-        if (type === file) {
+        if (type === "file") {
             const fileImg = event.target.files[0]
             const newData = { ...formData, immagine: fileImg };
             setFormData(newData)
@@ -164,7 +164,8 @@ const DocRegForm = () => {
                     value={formData.specializzazione}
                     onChange={handleChange}>
                     {special.map((spec, index) => (
-                        <option key={spec.id} value={spec.specializzazione}>{spec.specializzazione}</option>
+                        //al server mando id specializzazione
+                        <option key={spec.id} value={spec.id}>{spec.specializzazione}</option>
                     ))}
                 </select>
 
