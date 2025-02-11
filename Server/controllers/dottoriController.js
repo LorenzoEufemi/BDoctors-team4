@@ -110,7 +110,7 @@ const store = (req, res, next) => {
     const resumeName = req.files?.resume ? req.files.resume[0].filename : null;
 
     //specialization ??
-    const { firstname, lastname, phone, email, address, city, specialization} = req.body
+    const { firstname, lastname, phone, email, address, city, specializations} = req.body
     const slug = slugify(`${firstname} ${lastname}`, {
         lower: true,
         strict: true,
@@ -176,7 +176,7 @@ const store = (req, res, next) => {
               VALUES(?, ?)
             `;
 
-            dbConnection.query(sqlTabellaPonte, [results[0].id, specialization], (err, risultati) => {
+            dbConnection.query(sqlTabellaPonte, [results[0].id, specializations], (err, risultati) => {
                 if (err) {
                     return next(new Error(err.message))
                 }

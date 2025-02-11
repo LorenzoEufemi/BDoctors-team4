@@ -194,7 +194,10 @@ const DocRegForm = () => {
                             className="form-check-input"
                             type="checkbox"
                             id="checkbox"
+                            name='specializations'
                             value={spec.id}
+                            onChange={handleChange}
+
                         />
                         <label htmlFor="specializations" className="form-check-label" for="inlineCheckbox1">{spec.specialization}</label>
                     </div>
