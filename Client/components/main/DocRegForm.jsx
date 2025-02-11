@@ -35,17 +35,21 @@ const DocRegForm = () => {
 
 
     const handleChange = (event) => {
-        const { name, value, type } = event.target;
+        const { name, value, files } = event.target;
 
-        if (type === "file") {
-            const fileImg = event.target.files[0];
-            const resumeFile = event.target.files[1];
-            const newData = { ...formData, image: fileImg, resume: resumeFile };
-            setFormData(newData)
+        if (files && files.length > 0) {
+            
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: files[0]
+            }));
         } else {
-            const newData = { ...formData, [name]: value }
-            setFormData(newData)
-        }
+            
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        };
     };
 
     const handleSubmit = (event) => {
@@ -58,6 +62,8 @@ const DocRegForm = () => {
             dataToSend.append(key, formData[key])
         }
 
+        console.log(dataToSend);
+        
         axios.post(`${apiUrl}doctors`, dataToSend, {
 
             //diciamo al server che tra i dati c`e`anche un file
@@ -104,7 +110,7 @@ const DocRegForm = () => {
             <div>
                 <label htmlFor="email">Email</label>
                 <input
-                    id='Email'
+                    id='email'
                     className='form-control'
                     type="text"
                     placeholder='scrivi la tua email'
@@ -154,21 +160,21 @@ const DocRegForm = () => {
 
             {/* Input imagine */}
             <div>
-                <label htmlFor="file">Immagine Profilo</label>
+                <label htmlFor="image">Immagine Profilo</label>
                 <input
-                    id='file'
+                    id='image'
                     className='form-control'
                     type="file"
                     placeholder='carica la tua immagine'
-                    name='immagine'
+                    name='image'
                     onChange={handleChange} />
             </div>
 
             {/* Input CV */}
             <div>
-                <label htmlFor="file">Curriculum</label>
+                <label htmlFor="resume">Curriculum</label>
                 <input
-                    id='file'
+                    id='resume'
                     className='form-control'
                     type="file"
                     placeholder='carica il tuo CV'

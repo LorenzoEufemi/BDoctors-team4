@@ -182,7 +182,9 @@ const store = (req, res, next) => {
                 }
                 return res.status(201).json({
                     status: "success",
-                    message: "doctor aggiunto con successo"
+                    message: "doctor aggiunto con successo",
+                    image: imageName,
+                    resume: resumeName
                 });
             });
         });
