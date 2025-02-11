@@ -34,7 +34,7 @@ function AdvancedSearch() {
             <button onClick={() => navigate(-1)}>indietro</button>
            
                {
-                    ()
+                    
                }
                 
             
