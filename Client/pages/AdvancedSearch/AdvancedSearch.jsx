@@ -5,14 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 function AdvancedSearch() {
 
-    const {ricerca, specializzazioneNome} = useContext(GlobalContext)
+    const { ricerca, specializzazioneNome } = useContext(GlobalContext)
 
     const [dottori, setDottori] = useState(null)
     // console.log(specializzazioneNome);
 
     const navigate = useNavigate()
-    
-
 
     const backurl = import.meta.env.VITE_BACKEND_URL
 
@@ -21,22 +19,20 @@ function AdvancedSearch() {
             setDottori(result.data.data)
         })
     }, [])
-    
 
     return (
         <>
             <h1>ciao sono AdvanceSearch {specializzazioneNome}</h1>
             <button onClick={() => navigate(-1)}>indietro</button>
-
             {
-                (dottori === null) ? 
-                (<p>loading...</p>) :
-                (dottori.map(curElem => (
-                    <div key={curElem.id}>
-                        <p>{curElem.nome}</p>
-                        <p>{curElem.cognome}</p>
-                    </div>
-                )))
+                (dottori === null) ?
+                    (<p>loading...</p>) :
+                    (dottori.map(curElem => (
+                        <div key={curElem.id}>
+                            <p>{curElem.nome}</p>
+                            <p>{curElem.cognome}</p>
+                        </div>
+                    )))
             }
         </>
     )
