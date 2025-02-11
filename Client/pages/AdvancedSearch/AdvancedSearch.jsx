@@ -15,7 +15,7 @@ function AdvancedSearch() {
     const backurl = import.meta.env.VITE_BACKEND_URL
 
     useEffect(() => {
-        axios.get(`${backurl}specializzazioni/${ricerca}`).then(result => {
+        axios.get(`${backurl}specializations/${ricerca}`).then(result => {
             setDottori(result.data.data)
         })
     }, [])
@@ -29,8 +29,8 @@ function AdvancedSearch() {
                     (<p>loading...</p>) :
                     (dottori.map(curElem => (
                         <div key={curElem.id}>
-                            <p>{curElem.nome}</p>
-                            <p>{curElem.cognome}</p>
+                            <p>{curElem.firstname}</p>
+                            <p>{curElem.lastname}</p>
                         </div>
                     )))
             }
