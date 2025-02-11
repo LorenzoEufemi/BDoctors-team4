@@ -5,45 +5,35 @@ import GlobalContext from "../../context/GlobalContext";
 
 function HomePage() {
 
-    const [specializzazioni, setSpecializzazioni] = useState(null);
-
-    const { setRicerca, setSpecializzazioneNome } = useContext(GlobalContext)
-
-    const backurl = import.meta.env.VITE_BACKEND_URL;
-
-    useEffect(() => {
-        axios.get(`${backurl}specializations`).then(result => {
-            const newArray = result.data.data
-            // console.log(newArray);
-            setSpecializzazioni(newArray)
-            // console.log(specializzazioni);
-        })
-    }, []);
+    const { allSpec, setSelectedSpec } = useContext(GlobalContext)
 
     const handleSelect = (event) => {
-        setSpecializzazioneNome(event.target.key)
-        setRicerca(event.target.value)
-    };
+        setSelectedSpec(event.target.value)
+        
+    }
 
     return (
         <>
-            <h1>ciao sono Homepage</h1>
+            <h1 className="text-center">ciao sono Homepage</h1>
             {
-                (specializzazioni === null) ? <p>aspetta</p> :
+                (allSpec === null) ? <div>
+                    <p>aspetta</p>
+                </div> :
                     <div>
-                        <label htmlFor="specializzazioni">scegli la specializzazione</label>
-                        <select name="specializzazioni" id="specializzazioni" onChange={handleSelect}>
-                            <option value="null">--</option>
+                        <label htmlFor="" className="form-control text-center">seleziona il medico per la specializzazione che ti serve</label>
+                        <select  onChange={handleSelect} className="form-select" aria-label="Default select example">
+                            <option value={null}>--</option>
                             {
-                                specializzazioni.map(curElem => (
-                                    <option value={curElem.id} key={curElem.specialization}>{curElem.specialization}</option>
-                                )
-                                )
+                                allSpec.map(curElem => (
+                                    <option value={curElem.id} key={curElem.specialization}>{curElem.specialization}
+                                    </option>
+                                ))
                             }
                         </select>
+                        <Link to="/doctors" className="btn btn-primary">cerca</Link>
                     </div>
             }
-            <Link to="/doctors">cerca</Link>
+
         </>
     )
 };

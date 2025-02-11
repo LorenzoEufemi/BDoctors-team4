@@ -6,7 +6,7 @@ function AppLayout() {
     return (
         <>
             <AppHeader />
-            <main>
+            <main className="container">
                 <Outlet />
             </main>
             <AppFooter />
