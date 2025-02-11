@@ -28,7 +28,13 @@ const checkEmailValid = (req, res, next) => {
                 message: "l'email inserita non va bene!"
             })
         }
+    } else {
+        return res.status(400).json({
+            status: "fail",
+            message: "l'email è troppo corta!"
+        })
     };
+
 };
 
 

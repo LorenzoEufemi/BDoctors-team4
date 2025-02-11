@@ -25,7 +25,7 @@ router.get("/:slug", checkSlugExist, dottoriController.show);
 router.post("/", upload.fields([{ name: "image" }, { name: "resume" }]), checkNomeValido, checkCognomeValido, checkTelValido, checkEmailValid, checkEmailExist, dottoriController.store);
 
 //Add post function for review
-router.post("/:id/reviews", dottoriController.storereviews);
+router.post("/:id/reviews", checkEmailValid, dottoriController.storereviews);
 
 router.delete("/:slug", dottoriController.destroy);
 

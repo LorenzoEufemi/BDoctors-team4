@@ -190,7 +190,7 @@ const store = (req, res, next) => {
 
 const storereviews = (req, res, next) => {
     const id = req.params.id;
-    const { patient, vote, review } = req.body;
+    const { patient, vote, review, email } = req.body;
 
     // Validation vote
     if (isNaN(vote) || vote < 0 || vote > 5) {
@@ -233,11 +233,11 @@ const storereviews = (req, res, next) => {
         };
 
         const sql = `
-          INSERT INTO reviews(doctor_id, patient, review, vote)
-          VALUE (?, ?, ?, ?)
+          INSERT INTO reviews(doctor_id, patient, review, vote, email)
+          VALUE (?, ?, ?, ?, ?)
          `;
 
-        dbConnection.query(sql, [id, patient, review, vote], (err) => {
+        dbConnection.query(sql, [id, patient, review, vote, email], (err) => {
             if (err) {
                 return next(new Error("Errore interno del server"));
             }
