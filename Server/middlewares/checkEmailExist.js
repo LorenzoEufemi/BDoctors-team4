@@ -11,7 +11,7 @@ const checkEmailExist = (req, res, next) => {
     //costruisco la query
     const sql = `
         SELECT *
-        FROM dottori
+        FROM doctors
         WHERE email LIKE ?
         `;
 

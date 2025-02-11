@@ -1,5 +1,5 @@
 const checkNomeValido = (req, res, next) => {
-    const nomeMedico = req.body.nome;
+    const nomeMedico = req.body.firstname;
 
     if (nomeMedico.trim().length <= 3){
         return res.status(400).json({

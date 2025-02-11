@@ -6,7 +6,7 @@ const checkSlugExist = (req, res, next) => {
 
     const sql = `
       SELECT *
-      FROM dottori
+      FROM doctors
       WHERE slug = ?
     `
     dbConnection.query(sql, [slug], (err, respons) => {

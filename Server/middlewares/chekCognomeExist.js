@@ -1,25 +1,25 @@
 const dbConnection = require("../data/dbConnection")
 
-const checkCognomeExist = (req, res, next) => {
+const checklastnameExist = (req, res, next) => {
 
     //prendo un array con la lista di tutte le quary
     const listKey = Object.keys(req.query);
 
-    //controllo che nell'array generato ci sia cognome
-    if (listKey.includes("cognomi")) {
+    //controllo che nell'array generato ci sia lastname
+    if (listKey.includes("lastname")) {
 
         //se nome c'è genero la stringa da inserire come parametro nella quary
-        const cognome = `%${req.query.cognome}%`;
+        const lastname = `%${req.query.lastname}%`;
 
         //genero la quary che mi restituisce il dottore con il nome
         const sql = `
           SELECT *
-          FROM dottori
-          WHERE cognome LIKE ?
+          FROM doctors
+          WHERE lastname LIKE ?
         `;
 
-        //controllo nel db se c'è il dottore con il cognome scelto dall'utente 
-        dbConnection.query(sql, [cognome], (err, result) => {
+        //controllo nel db se c'è il dottore con il lastname scelto dall'utente 
+        dbConnection.query(sql, [lastname], (err, result) => {
 
             //se non c'è do errore
             if (err) {
@@ -32,4 +32,4 @@ const checkCognomeExist = (req, res, next) => {
     next();
 };
 
-module.exports = checkCognomeExist;
+module.exports = checklastnameExist;

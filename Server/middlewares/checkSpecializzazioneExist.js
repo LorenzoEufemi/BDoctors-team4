@@ -7,17 +7,17 @@ const checkSpecializazioneExist = (req, res, next) => {
     console.log(listKey);
 
     //     //controllo che nell'array generato ci sia scpecializzazioni
-    if (listKey.includes("specializzazione")) {
+    if (listKey.includes("specialization")) {
 
-        const specializzazione = `%${req.query.specializzazione}%`;
+        const specialization = `%${req.query.specialization}%`;
 
         const sql = `
            SELECT *
-           FROM specializzazioni
-           WHERE specializzazione LIKE ?
+           FROM specializations
+           WHERE specialization LIKE ?
         `;
 
-        dbConnection.query(sql, [specializzazione], (err, result) => {
+        dbConnection.query(sql, [specialization], (err, result) => {
 
             //se non c'è do errore
             if (err) {

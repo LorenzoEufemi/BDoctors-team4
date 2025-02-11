@@ -20,10 +20,10 @@ app.use(express.static("public"));
 app.use(express.json());
 
 // Router Doctor
-app.use("/dottori", dottoriRouter);
+app.use("/doctors", dottoriRouter);
 
 // Router Specializzazioni
-app.use("/specializzazioni", specializzazioniRouter);
+app.use("/specializations", specializzazioniRouter);
 
 // Error Handler middleware
 app.use(errorsHandler);
