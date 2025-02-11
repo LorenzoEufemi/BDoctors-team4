@@ -12,7 +12,7 @@ function HomePage() {
     const backurl = import.meta.env.VITE_BACKEND_URL;
 
     useEffect(() => {
-        axios.get(`${backurl}specializzazioni`).then(result => {
+        axios.get(`${backurl}specilizations`).then(result => {
             const newArray = result.data.data
             // console.log(newArray);
             setSpecializzazioni(newArray)
