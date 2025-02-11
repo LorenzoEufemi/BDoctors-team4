@@ -6,18 +6,27 @@ import SingleDoctor from "../pages/SingleDoctor/SingleDoctor";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
 import GlobalContext from "../context/GlobalContext";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+import axios from "axios";
 
 function App() {
 
-  const [ricerca, setRicerca] = useState(null)
-  const [specializzazioneNome, setSpecializzazioneNome] = useState("")
+  const backUrl = import.meta.env.VITE_BACKEND_URL;
+
+  const [allSpec, setAllSpec] = useState(null)
+  const [selectedSpec, setSelectedSpec] = useState(null)
+
+  useEffect(() => {
+    axios.get(`${backUrl}specializations`).then( result =>{
+      setAllSpec(result.data.data)
+    })
+  }, [])
+
 
   const GlobalProviderValue = {
-    setRicerca,
-    ricerca,
-    specializzazioneNome,
-    setSpecializzazioneNome
+    allSpec,
+    selectedSpec,
+    setSelectedSpec
   }
 
   return (
