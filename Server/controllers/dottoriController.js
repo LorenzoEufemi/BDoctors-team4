@@ -1,5 +1,6 @@
 const dbConnection = require("../data/dbConnection");
 const slugify = require("slugify");
+const { v4: uuidv4 } = require('uuid'); // dipendenza uuid genera nuovo id/slug univoco
 
 const index = (req, res, next) => {
     const filters = req.query;
@@ -113,7 +114,7 @@ const store = (req, res, next) => {
     const slug = slugify(`${firstname} ${lastname}`, {
         lower: true,
         strict: true,
-    })
+    }) + `-${uuidv4()}`;
 
     if ((firstname.length && lastname.length) <= 3) {
         return res.status(400).json({
