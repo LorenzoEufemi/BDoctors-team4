@@ -12,18 +12,19 @@ function AdvancedSearch() {
     // console.log(specializzazioneNome);
 
     const navigate = useNavigate()
-    console.log(selectedSpec);
+ 
 
 
     const backurl = import.meta.env.VITE_BACKEND_URL
 
     useEffect(() => {
-        axios.get(`${backurl}specializations/${selectedSpec}`).then(result => {
+        axios.get(`${backurl}specializations/3`).then(result => {
             setDottori(result.data.data)
         })
     }, [])
 
-    console.log(dottori)
+ console.log(dottori);
+ 
 
 
 
@@ -31,12 +32,11 @@ function AdvancedSearch() {
         <>
             <h1>ciao sono AdvanceSearch </h1>
             <button onClick={() => navigate(-1)}>indietro</button>
-
-            {
-                dottori.map(curDoc => (
-                    <DoctorCard dottore={curDoc}/>
-                ))
-            }
+           
+               {
+                    ()
+               }
+                
             
         </>
     )
