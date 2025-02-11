@@ -23,10 +23,10 @@ const show = (req, res, next) => {
     const sql = `
     SELECT doctors.*
     FROM doctors 
-    JOIN doctor_specializations 
-    ON doctors.id = doctor_specializations.doctor_id
+    JOIN doctors_specializations 
+    ON doctors.id = doctors_specializations.doctor_id
     JOIN specializations 
-    ON doctor_specializations.specialization_id = specializations.id
+    ON doctors_specializations.specialization_id = specializations.id
     WHERE specializations.id = ?
     `;
     
