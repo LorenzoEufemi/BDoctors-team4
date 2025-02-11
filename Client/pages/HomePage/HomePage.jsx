@@ -12,7 +12,7 @@ function HomePage() {
     const backurl = import.meta.env.VITE_BACKEND_URL;
 
     useEffect(() => {
-        axios.get(`${backurl}specilizations`).then(result => {
+        axios.get(`${backurl}specializations`).then(result => {
             const newArray = result.data.data
             // console.log(newArray);
             setSpecializzazioni(newArray)
@@ -36,14 +36,14 @@ function HomePage() {
                             <option value="null">--</option>
                             {
                                 specializzazioni.map(curElem => (
-                                    <option value={curElem.id} key={curElem.specializzazione}>{curElem.specializzazione}</option>
+                                    <option value={curElem.id} key={curElem.specialization}>{curElem.specialization}</option>
                                 )
                                 )
                             }
                         </select>
                     </div>
             }
-            <Link to="/dottori">cerca</Link>
+            <Link to="/doctors">cerca</Link>
         </>
     )
 };
