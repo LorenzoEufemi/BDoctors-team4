@@ -193,12 +193,12 @@ const storereviews = (req, res, next) => {
     const { patient, vote, review, email } = req.body;
 
     // Validation vote
-    if (isNaN(vote) || vote < 0 || vote > 5) {
+    if (isNaN(vote) || vote < 0 || vote > 5 || vote === "") {
         return res.status(400).json({
             status: "fail",
             message: "Il vote deve essere compreso tra 0 e 5"
         });
-    }
+    };
 
     // Validation patient
     if (patient.length <= 3) {
