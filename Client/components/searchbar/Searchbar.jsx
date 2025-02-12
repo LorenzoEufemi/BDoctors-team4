@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import GlobalContext from "../../context/GlobalContext";
 function SearchBar() {
+    const { setSlugDoctor} = useContext(GlobalContext)
+
     const backurl = import.meta.env.VITE_BACKEND_URL;
     const [filters, setFilters] = useState({
         firstname: "",
@@ -126,7 +128,7 @@ function SearchBar() {
                     {doctors.map((doctor) => (
                         <li key={doctor.id} className="list-group-item d-flex justify-content-between">
                             {doctor.firstname} {doctor.lastname} - {doctor.specializations}
-                            <Link className="btn" to={`/doctors/${doctor.slug}`}>dettagli</Link>
+                            <Link className="btn" to={`/doctors/${doctor.slug}`} onClick={() => {setSlugDoctor(doctor.slug)}}>dettagli</Link>
                         </li>
                     ))}
                 </ul>
