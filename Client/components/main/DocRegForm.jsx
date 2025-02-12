@@ -17,15 +17,15 @@ const initialData = {
 
 const DocRegForm = () => {
 
-    const apiUrl = import.meta.env.VITE_BACKEND_URL
+    const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const [formData, setFormData] = useState(initialData)
+    // stati per form e specializzazioni
+    const [formData, setFormData] = useState(initialData);
+    const [special, setSpecial] = useState([]);
 
-    const [special, setSpecial] = useState([])
-
-    //chiamata specializzazioni
+    // chiamata specializzazioni
     useEffect(() => {
         axios.get(`${apiUrl}specializations`).then((resp) => {
             console.log(resp)
@@ -33,18 +33,22 @@ const DocRegForm = () => {
         })
     }, []);
 
-
+    // 
     const handleChange = (event) => {
         const { name, value, files } = event.target;
 
         if (files && files.length > 0) {
             
             setFormData(prevData => ({
+
+                // Se è un file, aggiorna l'oggetto formData senza perdere i dati esistenti
                 ...prevData,
+
+                // Salva il file nel campo corretto (image o resume)
                 [name]: files[0]
             }));
         } else {
-            
+            // Se è un campo di testo, aggiorna normalmente
             setFormData(prevData => ({
                 ...prevData,
                 [name]: value

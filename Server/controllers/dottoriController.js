@@ -109,13 +109,14 @@ const store = (req, res, next) => {
     const imageName = req.files?.image ? req.files.image[0].filename : null;
     const resumeName = req.files?.resume ? req.files.resume[0].filename : null;
 
-    //specialization ??
+    // Estraggo gli altri dati dal body
     const { firstname, lastname, phone, email, address, city, specializations} = req.body
     const slug = slugify(`${firstname} ${lastname}`, {
         lower: true,
         strict: true,
     }) + `-${uuidv4()}`;
 
+    // verifac nomee cognome
     if ((firstname.length && lastname.length) <= 3) {
         return res.status(400).json({
             status: "fail",
@@ -123,6 +124,7 @@ const store = (req, res, next) => {
         })
     }
 
+    // verifica indirizzo
     if (address.length <= 5) {
         return res.status(400).json({
             status: "fail",
@@ -140,6 +142,7 @@ const store = (req, res, next) => {
         };
     };
 
+    // verifica campi vuoti
     for (let key in req.body) {
         if (key.trim().length === 0) {
             return res.status(400).json({
@@ -149,6 +152,7 @@ const store = (req, res, next) => {
         };
     };
 
+    // Query per inserire i dati nel database
     const sql = `
       INSERT INTO doctors(slug, firstname, lastname, phone, email, address, city, image, resume)
       VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -159,7 +163,7 @@ const store = (req, res, next) => {
             return next(new Error(err.message))
         };
 
-        //aggiungiamo campo specialization
+        // aggiungiamo campo specialization
         const sqlNewIdDoctor = `
            select id
            from doctors
@@ -171,6 +175,7 @@ const store = (req, res, next) => {
                 return next(new Error(err.message))
             };
 
+            // sql per inserimento tabella ponte
             const sqlTabellaPonte = `
               INSERT INTO doctors_specializations(doctor_id, specialization_id)
               VALUES(?, ?)
@@ -183,6 +188,7 @@ const store = (req, res, next) => {
                 return res.status(201).json({
                     status: "success",
                     message: "doctor aggiunto con successo",
+                    // i file vengono salvati nel database e nei percorsi corretti
                     image: imageName,
                     resume: resumeName
                 });
