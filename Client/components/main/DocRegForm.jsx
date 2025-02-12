@@ -38,6 +38,7 @@ const DocRegForm = () => {
             if (key.trim() === "") {
                 errors.push(`Il campo ${key} è obbligatorio`);
             };
+            
         };
 
         // controllo nome
@@ -212,8 +213,8 @@ const DocRegForm = () => {
                     value={formData.lastname}
                     onChange={handleChange} />
 
-                {error && error.includes("errore nel cognome") && (
-                    <p className='text-danger'>Cognome deve essere di almeno 3 caratteri</p>
+                {error.length > 0 && error.some(err => err.includes("cognome")) && (
+                    <p className="text-danger">{error.find(err => err.includes("cognome"))}</p>
                 )}
             </div>
 
@@ -229,8 +230,8 @@ const DocRegForm = () => {
                     value={formData.email}
                     onChange={handleChange} />
 
-                {error && error.includes("errore nella email") && (
-                    <p className='text-danger'>l'email deve contenere la @</p>
+                {error.length > 0 && error.some(err => err.includes("email")) && (
+                    <p className="text-danger">{error.find(err => err.includes("email"))}</p>
                 )}
             </div>
 
@@ -246,8 +247,8 @@ const DocRegForm = () => {
                     value={formData.address}
                     onChange={handleChange} />
 
-                {error && error.includes("errore nell'indirizzo") && (
-                    <p className='text-danger'>l'indirizzo deve essere di almeno 5 caratteri</p>
+                {error.length > 0 && error.some(err => err.includes("indirizzo")) && (
+                    <p className="text-danger">{error.find(err => err.includes("indirizzo"))}</p>
                 )}
             </div>
 
@@ -276,8 +277,8 @@ const DocRegForm = () => {
                     value={formData.phone}
                     onChange={handleChange} />
 
-                {error && error.includes("errore nel telefono") && (
-                    <p className='text-danger'>il numero deve contenere solo numeri o il + iniziale</p>
+                {error.length > 0 && error.some(err => err.includes("telefono")) && (
+                    <p className="text-danger">{error.find(err => err.includes("telefono"))}</p>
                 )}
             </div>
 
