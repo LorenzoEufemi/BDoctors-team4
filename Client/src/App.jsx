@@ -53,18 +53,19 @@ function App() {
 
   return (
     <GlobalContext.Provider value={GlobalProviderValue}>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/doctors" element={<AdvancedSearch />} >
-            <Route path=":slug" element={<SingleDoctor />} />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/doctors">
+              <Route index element={<AdvancedSearch />} />
+              <Route path=":slug" element={<SingleDoctor />} />
+            </Route>
+            <Route path="/accedi" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="/accedi" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
     </GlobalContext.Provider>
   )
 };

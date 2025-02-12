@@ -9,7 +9,7 @@ function AdvancedSearch() {
     const { selectedSpec, nameSpecSelected } = useContext(GlobalContext);
     const navigate = useNavigate();
 
-    const [dottori, setDottori] = useState([]);
+    const [dottori, setDottori] = useState(null);
     const [filteredDottori, setFilteredDottori] = useState([]);
     const [filters, setFilters] = useState({
         name: '',
@@ -43,6 +43,10 @@ function AdvancedSearch() {
             return updatedFilters;
         });
     };
+
+
+
+
 
     // Funzione di filtraggio
     const filterDoctors = () => {
@@ -118,33 +122,15 @@ function AdvancedSearch() {
                     <span className="visually-hidden">Loading...</span>
                 </div>
             </div>}
-            {filteredDottori && filteredDottori.length > 0 ? (
-                filteredDottori.map(curItem => (
-                    <section key={curItem.id}>
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">{curItem.firstname} {curItem.lastname}</h5>
-                                <p className="card-text">{curItem.address}</p>
-                                <a href="#" className="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </section>
-                ))
-            ) : (Array.isArray(dottori) && dottori.length > 0) ? (
-                dottori.map(curItem => (
-                    <section key={curItem.id}>
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">{curItem.firstname} {curItem.lastname}</h5>
-                                <p className="card-text">{curItem.address}</p>
-                                <a href="#" className="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </section>
-                ))
-            ) : (!loading && <p>dottori non trovati</p>
-
-            )}
+            
+               
+                {
+                    (Array.isArray(dottori)) ? (
+                        dottori.map(curElem => <DoctorCard dottore={curElem} key={curElem.id}/>)
+                    ) : (
+                        <p>nessun dottore con questa specializzazione</p>
+                    )
+                }
 
         </>
     )

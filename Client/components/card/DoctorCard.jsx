@@ -1,16 +1,19 @@
+import { Link } from "react-router-dom"
 function DoctorCard({ dottore }) {
+    const { firstname, lastname, city, phone, email, slug} = dottore
     return (
         <>
             <div className="card mb-3">
                 <div className="row g-0">
                     <div className="col-md-4">
-                        <img src="..." className="img-fluid rounded-start" alt="..."/>
+                        <img src="../../public/default-placeholder-doctor-halflength-portrait-600nw-1058724875.webp" className="img-fluid rounded-start" alt="..."/>
                     </div>
                     <div className="col-md-8">
                         <div className="card-body">
-                            <h5 className="card-title">{dottore.firstname}</h5>
-                            <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+                            <h5 className="card-title">{firstname} {lastname}</h5>
+                            <p className="card-text">{city}</p>
+                            <p className="card-text">{phone}</p>
+                            <Link to={`/doctors/${slug}`} className="btn">vai al dottore</Link>
                         </div>
                     </div>
                 </div>

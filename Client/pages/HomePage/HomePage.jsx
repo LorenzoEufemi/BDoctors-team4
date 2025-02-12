@@ -16,10 +16,12 @@ function HomePage() {
     }
     useEffect(() => {
         setSelectedSpec(null)
+        setNameSpecSelected("")
     }, []);
     return (
         <>
             <h1 className="text-center">ciao sono Homepage</h1>
+            
             {
                 (allSpec === null) ? <div>
                     <p>aspetta</p>
@@ -35,7 +37,6 @@ function HomePage() {
                                     </option>
                                 ))
                             }
-
                         </select>
 
                         <Link to="/doctors" className="btn btn-primary">cerca</Link>
