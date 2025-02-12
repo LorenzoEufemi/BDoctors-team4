@@ -12,29 +12,30 @@ function AdvancedSearch() {
     const [dottori, setDottori] = useState(null);
     const [filteredDottori, setFilteredDottori] = useState([]);
     const [filters, setFilters] = useState({
-        name: '',
-        surname: '',
-        specialization: '',
+        firstname: '',
+        lastname: '',
     });
+
     const [loading, setLoading] = useState(false);
-    // Carica i dottori all'inizializzazione o quando cambia selectedSpec
+
     useEffect(() => {
         if (selectedSpec) {
             setLoading(true);
             axios
                 .get(`${backurl}specializations/${selectedSpec}`)
                 .then((result) => {
+                    console.log(result.data); // Aggiungi questa linea per vedere cosa contiene la risposta
                     setLoading(false);
                     setDottori(result.data.data);
-                    setFilteredDottori(result.data.data); // inizialmente tutti i dottori
+                    setFilteredDottori(result.data.data);
                 })
-                .catch((error) => { setLoading(false); console.error('Errore nella richiesta API:', error) });
+                .catch((error) => {
+                    setLoading(false);
+                    console.error('Errore nella richiesta API:', error)
+                });
         }
+    }, [selectedSpec, backurl]);
 
-
-    }, [selectedSpec]);
-
-    // Funzione per aggiornare i filtri
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilters((prevFilters) => {
@@ -44,97 +45,94 @@ function AdvancedSearch() {
         });
     };
 
-
-
-
-
-    // Funzione di filtraggio
     const filterDoctors = () => {
-        const { name, surname, specialization } = filters;
+        const { firstname, lastname, specialization } = filters;
 
-        // Se i filtri sono vuoti, non filtriamo nulla
-        if (!name && !surname && !specialization) {
+        if (!firstname && !lastname && !specialization) {
             setFilteredDottori(dottori);
             return;
         }
 
         const filtered = dottori.filter((doctor) => {
-            const matchesName = doctor.firstname?.toLowerCase().includes(name.toLowerCase());
-            const matchesSurname = doctor.lastname?.toLowerCase().includes(surname.toLowerCase());
-            const matchesSpecialization = doctor.specialization?.toLowerCase().includes(specialization.toLowerCase());
-
-            return matchesName && matchesSurname && matchesSpecialization;
+            const matchesFirstname = firstname ? doctor.firstname?.toLowerCase().includes(firstname.toLowerCase()) : true;
+            const matchesLastname = lastname ? doctor.lastname?.toLowerCase().includes(lastname.toLowerCase()) : true;
+            return matchesFirstname && matchesLastname;
         });
 
         setFilteredDottori(filtered);
     };
+
     const handleSubmit = (event) => {
-        event.preventDefault(); // Impedisce il refresh della pagina
-        filterDoctors(); // Esegue il filtraggio
+        event.preventDefault();
+        filterDoctors();
     };
 
-    // Chiamata di filtraggio ogni volta che cambiano i filtri
-    // useEffect(() => {
-    //     filterDoctors();
-    // }, [filters]);
+    useEffect(() => {
+        filterDoctors();
+    }, [filters, dottori]);
 
     return (
         <>
+            <h1>Ricerca Dottori in {nameSpecSelected} </h1>
+            <div className="d-flex justify-content-between">
+                <form onSubmit={handleSubmit} className="d-flex gap-3">
+                    <div className="">
+                        <label htmlFor="firstname">Nome:</label>
+                        <input
+                            type="text"
+                            id="firstname"
+                            name="firstname"
+                            value={filters.firstname}
+                            onChange={handleFilterChange}
+                            placeholder="Cerca per nome"
+                            className="form-control"
+                            required
+                        />
+                        <div className="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
 
-            <h1>Ricerca Dottori</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Nome:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={filters.name}
-                    onChange={handleFilterChange}
-                    placeholder="Cerca per nome"
-                />
+                    <div className="mr-2">
+                        <label htmlFor="lastname">Cognome:</label>
+                        <input
+                            type="text"
+                            id="lastname"
+                            name="lastname"
+                            value={filters.lastname}
+                            onChange={handleFilterChange}
+                            placeholder="Cerca per cognome"
+                            className="form-control"
+                            required
+                        />
+                        <div className="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-                <label htmlFor="surname">Cognome:</label>
-                <input
-                    type="text"
-                    id="surname"
-                    name="surname"
-                    value={filters.surname}
-                    onChange={handleFilterChange}
-                    placeholder="Cerca per cognome"
-                />
-
-                <label htmlFor="specialization">Specializzazione:</label>
-                <input
-                    type="text"
-                    id="specialization"
-                    name="specialization"
-                    value={filters.specialization}
-                    onChange={handleFilterChange}
-                    placeholder="Cerca per specializzazione"
-                />
-
-                <button type="submit">Filtra</button> {/* Il bottone usa onSubmit */}
-            </form>
-            <h1>ciao sono AdvanceSearch {nameSpecSelected}</h1>
-            <button onClick={() => navigate(-1)}>indietro</button>
-            {(loading) && <div className="d-flex justify-content-center">
-                <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
-            </div>}
-            
-               
-                {
-                    (Array.isArray(dottori)) ? (
-                        dottori.map(curElem => <DoctorCard dottore={curElem} key={curElem.id}/>)
-                    ) : (
-                        <p>nessun dottore con questa specializzazione</p>
-                    )
-                }
-
+            <button className="btn" onClick={() => navigate(-1)}>indietro</button>
+            {
+                loading && (
+                    <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                )
+            }
+            {
+                Array.isArray(dottori) ? (
+                    filteredDottori.map((curElem) => (
+                        <DoctorCard dottore={curElem} key={curElem.id} />
+                    ))
+                ) : (
+                    <p>nessun dottore con questa specializzazione</p>
+                )
+            }
         </>
-    )
+    );
 }
-
 
 export default AdvancedSearch;
