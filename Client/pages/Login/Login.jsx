@@ -4,7 +4,9 @@ function Login() {
     return (
         <>
         <h1>Registrati </h1>
-        <DocRegForm/>
+        <section className="container">
+            <DocRegForm/>
+        </section>
         </>
     )
 };

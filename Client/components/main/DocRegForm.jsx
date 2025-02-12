@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const initialData = {
-    nome: "",
-    cognome: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    via: "",
-    citta: "",
-    telefono: "",
-    immagine: null,
-    specializzazione: [],
+    address: "",
+    city: "",
+    phone: "",
+    image: null,
+    resume: null,
+    specializations: [],
 }
 
 
@@ -26,25 +27,29 @@ const DocRegForm = () => {
 
     //chiamata specializzazioni
     useEffect(() => {
-        axios.get(`${apiUrl}specializzazioni`).then((resp) => {
+        axios.get(`${apiUrl}specializations`).then((resp) => {
             console.log(resp)
             setSpecial(resp.data.data)
         })
     }, []);
 
 
-
     const handleChange = (event) => {
-        const { name, value, type } = event.target;
+        const { name, value, files } = event.target;
 
-        if (type === "file") {
-            const fileImg = event.target.files[0]
-            const newData = { ...formData, immagine: fileImg };
-            setFormData(newData)
+        if (files && files.length > 0) {
+            
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: files[0]
+            }));
         } else {
-            const newData = { ...formData, [name]: value }
-            setFormData(newData)
-        }
+            
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        };
     };
 
     const handleSubmit = (event) => {
@@ -57,7 +62,9 @@ const DocRegForm = () => {
             dataToSend.append(key, formData[key])
         }
 
-        axios.post(`${apiUrl}dottori`, dataToSend, {
+        console.log(dataToSend);
+        
+        axios.post(`${apiUrl}doctors`, dataToSend, {
 
             //diciamo al server che tra i dati c`e`anche un file
             headers: {
@@ -71,29 +78,31 @@ const DocRegForm = () => {
 
     return (
 
-        <form onSubmit={handleSubmit}>
+        <form className='d-flex flex-column gap-3' onSubmit={handleSubmit}>
 
             {/* Input Nome */}
-            <div>
-                <label htmlFor="nome">Nome</label>
+            <div className=''>
+                <label htmlFor="firstname">Nome</label>
                 <input
-                    id='nome'
+                    id='firstname'
+                    className='form-control'
                     type="text"
                     placeholder='scrivi il tuo nome'
-                    name='nome'
-                    value={formData.nome}
+                    name='firstname'
+                    value={formData.firstname}
                     onChange={handleChange} />
             </div>
 
             {/* Input Cognome */}
             <div>
-                <label htmlFor="Cognome">Cognome</label>
+                <label htmlFor="lastname">Cognome</label>
                 <input
-                    id='cognome'
+                    id='lastname'
+                    className='form-control'
                     type="text"
                     placeholder='scrivi il tuo Cognome'
-                    name='cognome'
-                    value={formData.cognome}
+                    name='lastname'
+                    value={formData.lastname}
                     onChange={handleChange} />
             </div>
 
@@ -101,7 +110,8 @@ const DocRegForm = () => {
             <div>
                 <label htmlFor="email">Email</label>
                 <input
-                    id='Email'
+                    id='email'
+                    className='form-control'
                     type="text"
                     placeholder='scrivi la tua email'
                     name='email'
@@ -109,70 +119,107 @@ const DocRegForm = () => {
                     onChange={handleChange} />
             </div>
 
-            {/* Input Nome */}
+            {/* Input Indirizzo */}
             <div>
-                <label htmlFor="nome">Indirizzo</label>
+                <label htmlFor="address">Indirizzo</label>
                 <input
-                    id='via'
+                    id='address'
+                    className='form-control'
                     type="text"
                     placeholder='scrivi il tuo indirizzo'
-                    name='via'
-                    value={formData.via}
+                    name='address'
+                    value={formData.address}
                     onChange={handleChange} />
             </div>
 
             {/* Input Città */}
             <div>
-                <label htmlFor="citta">Citta'</label>
+                <label htmlFor="city">Citta'</label>
                 <input
-                    id='citta'
+                    id='city'
+                    className='form-control'
                     type="text"
                     placeholder='scrivi la tua citta'
-                    name='citta'
-                    value={formData.citta}
+                    name='city'
+                    value={formData.city}
                     onChange={handleChange} />
             </div>
 
             {/* Input Telefono */}
             <div>
-                <label htmlFor="telefono">Telefono</label>
+                <label htmlFor="phone">Telefono</label>
                 <input
-                    id='telefono'
+                    id='phone'
+                    className='form-control'
                     type="text"
                     placeholder='scrivi il tuo telefono'
-                    name='telefono'
-                    value={formData.telefono}
+                    name='phone'
+                    value={formData.phone}
                     onChange={handleChange} />
             </div>
 
             {/* Input imagine */}
             <div>
-                <label htmlFor="file">Immagine Profilo</label>
+                <label htmlFor="image">Immagine Profilo</label>
                 <input
-                    id='file'
+                    id='image'
+                    className='form-control'
                     type="file"
                     placeholder='carica la tua immagine'
-                    name='immagine'
+                    name='image'
+                    onChange={handleChange} />
+            </div>
+
+            {/* Input CV */}
+            <div>
+                <label htmlFor="resume">Curriculum</label>
+                <input
+                    id='resume'
+                    className='form-control'
+                    type="file"
+                    placeholder='carica il tuo CV'
+                    name='resume'
                     onChange={handleChange} />
             </div>
 
             {/* Input Specializzazione */}
-            <div>
-                <label htmlFor="file">Seleziona una specializzazione</label>
-                <select id='specializzazione'
-                    name='specializzazione'
-                    value={formData.specializzazione}
-                    onChange={handleChange}>
-                    {special.map((spec, index) => (
-                        //al server mando id specializzazione
-                        <option key={spec.id} value={spec.id}>{spec.specializzazione}</option>
-                    ))}
-                </select>
 
+            <label>Scegli una o più specializzazioni</label>
+            <div className='d-flex flex-wrap justify-content-between'>
+                {special.map((spec, index) => (
+                    //al server mando id specializzazione
+                    <div key={index} className="form-check form-check-inline col-3">
+                        <input
+                            key={spec.id}
+                            className="form-check-input"
+                            type="checkbox"
+                            id="checkbox"
+                            name='specializations'
+                            value={spec.id}
+                            onChange={handleChange}
+
+                        />
+                        <label htmlFor="specializations" className="form-check-label" for="inlineCheckbox1">{spec.specialization}</label>
+                    </div>
+                ))}
             </div>
 
+            {/* <div>
+                <label htmlFor="specializations">Seleziona una specializzazione</label>
+                <select multiple id='specializations'
+                    name='specializations'
+                    className='form-select form-select-lg'
+                    value={formData.specializations}
+                    onChange={handleChange}>
+                    {special.map((spec) => (
+                        //al server mando id specializzazione
+                        <option key={spec.id} value={spec.id}>{spec.specialization}</option>
+                    ))}
+                </select>
+            </div> */}
+
             <div>
-                <button className="bnt" type='submit'>Salva i dati</button>
+                <button className="btn btn-primary" type='submit'>Salva i dati</button>
             </div>
         </form>
     );

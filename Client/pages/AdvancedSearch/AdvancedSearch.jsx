@@ -76,6 +76,7 @@ function AdvancedSearch() {
 
     return (
         <>
+
             <h1>Ricerca Dottori</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Nome:</label>
@@ -144,6 +145,7 @@ function AdvancedSearch() {
             ) : (!loading && <p>dottori non trovati</p>
 
             )}
+
         </>
     )
 }
