@@ -16,10 +16,12 @@ function App() {
   const savedSpec = localStorage.getItem('selectedSpec');
   const savedAllSpec = localStorage.getItem('allSpec');
   const saveNameSpecSelected = localStorage.getItem('nameSpecSelected')
+  const saveSlugDoctor = localStorage.getItem('slugDoctor')
 
   const [allSpec, setAllSpec] = useState(savedAllSpec ? JSON.parse(savedAllSpec) : null);
   const [selectedSpec, setSelectedSpec] = useState(savedSpec ? Number(savedSpec) : null);
   const [nameSpecSelected, setNameSpecSelected] = useState(saveNameSpecSelected ? String(saveNameSpecSelected) : null); // Mantieni stringa
+  const [slugDoctor, setSlugDoctor] = useState(saveSlugDoctor ? String(saveSlugDoctor) : null)
 
   useEffect(() => {
     if (!savedAllSpec) {
@@ -42,12 +44,20 @@ function App() {
     }
   }, [nameSpecSelected])
 
+  useEffect(() => {
+    if (slugDoctor !== null) {
+      localStorage.setItem('slugDoctor', slugDoctor)
+    }
+  })
+
   const GlobalProviderValue = {
     allSpec,
     selectedSpec,
     setSelectedSpec,
     nameSpecSelected,
-    setNameSpecSelected
+    setNameSpecSelected,
+    slugDoctor,
+    setSlugDoctor
   };
 
 
