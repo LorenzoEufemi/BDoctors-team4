@@ -1,27 +1,24 @@
 import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom"
 import GlobalContext from "../../context/GlobalContext";
+import SearchBar from "../../components/searchbar/Searchbar";
 
 function HomePage() {
-
-    const { allSpec, setSelectedSpec, setNameSpecSelected } = useContext(GlobalContext)
+    const { allSpec, setSelectedSpec, setNameSpecSelected } = useContext(GlobalContext);
 
     const handleSelect = (event) => {
-
-        console.log(event.target.options[event.target.selectedIndex].text);
-
         setSelectedSpec(event.target.value !== "null" ? Number(event.target.value) : null)
         setNameSpecSelected(event.target.options[event.target.selectedIndex].text);
+    };
 
-    }
     useEffect(() => {
         setSelectedSpec(null)
         setNameSpecSelected("")
     }, []);
+
     return (
         <>
             <h1 className="text-center">ciao sono Homepage</h1>
-            
             {
                 (allSpec === null) ? <div>
                     <p>aspetta</p>
@@ -38,13 +35,12 @@ function HomePage() {
                                 ))
                             }
                         </select>
-
                         <Link to="/doctors" className="btn btn-primary">cerca</Link>
                     </div>
             }
-
+            <SearchBar />
         </>
-    )
+    );
 };
 
 export default HomePage;
