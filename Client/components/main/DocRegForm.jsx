@@ -33,49 +33,71 @@ const DocRegForm = () => {
         })
     }, []);
 
-    // 
+    // funzione per il cambiamento dei campi del form
     const handleChange = (event) => {
-        const { name, value, files } = event.target;
-
+        const { name, value, files, type, checked } = event.target;
+    
         if (files && files.length > 0) {
-            
+            // Se è un file, aggiorna l'oggetto formData senza perdere i dati esistenti
             setFormData(prevData => ({
-
-                // Se è un file, aggiorna l'oggetto formData senza perdere i dati esistenti
                 ...prevData,
-
-                // Salva il file nel campo corretto (image o resume)
                 [name]: files[0]
             }));
+        } else if (type === "checkbox") {
+            setFormData(prevData => {
+                // converte il valore in numero
+                const valueAsNumber = Number(value);
+
+                // usa "new Set" per evitare duplicati
+                let updatedSpecializations = new Set(prevData.specializations); 
+                
+                if (checked) {
+                    // aggiunge la specializzazione selezionata
+                    updatedSpecializations.add(valueAsNumber); 
+                } else {
+                    // rimuove la specializzazione deselezionata
+                    updatedSpecializations.delete(valueAsNumber); 
+                }
+    
+                return {
+                    ...prevData,
+                    // converte il Set di nuovo in array
+                    specializations: [...updatedSpecializations] 
+                };
+            });
         } else {
             // Se è un campo di testo, aggiorna normalmente
             setFormData(prevData => ({
                 ...prevData,
                 [name]: value
             }));
-        };
+        }
     };
-
+ 
+    // funzione per submit
     const handleSubmit = (event) => {
         event.preventDefault();
 
         //creiamo oggetto formadata per simulare form -non usiamo json
         const dataToSend = new FormData()
 
+        // prende tutte le chiavi aggiornate con i dati dell'utente
         for (let key in formData) {
             dataToSend.append(key, formData[key])
         }
 
         console.log(dataToSend);
         
+        // chiamata axios per inserirle nel db
         axios.post(`${apiUrl}doctors`, dataToSend, {
 
-            //diciamo al server che tra i dati c`e`anche un file
+            // diciamo al server che tra i dati ci sono anche file
             headers: {
                 "Content-Type": "multipart/form-data",
             }
         }).then((resp) => {
             console.log(resp)
+            // rimanda alla homepage
             navigate("/")
         })
     };
@@ -191,37 +213,22 @@ const DocRegForm = () => {
             <label>Scegli una o più specializzazioni</label>
             <div className='d-flex flex-wrap justify-content-between'>
                 {special.map((spec, index) => (
-                    //al server mando id specializzazione
+                    // al server mando id specializzazione
                     <div key={index} className="form-check form-check-inline col-3">
                         <input
                             key={spec.id}
                             className="form-check-input"
                             type="checkbox"
-                            id="checkbox"
+                            id={spec.id}
                             name='specializations'
                             value={spec.id}
+                            checked={formData.specializations.includes(Number(spec.id))}
                             onChange={handleChange}
-
                         />
-                        <label htmlFor="specializations" className="form-check-label" for="inlineCheckbox1">{spec.specialization}</label>
+                        <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
                     </div>
                 ))}
             </div>
-
-            {/* <div>
-                <label htmlFor="specializations">Seleziona una specializzazione</label>
-                <select multiple id='specializations'
-                    name='specializations'
-                    className='form-select form-select-lg'
-                    value={formData.specializations}
-                    onChange={handleChange}>
-                    {special.map((spec) => (
-                        //al server mando id specializzazione
-                        <option key={spec.id} value={spec.id}>{spec.specialization}</option>
-                    ))}
-                </select>
-            </div> */}
-
             <div>
                 <button className="btn btn-primary" type='submit'>Salva i dati</button>
             </div>

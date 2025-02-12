@@ -116,7 +116,10 @@ const store = (req, res, next) => {
         strict: true,
     }) + `-${uuidv4()}`;
 
-    // verifac nomee cognome
+    // assicura che specializations sia un array
+    const specializationsArray = Array.isArray(specializations) ? specializations : [specializations];
+
+    // verifca nome e cognome
     if ((firstname.length && lastname.length) <= 3) {
         return res.status(400).json({
             status: "fail",
@@ -132,7 +135,7 @@ const store = (req, res, next) => {
         });
     };
 
-    //ciclo caratteri phone
+    // ciclo caratteri phone e verifico numero
     for (let char of phone) {
         if (!(char >= "0" && char <= "9") && (char !== ("+" && phone[0]))) {
             return res.status(400).json({
@@ -175,16 +178,21 @@ const store = (req, res, next) => {
                 return next(new Error(err.message))
             };
 
+            // estrazione id dottore
+            const doctorId = results[0].id;
+
             // sql per inserimento tabella ponte
             const sqlTabellaPonte = `
               INSERT INTO doctors_specializations(doctor_id, specialization_id)
               VALUES(?, ?)
             `;
 
-            dbConnection.query(sqlTabellaPonte, [results[0].id, specializations], (err, risultati) => {
-                if (err) {
-                    return next(new Error(err.message))
-                }
+            specializationsArray.forEach(specId => {
+                dbConnection.query(sqlTabellaPonte, [doctorId, specId], (err, risults) => {
+                    if (err) {
+                        return next(new Error(err.message));
+                    }
+            });
                 return res.status(201).json({
                     status: "success",
                     message: "doctor aggiunto con successo",
