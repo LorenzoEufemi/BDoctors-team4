@@ -109,13 +109,17 @@ const store = (req, res, next) => {
     const imageName = req.files?.image ? req.files.image[0].filename : null;
     const resumeName = req.files?.resume ? req.files.resume[0].filename : null;
 
-    //specialization ??
+    // Estraggo gli altri dati dal body
     const { firstname, lastname, phone, email, address, city, specializations} = req.body
     const slug = slugify(`${firstname} ${lastname}`, {
         lower: true,
         strict: true,
     }) + `-${uuidv4()}`;
 
+    // assicura che specializations sia un array
+    const specializationsArray = Array.isArray(specializations) ? specializations : [specializations];
+
+    // verifca nome e cognome
     if ((firstname.length && lastname.length) <= 3) {
         return res.status(400).json({
             status: "fail",
@@ -123,6 +127,7 @@ const store = (req, res, next) => {
         })
     }
 
+    // verifica indirizzo
     if (address.length <= 5) {
         return res.status(400).json({
             status: "fail",
@@ -130,7 +135,7 @@ const store = (req, res, next) => {
         });
     };
 
-    //ciclo caratteri phone
+    // ciclo caratteri phone e verifico numero
     for (let char of phone) {
         if (!(char >= "0" && char <= "9") && (char !== ("+" && phone[0]))) {
             return res.status(400).json({
@@ -140,6 +145,7 @@ const store = (req, res, next) => {
         };
     };
 
+    // verifica campi vuoti
     for (let key in req.body) {
         if (key.trim().length === 0) {
             return res.status(400).json({
@@ -149,6 +155,7 @@ const store = (req, res, next) => {
         };
     };
 
+    // Query per inserire i dati nel database
     const sql = `
       INSERT INTO doctors(slug, firstname, lastname, phone, email, address, city, image, resume)
       VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -159,7 +166,7 @@ const store = (req, res, next) => {
             return next(new Error(err.message))
         };
 
-        //aggiungiamo campo specialization
+        // aggiungiamo campo specialization
         const sqlNewIdDoctor = `
            select id
            from doctors
@@ -171,18 +178,25 @@ const store = (req, res, next) => {
                 return next(new Error(err.message))
             };
 
+            // estrazione id dottore
+            const doctorId = results[0].id;
+
+            // sql per inserimento tabella ponte
             const sqlTabellaPonte = `
               INSERT INTO doctors_specializations(doctor_id, specialization_id)
               VALUES(?, ?)
             `;
 
-            dbConnection.query(sqlTabellaPonte, [results[0].id, specializations], (err, risultati) => {
-                if (err) {
-                    return next(new Error(err.message))
-                }
+            specializationsArray.forEach(specId => {
+                dbConnection.query(sqlTabellaPonte, [doctorId, specId], (err, risults) => {
+                    if (err) {
+                        return next(new Error(err.message));
+                    }
+            });
                 return res.status(201).json({
                     status: "success",
                     message: "doctor aggiunto con successo",
+                    // i file vengono salvati nel database e nei percorsi corretti
                     image: imageName,
                     resume: resumeName
                 });
