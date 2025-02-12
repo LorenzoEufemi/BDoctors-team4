@@ -30,13 +30,13 @@ function AdvancedSearch() {
 
     return (
         <>
-            <h1>ciao sono AdvanceSearch </h1>
+            {/* <h1>ciao sono AdvanceSearch </h1>
             <button onClick={() => navigate(-1)}>indietro</button>
            
                {
                     
                }
-                
+                 */}
             
         </>
     )
