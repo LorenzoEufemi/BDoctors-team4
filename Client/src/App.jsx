@@ -10,24 +10,46 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-
   const backUrl = import.meta.env.VITE_BACKEND_URL;
 
-  const [allSpec, setAllSpec] = useState(null)
-  const [selectedSpec, setSelectedSpec] = useState(null)
+  // Recupera i dati dal localStorage, se presenti
+  const savedSpec = localStorage.getItem('selectedSpec');
+  const savedAllSpec = localStorage.getItem('allSpec');
+  const saveNameSpecSelected = localStorage.getItem('nameSpecSelected')
+
+  const [allSpec, setAllSpec] = useState(savedAllSpec ? JSON.parse(savedAllSpec) : null);
+  const [selectedSpec, setSelectedSpec] = useState(savedSpec ? Number(savedSpec) : null);
+  const [nameSpecSelected, setNameSpecSelected] = useState(saveNameSpecSelected ? String(saveNameSpecSelected) : null); // Mantieni stringa
 
   useEffect(() => {
-    axios.get(`${backUrl}specializations`).then( result =>{
-      setAllSpec(result.data.data)
-    })
-  }, [])
+    if (!savedAllSpec) {
+      axios.get(`${backUrl}specializations`).then(result => {
+        setAllSpec(result.data.data);
+        localStorage.setItem('allSpec', JSON.stringify(result.data.data));  // Salva allSpec nel localStorage
+      });
+    }
+  }, [savedAllSpec]);
 
+  useEffect(() => {
+    if (selectedSpec !== null) {
+      localStorage.setItem('selectedSpec', selectedSpec);  // Salva selectedSpec nel localStorage
+    }
+  }, [selectedSpec]);
+
+  useEffect(() => {
+    if (nameSpecSelected !== null) {
+      localStorage.setItem('nameSpecSelected', nameSpecSelected)
+    }
+  }, [nameSpecSelected])
 
   const GlobalProviderValue = {
     allSpec,
     selectedSpec,
-    setSelectedSpec
-  }
+    setSelectedSpec,
+    nameSpecSelected,
+    setNameSpecSelected
+  };
+
 
   return (
     <GlobalContext.Provider value={GlobalProviderValue}>
