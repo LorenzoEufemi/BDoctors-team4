@@ -25,6 +25,42 @@ const DocRegForm = () => {
     const [formData, setFormData] = useState(initialData);
     const [special, setSpecial] = useState([]);
 
+    // stato per errori
+    const [error, setError] = useState(false);
+
+    // funzione per gestire errori
+    const isDataValid = () => {
+
+        // controllo nome e cognome
+        if ((formData.firstname.length && formData.lastname.length) <= 3) {
+            console.log("Nome e cognome devo essere di almeno 3 caratteri");
+        }
+
+        // controllo email
+        if (!formData.email.includes("@")) {
+            return ("l'email deve contenere la @")
+        }
+
+        // controllo indirizzo
+        if (formData.address.length <= 5) {
+            return ("l'indirizzo deve essere di almeno 5 caratteri")
+        }
+
+        // controllo campi vuoti
+        for (let key in formData) {
+            if (key.length === 0) {
+                return ("campo obbligatorio")
+            }
+        }
+
+        // controllo numero telefono
+        for (let char of phone) {
+            if (!(char >= "0" && char <= "9") && (char !== ("+" && phone[0]))) {
+                return ("il numero deve contenere solo numeri o il + iniziale")
+            }
+        }
+    }
+
     // chiamata specializzazioni
     useEffect(() => {
         axios.get(`${apiUrl}specializations`).then((resp) => {
@@ -36,33 +72,35 @@ const DocRegForm = () => {
     // funzione per il cambiamento dei campi del form
     const handleChange = (event) => {
         const { name, value, files, type, checked } = event.target;
-    
+
         if (files && files.length > 0) {
+
             // Se è un file, aggiorna l'oggetto formData senza perdere i dati esistenti
             setFormData(prevData => ({
                 ...prevData,
                 [name]: files[0]
             }));
+
         } else if (type === "checkbox") {
             setFormData(prevData => {
                 // converte il valore in numero
                 const valueAsNumber = Number(value);
 
                 // usa "new Set" per evitare duplicati
-                let updatedSpecializations = new Set(prevData.specializations); 
-                
+                let updatedSpecializations = new Set(prevData.specializations);
+
                 if (checked) {
                     // aggiunge la specializzazione selezionata
-                    updatedSpecializations.add(valueAsNumber); 
+                    updatedSpecializations.add(valueAsNumber);
                 } else {
                     // rimuove la specializzazione deselezionata
-                    updatedSpecializations.delete(valueAsNumber); 
+                    updatedSpecializations.delete(valueAsNumber);
                 }
-    
+
                 return {
                     ...prevData,
                     // converte il Set di nuovo in array
-                    specializations: [...updatedSpecializations] 
+                    specializations: [...updatedSpecializations]
                 };
             });
         } else {
@@ -73,34 +111,48 @@ const DocRegForm = () => {
             }));
         }
     };
- 
+
     // funzione per submit
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        //creiamo oggetto formadata per simulare form -non usiamo json
-        const dataToSend = new FormData()
+        setError(false);
 
-        // prende tutte le chiavi aggiornate con i dati dell'utente
-        for (let key in formData) {
-            dataToSend.append(key, formData[key])
-        }
+        if (!isDataValid()) {
+            setError(true);
 
-        console.log(dataToSend);
-        
-        // chiamata axios per inserirle nel db
-        axios.post(`${apiUrl}doctors`, dataToSend, {
+        } else {
+            // const checkError = isDataValid();
 
-            // diciamo al server che tra i dati ci sono anche file
-            headers: {
-                "Content-Type": "multipart/form-data",
-            }
-        }).then((resp) => {
-            console.log(resp)
-            // rimanda alla homepage
-            navigate("/")
-        })
+            // if (checkError) {
+            //     alert(checkError);
+            // }
+
+            //creiamo oggetto formadata per simulare form -non usiamo json
+            const dataToSend = new FormData();
+
+            // prende tutte le chiavi aggiornate con i dati dell'utente
+            for (let key in formData) {
+                dataToSend.append(key, formData[key]);
+            };
+
+            console.log(dataToSend);
+
+            // chiamata axios per inserirle nel db
+            axios.post(`${apiUrl}doctors`, dataToSend, {
+
+                // diciamo al server che tra i dati ci sono anche file
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            }).then((resp) => {
+                console.log(resp);
+                // rimanda alla homepage
+                navigate("/")
+            });
+        };
     };
+
 
     return (
 
@@ -116,7 +168,12 @@ const DocRegForm = () => {
                     placeholder='scrivi il tuo nome'
                     name='firstname'
                     value={formData.firstname}
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    aria-describedby="passwordHelpBlock" />
+                <div id="passwordHelpBlock" className="form-text">
+                Il firstname e il lastname devono essere piu' lunghi di 3 caratteri
+                </div>
+
             </div>
 
             {/* Input Cognome */}
