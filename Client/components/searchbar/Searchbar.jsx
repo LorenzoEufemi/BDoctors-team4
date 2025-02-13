@@ -118,7 +118,7 @@ function SearchBar() {
                     />
                 </div>
 
-                <button type="submit" className="btn text-white align-self-center mt-3" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>
+                <button type="submit" className="btn text-white align-self-center mt-3  " style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>
                     Cerca
                 </button>
             </form>
