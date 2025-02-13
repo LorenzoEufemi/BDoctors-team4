@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import GlobalContext from "../../context/GlobalContext";
 
 function SearchBar() {
-    const { setSlugDoctor } = useContext(GlobalContext);
+    const { setSlugDoctor, allSpec, selectedSpec, setSelectedSpec, setNameSpecSelected } = useContext(GlobalContext);
     const backurl = import.meta.env.VITE_BACKEND_URL;
+
     const [filters, setFilters] = useState({
         firstname: "",
         lastname: "",
@@ -66,6 +67,13 @@ function SearchBar() {
     // Disabilitare il pulsante "Successivo" se non ci sono più medici
     const disableNextButton = doctors.length < limit;
 
+    const handleSelectSpecialization = (event) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            specialization: event.target.value,
+        }));
+    };
+
     return (
         <div className="container mt-4">
             <h1>Ricerca Dottori</h1>
@@ -102,23 +110,27 @@ function SearchBar() {
                     />
                 </div>
 
-                {/* Specializzazione Input */}
+                {/* Specializzazione Select */}
                 <div className="mb-3 w-25">
                     <label htmlFor="specialization" className="form-label">
                         Specializzazione:
                     </label>
-                    <input
-                        type="text"
-                        id="specialization"
+                    <select
                         name="specialization"
                         value={filters.specialization}
-                        onChange={handleInputChange}
-                        placeholder="Specializzazione"
+                        onChange={handleSelectSpecialization}
                         className="form-control"
-                    />
+                    >
+                        <option value="">-- Seleziona una specializzazione --</option>
+                        {allSpec && allSpec.map((spec) => (
+                            <option key={spec.id} value={spec.id}>
+                                {spec.specialization}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
-                <button type="submit" className="btn text-white align-self-center mt-3  " style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>
+                <button type="submit" className="btn text-white align-self-center mt-3" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>
                     Cerca
                 </button>
             </form>
@@ -132,7 +144,6 @@ function SearchBar() {
             {error && <div className="alert alert-danger">{error}</div>}
 
             <div>
-
                 {doctors.length === 0 && !loading && searching && <p>Nessun dottore trovato.</p>}
                 {searching && (
                     <ul className="list-group">
@@ -165,6 +176,6 @@ function SearchBar() {
             </div>
         </div>
     );
-};
+}
 
 export default SearchBar;

@@ -139,7 +139,7 @@ function App() {
     }
   }
 
-  const resetFormReviw = () => {
+  const resetFormReview = () => {
     setFormReview(defaultReview)
   }
 
