@@ -22,7 +22,7 @@ function FormReview () {
             </div>
             <div>
             <label htmlFor="" className="form-control">Lascia un voto *</label>
-            <select name="vote" id="" name="vote" className="form-control" onChange={hendelChangeReview}>
+            <select name="vote" id="" className="form-control" onChange={hendelChangeReview}>
                 {
                     votiArray.map(curElem => (
                         <option value={curElem} key={curElem}>{curElem}</option>
