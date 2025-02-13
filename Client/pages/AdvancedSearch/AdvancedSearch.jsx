@@ -3,8 +3,15 @@ import GlobalContext from "../../context/GlobalContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DoctorCard from "../../components/card/DoctorCard";
+import { useLocation } from 'react-router-dom';
+
 
 function AdvancedSearch() {
+    const location = useLocation();
+
+    const queryParams = new URLSearchParams(location.search);
+    const specializationQueryParam = queryParams.get('specialization');
+
     const backurl = import.meta.env.VITE_BACKEND_URL;
     const { selectedSpec, nameSpecSelected } = useContext(GlobalContext);
     const navigate = useNavigate();
@@ -19,10 +26,10 @@ function AdvancedSearch() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (selectedSpec) {
+        if (specializationQueryParam) {
             setLoading(true);
             axios
-                .get(`${backurl}specializations/${selectedSpec}`)
+                .get(`${backurl}specializations/${specializationQueryParam}`)
                 .then((result) => {
                     console.log(result.data); // Aggiungi questa linea per vedere cosa contiene la risposta
                     setLoading(false);
@@ -34,7 +41,7 @@ function AdvancedSearch() {
                     console.error('Errore nella richiesta API:', error)
                 });
         }
-    }, [selectedSpec, backurl]);
+    }, [specializationQueryParam, backurl]);
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;

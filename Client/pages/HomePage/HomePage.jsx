@@ -5,7 +5,7 @@ import SearchBar from "../../components/searchbar/Searchbar";
 import TopDocs from "../../components/TopDocsHomePage/TopDocs";
 
 function HomePage() {
-    const { allSpec, setSelectedSpec, setNameSpecSelected } = useContext(GlobalContext);
+    const { allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec } = useContext(GlobalContext);
 
     const handleSelect = (event) => {
         setSelectedSpec(event.target.value !== "null" ? Number(event.target.value) : null)
@@ -39,7 +39,7 @@ function HomePage() {
                                         ))
                                     }
                                 </select>
-                                <Link to="/doctors" className="btn text-white"  style={{ backgroundColor: "rgba(23, 164, 138, 0.6)"}}>cerca</Link>
+                                <Link to={`/doctors/?specialization=${selectedSpec}`} className="btn text-white"  style={{ backgroundColor: "rgba(23, 164, 138, 0.6)"}}>cerca</Link>
                             </div>
                     }
                 </div>
