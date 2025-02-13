@@ -22,13 +22,13 @@ function HomePage() {
             <div className="hero-container">
                 <div className="hero-content">
 
-                    <h1 className="text-center">ciao sono Homepage</h1>
+                    <h1 className="text-center">Welcome to your BDoctors</h1>
                     {
                         (allSpec === null) ? <div>
                             <p>aspetta</p>
                         </div> :
                             <div>
-                                <label htmlFor="" className="form-control text-center">seleziona il medico per la specializzazione che ti serve</label>
+                                <label htmlFor="" className=" text-center">seleziona il medico per la specializzazione che ti serve</label>
                                 <select onChange={handleSelect} className="form-select" aria-label="Default select example">
                                     <option value={"null"} name={""}>--</option>
                                     {
