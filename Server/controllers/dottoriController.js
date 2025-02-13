@@ -76,6 +76,7 @@ const show = (req, res, next) => {
         JOIN doctors
         ON reviews.doctor_id = doctors.id
         WHERE doctors.slug = ?
+        ORDER BY reviews.created_at DESC;
     `;
 
     dbConnection.query(sql, [slug], (err, doctor) => {

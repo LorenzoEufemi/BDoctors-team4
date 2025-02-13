@@ -62,6 +62,7 @@ function SingleDoctor() {
                                     <div className="card w-50" key={curItem.id}>
                                         <div className="card-body">
                                             <h5 className="card-title">Scritta da: {curItem.patient}</h5>
+                                            <p className="card-text">lasciata il: {curItem.created_at.slice(0 ,10)} </p>
                                             <p className="card-text">{curItem.review}</p>
                                             <p className="card-text">
                                                 <Stars vote={curItem.vote} />
