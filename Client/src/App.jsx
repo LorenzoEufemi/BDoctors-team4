@@ -81,15 +81,13 @@ function App() {
 
   const submitForm = (e) => {
       e.preventDefault()
-      axios.post(`${backUrl}doctors/${idDoctor}/reviews`, formReview).then(resp => {
-        console.log("sono dentro");
-        
+      axios.post(`${backUrl}/doctors/${idDoctor}/reviews`, formReview).then(resp => {
         setFormReview(defaultReview)
         setRefresh(!refresh)
       })
   }
 
-  const resetFormReviw = () => {
+  const resetFormReview = () => {
     setFormReview(defaultReview)
   }
 
@@ -106,7 +104,7 @@ function App() {
     setIdDoctor,
     submitForm,
     refresh,
-    resetFormReviw
+    resetFormReview
   };
 
 
