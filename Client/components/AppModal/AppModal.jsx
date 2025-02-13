@@ -4,19 +4,18 @@ import GlobalContext from "../../context/GlobalContext";
 import { useContext } from 'react';
 
 
-const AppModal = ({nome, cognome}) => {
-    
+const AppModal = ({ nome, cognome }) => {
+
     const { resetFormReviw } = useContext(GlobalContext)
-    console.log(nome);
-    
+
     return (
         <>
-    {/* < !--Button trigger modal-- > */}
+            {/* < !--Button trigger modal-- > */}
             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Lascia una recensione al dottor {nome} {cognome}
             </button>
 
-    {/* <!--Modal --> */}
+            {/* <!--Modal --> */}
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -25,12 +24,12 @@ const AppModal = ({nome, cognome}) => {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={resetFormReviw}></button>
                         </div>
                         <div className="modal-body">
-                            <FormReview/>
+                            <FormReview />
                         </div>
-                        <div className="modal-footer">
+                        {/* <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={resetFormReviw}>Close</button>
-                            {/* <button type="button" className="btn btn-primary">Save changes</button> */}
-                        </div>
+                            <button type="button" className="btn btn-primary">Save changes</button>
+                        </div> */}
                     </div>
                 </div>
             </div>
