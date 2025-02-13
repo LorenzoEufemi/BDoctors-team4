@@ -1,21 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import GlobalContext from "../../context/GlobalContext";
 
 function SearchBar() {
+    const { setSlugDoctor } = useContext(GlobalContext);
+
     const backurl = import.meta.env.VITE_BACKEND_URL;
     const [filters, setFilters] = useState({
         firstname: "",
         lastname: "",
         specialization: "",
-    }); 
-    
-    // Stato per i filtri di ricerca
+    });
+
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [page, setPage] = useState(1);
-    const [limit] = useState(10); // Limite di medici per pagina
+    const [limit] = useState(10);
+    const [searching, setSearching] = useState(false);
+
+    // Quando i filters o la pagina cambiano, resettiamo i medici
+    useEffect(() => {
+        if (searching) {
+            searchDoctors();
+        }
+    }, [filters, page, searching]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -27,7 +37,9 @@ function SearchBar() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        searchDoctors();
+        setDoctors([]);  // Reset lista medici
+        setPage(1);  // Reset della pagina a 1
+        setSearching(true);  // Abilita la ricerca
     };
 
     const searchDoctors = async () => {
@@ -47,8 +59,9 @@ function SearchBar() {
     };
 
     const handlePageChange = (newPage) => {
-        setPage(newPage);
-        searchDoctors(); // Ricarica i risultati quando cambia la pagina
+        if (newPage >= 1) {
+            setPage(newPage);
+        }
     };
 
     // Disabilitare il pulsante "Successivo" se non ci sono più medici
@@ -58,7 +71,6 @@ function SearchBar() {
         <div className="container mt-4">
             <h1>Ricerca Dottori</h1>
             <form onSubmit={handleSubmit} className="d-flex gap-3 mb-4">
-                
                 {/* Nome Input */}
                 <div className="mb-3 w-25">
                     <label htmlFor="firstname" className="form-label">
@@ -121,21 +133,23 @@ function SearchBar() {
             {error && <div className="alert alert-danger">{error}</div>}
 
             <div>
-                {doctors.length === 0 && !loading && <p>Nessun dottore trovato.</p>}
-                <ul className="list-group">
-                    {doctors.map((doctor) => (
-                        <li key={doctor.id} className="list-group-item d-flex justify-content-between">
-                            {doctor.firstname} {doctor.lastname} - {doctor.specializations}
-                            <Link className="btn" to={`/doctors/${doctor.slug}`}>dettagli</Link>
-                        </li>
-                    ))}
-                </ul>
+                {doctors.length === 0 && !loading && searching && <p>Nessun dottore trovato.</p>}
+                {searching && (
+                    <ul className="list-group">
+                        {doctors.map((doctor) => (
+                            <li key={doctor.id} className="list-group-item d-flex justify-content-between">
+                                {doctor.firstname} {doctor.lastname} - {doctor.specializations}
+                                <Link className="btn" to={`/doctors/${doctor.slug}`} onClick={() => { setSlugDoctor(doctor.slug) }}>dettagli</Link>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
 
             <div className="d-flex justify-content-between mt-4">
                 <button
                     onClick={() => handlePageChange(page - 1)}
-                    disabled={page === 1}
+                    disabled={page === 1 || !searching}
                     className="btn btn-secondary"
                 >
                     Precedente
@@ -143,7 +157,7 @@ function SearchBar() {
                 <span>Pagina {page}</span>
                 <button
                     onClick={() => handlePageChange(page + 1)}
-                    disabled={disableNextButton} // Disabilita se non ci sono più medici
+                    disabled={disableNextButton || !searching}
                     className="btn btn-secondary"
                 >
                     Successivo
