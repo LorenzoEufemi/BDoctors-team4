@@ -66,14 +66,19 @@ const DocRegForm = () => {
             for (let i = 0; i < formData.phone.length; i++) {
                 const char = formData.phone[i];
 
-                // Verifica se ci sono caratteri non numerici o non "+"
-                if ((char < '0' || char > '9') && char !== '+') {
-                    errors.push("Il numero di telefono deve contenere solo numeri e il + iniziale");
+                // verifica che il numero sia di almeno 10 caratteria
+                if (formData.phone.length < 10) {
+                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
                     break;
                 };
-                // Verifica se il "+" non è all'inizio (se presente)
+                // verifica se ci sono caratteri non numerici o non "+"
+                if ((char < '0' || char > '9') && char !== '+') {
+                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
+                    break;
+                };
+                // verifica se il "+" non è all'inizio (se presente)
                 if (char === '+' && i !== 0) {
-                    errors.push("Il numero di telefono deve contenere solo numeri e il + iniziale");
+                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
                     break;
                 };
             };
