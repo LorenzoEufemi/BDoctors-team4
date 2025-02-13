@@ -54,6 +54,7 @@ function SingleDoctor() {
                         <img src="../../default-placeholder-doctor-halflength-portrait-600nw-1058724875.webp" alt="" className="w-25" />
 
                     </section>
+                    <AppModal nome={doctorDetal.firstname} cognome={doctorDetal.lastname}/>
                     <section>
                         {
                             Array.isArray(doctorDetal.reviews) ? (
@@ -75,7 +76,7 @@ function SingleDoctor() {
                             )
                         }
                     </section>
-                    <AppModal />
+                    
                 </>
             )}
 
