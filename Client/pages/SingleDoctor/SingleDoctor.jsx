@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import GlobalContext from "../../context/GlobalContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import AppModal from "/components/AppModal/AppModal.jsx"
 
 function SingleDoctor() {
     const { slug } = useParams();
@@ -67,7 +68,7 @@ function SingleDoctor() {
                             )
                         }
                     </section>
-                    <Modale/>
+                    <AppModal/>
                 </>
             )}
 
