@@ -8,7 +8,7 @@ import Stars from "../../components/stars/Stars";
 function SingleDoctor() {
     const { slug } = useParams();
     const navigate = useNavigate()
-    const { slugDoctor, setIdDoctor, refresh } = useContext(GlobalContext)
+    const { slugDoctor, setIdDoctor, refresh, errorReview, setErrorReview } = useContext(GlobalContext)
     const backurl = import.meta.env.VITE_BACKEND_URL;
 
     const [doctorDetal, setDoctorDetal] = useState(null)
@@ -26,6 +26,12 @@ function SingleDoctor() {
 
     return (
         <div className="container">
+            {
+                (errorReview.length > 0) && (<div className="alert alert-danger" role="alert">
+                {errorReview}
+                <button className="btn-close" aria-label="Close" className="btn-close" onClick={()=> setErrorReview("")}></button>
+              </div>)
+            }
 
             <button onClick={() => navigate(-1)} className="btn btn-danger">indietro</button>
             {
