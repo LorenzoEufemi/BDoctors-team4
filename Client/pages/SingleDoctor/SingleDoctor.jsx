@@ -7,7 +7,7 @@ import AppModal from "/components/AppModal/AppModal.jsx"
 function SingleDoctor() {
     const { slug } = useParams();
     const navigate = useNavigate()
-    const { slugDoctor } = useContext(GlobalContext)
+    const { slugDoctor, setIdDoctor, refresh } = useContext(GlobalContext)
     const backurl = import.meta.env.VITE_BACKEND_URL;
 
     const [doctorDetal, setDoctorDetal] = useState(null)
@@ -17,8 +17,9 @@ function SingleDoctor() {
         axios.get(`${backurl}doctors/${slugDoctor}`).then(result => {
             setDoctorDetal(result.data.data)
             setControlli(true)
+            setIdDoctor(result.data.data.id)
         })
-    }, [])
+    }, [refresh])
 
 
 
