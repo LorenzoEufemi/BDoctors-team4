@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom"
 import GlobalContext from "../../context/GlobalContext";
 import SearchBar from "../../components/searchbar/Searchbar";
+import TopDocs from "../../components/TopDocsHomePage/TopDocs";
 
 function HomePage() {
     const { allSpec, setSelectedSpec, setNameSpecSelected } = useContext(GlobalContext);
@@ -44,6 +45,7 @@ function HomePage() {
                 </div>
             </div>
             <SearchBar />
+            <TopDocs />
         </>
     );
 };
