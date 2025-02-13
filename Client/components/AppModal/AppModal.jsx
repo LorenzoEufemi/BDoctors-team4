@@ -10,7 +10,7 @@ const AppModal = () => {
         <>
     {/* < !--Button trigger modal-- > */}
             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Lascia una recenzione al dottore
+                Lascia una recensione
             </button>
 
     {/* <!--Modal --> */}

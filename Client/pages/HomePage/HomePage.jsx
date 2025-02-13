@@ -22,14 +22,14 @@ function HomePage() {
             <div className="hero-container">
                 <div className="hero-content">
 
-                    <h1 className="text-center">Welcome to your BDoctors</h1>
+                    <h1 className="text-center" style={{color:" rgba(23, 164, 138, 0.7)"}}>Welcome to your BDoctors</h1>
                     {
                         (allSpec === null) ? <div>
                             <p>aspetta</p>
                         </div> :
                             <div>
-                                <label htmlFor="" className=" text-center">seleziona il medico per la specializzazione che ti serve</label>
-                                <select onChange={handleSelect} className="form-select" aria-label="Default select example">
+                                <label htmlFor="" className=" text-center" style={{color: "#2B6394"}}>Seleziona il medico per la specializzazione che ti serve</label>
+                                <select onChange={handleSelect} className="form-select mb-2" aria-label="Default select example">
                                     <option value={"null"} name={""}>--</option>
                                     {
                                         allSpec.map(curElem => (
@@ -39,7 +39,7 @@ function HomePage() {
                                         ))
                                     }
                                 </select>
-                                <Link to="/doctors" className="btn btn-primary">cerca</Link>
+                                <Link to="/doctors" className="btn text-white"  style={{ backgroundColor: "rgba(23, 164, 138, 0.6)"}}>cerca</Link>
                             </div>
                     }
                 </div>
