@@ -67,6 +67,7 @@ function SingleDoctor() {
                             )
                         }
                     </section>
+                    <Modale/>
                 </>
             )}
 

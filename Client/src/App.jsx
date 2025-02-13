@@ -17,6 +17,7 @@ function App() {
   const savedAllSpec = localStorage.getItem('allSpec');
   const saveNameSpecSelected = localStorage.getItem('nameSpecSelected')
   const saveSlugDoctor = localStorage.getItem('slugDoctor')
+  
 
   const [allSpec, setAllSpec] = useState(savedAllSpec ? JSON.parse(savedAllSpec) : null);
   const [selectedSpec, setSelectedSpec] = useState(savedSpec ? Number(savedSpec) : null);
