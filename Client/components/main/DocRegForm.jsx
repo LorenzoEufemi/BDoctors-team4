@@ -63,7 +63,7 @@ const DocRegForm = () => {
         if (formData.phone.length < 10) {
             errors.phone = "Il numero di telefono deve essere di almeno 10 caratteri";
 
-        // verifica sui simboli nel numero
+            // verifica sui simboli nel numero
         } else if (!/^\+?[0-9]+$/.test(formData.phone)) {
             errors.phone = "Il numero di telefono deve contenere solo numeri ed in caso il + iniziale";
         };
@@ -180,147 +180,181 @@ const DocRegForm = () => {
 
     return (
 
-        <form className='d-flex flex-column gap-3' onSubmit={handleSubmit}>
+        <form className='d-flex flex-column gap-3 row-gap-5 py-4' onSubmit={handleSubmit}>
 
-            {/* Input Nome */}
-            <div className=''>
-                <label htmlFor="firstname">Nome</label>
-                <input
-                    id='firstname'
-                    className='form-control'
-                    type="text"
-                    placeholder='scrivi il tuo nome'
-                    name='firstname'
-                    value={formData.firstname}
-                    onChange={handleChange}
-                    aria-describedby="passwordHelpBlock" />
+            <div className='row justify-content-between'>
 
-                {/* se l'array non è vuoto verificare se almeno un elemento nell'array soddisfa la condizione */}
-                {error.firstname && <p className="text-danger">{error.firstname}</p>}
-            </div>
+                {/* dati anagrafici */}
+                <div className='card p-3 col-4 dati-anagrafici'>
+                    <h5 className='text-center py-1'>Dati anagrafici</h5>
+                    <div className='d-flex flex-column justify-content-center nome'>
+                        {/* Input Nome */}
+                        <div className=''>
+                            <label htmlFor="firstname">Nome</label>
+                            <input
+                                id='firstname'
+                                className='form-control'
+                                type="text"
+                                placeholder='scrivi il tuo nome'
+                                name='firstname'
+                                value={formData.firstname}
+                                onChange={handleChange}
+                                aria-describedby="passwordHelpBlock" />
 
-            {/* Input Cognome */}
-            <div>
-                <label htmlFor="lastname">Cognome</label>
-                <input
-                    id='lastname'
-                    className='form-control'
-                    type="text"
-                    placeholder='scrivi il tuo Cognome'
-                    name='lastname'
-                    value={formData.lastname}
-                    onChange={handleChange} />
+                            {/* se l'array non è vuoto verificare se almeno un elemento nell'array soddisfa la condizione */}
+                            {error.firstname && <span className="text-danger">{error.firstname}</span>}
+                        </div>
 
-                {error.lastname && <p className="text-danger">{error.lastname}</p>}
-            </div>
+                        {/* Input Cognome */}
+                        <div className=''>
+                            <label htmlFor="lastname">Cognome</label>
+                            <input
+                                id='lastname'
+                                className='form-control'
+                                type="text"
+                                placeholder='scrivi il tuo Cognome'
+                                name='lastname'
+                                value={formData.lastname}
+                                onChange={handleChange} />
 
-            {/* Input Email */}
-            <div>
-                <label htmlFor="email">Email</label>
-                <input
-                    id='email'
-                    className='form-control'
-                    type="text"
-                    placeholder='scrivi la tua email'
-                    name='email'
-                    value={formData.email}
-                    onChange={handleChange} />
-
-                {error.phone && <p className="text-danger">{error.phone}</p>}
-            </div>
-
-            {/* Input Indirizzo */}
-            <div>
-                <label htmlFor="address">Indirizzo</label>
-                <input
-                    id='address'
-                    className='form-control'
-                    type="text"
-                    placeholder='scrivi il tuo indirizzo'
-                    name='address'
-                    value={formData.address}
-                    onChange={handleChange} />
-
-                {error.address && <p className="text-danger">{error.address}</p>}
-            </div>
-
-            {/* Input Città */}
-            <div>
-                <label htmlFor="city">Citta'</label>
-                <input
-                    id='city'
-                    className='form-control'
-                    type="text"
-                    placeholder='scrivi la tua citta'
-                    name='city'
-                    value={formData.city}
-                    onChange={handleChange} />
-                {error.city && <p className="text-danger">{error.city}</p>}
-            </div>
-
-            {/* Input Telefono */}
-            <div>
-                <label htmlFor="phone">Telefono</label>
-                <input
-                    id='phone'
-                    className='form-control'
-                    type="text"
-                    placeholder='scrivi il tuo telefono'
-                    name='phone'
-                    value={formData.phone}
-                    onChange={handleChange} />
-
-                {error.phone && <p className="text-danger">{error.phone}</p>}
-            </div>
-
-            {/* Input imagine */}
-            <div>
-                <label htmlFor="image">Immagine Profilo</label>
-                <input
-                    id='image'
-                    className='form-control'
-                    type="file"
-                    placeholder='carica la tua immagine'
-                    name='image'
-                    onChange={handleChange} />
-                {error.image && <p className="text-danger">{error.image}</p>}
-            </div>
-
-            {/* Input CV */}
-            <div>
-                <label htmlFor="resume">Curriculum</label>
-                <input
-                    id='resume'
-                    className='form-control'
-                    type="file"
-                    placeholder='carica il tuo CV'
-                    name='resume'
-                    onChange={handleChange} />
-                {error.resume && <p className="text-danger">{error.resume}</p>}
-            </div>
-
-            {/* Input Specializzazione */}
-
-            <label>Scegli una o più specializzazioni</label>
-            <div className='d-flex flex-wrap justify-content-between'>
-                {special.map((spec, index) => (
-                    // al server mando id specializzazione
-                    <div key={index} className="form-check form-check-inline col-3">
-                        <input
-                            key={spec.id}
-                            className="form-check-input"
-                            type="checkbox"
-                            id={spec.id}
-                            name='specializations'
-                            value={spec.id}
-                            checked={formData.specializations.includes(Number(spec.id))}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
+                            {error.lastname && <span className="text-danger">{error.lastname}</span>}
+                        </div>
                     </div>
-                ))}
+                </div>
+
+
+                {/* contatti */}
+                <div className='card row flex-column col-7 p-3 contatti'>
+
+                    <h5 className='text-center py-1'>Contatti</h5>
+                    <div className='row flex-column g-2'>
+
+                        {/* Input Email */}
+                        <div>
+                            <label htmlFor="email">Email</label>
+                            <input
+                                id='email'
+                                className='form-control'
+                                type="text"
+                                placeholder='scrivi la tua email'
+                                name='email'
+                                value={formData.email}
+                                onChange={handleChange} />
+
+                            {error.phone && <span className="text-danger">{error.phone}</span>}
+                        </div>
+
+                        {/* Input Indirizzo */}
+                        <div>
+                            <label htmlFor="address">Indirizzo</label>
+                            <input
+                                id='address'
+                                className='form-control'
+                                type="text"
+                                placeholder='scrivi il tuo indirizzo'
+                                name='address'
+                                value={formData.address}
+                                onChange={handleChange} />
+
+                            {error.address && <span className="text-danger">{error.address}</span>}
+                        </div>
+
+                        {/* Input Città */}
+                        <div>
+                            <label htmlFor="city">Citta'</label>
+                            <input
+                                id='city'
+                                className='form-control'
+                                type="text"
+                                placeholder='scrivi la tua citta'
+                                name='city'
+                                value={formData.city}
+                                onChange={handleChange} />
+                            {error.city && <span className="text-danger">{error.city}</span>}
+                        </div>
+
+                        {/* Input Telefono */}
+                        <div>
+                            <label htmlFor="phone">Telefono</label>
+                            <input
+                                id='phone'
+                                className='form-control'
+                                type="text"
+                                placeholder='scrivi il tuo telefono'
+                                name='phone'
+                                value={formData.phone}
+                                onChange={handleChange} />
+
+                            {error.phone && <span className="text-danger">{error.phone}</span>}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
+
+            <div className='row justify-content-between'>
+
+                {/* Files */}
+                <div className='card p-3 col-4 files'>
+                    <h5 className='text-center py-3'>I tuoi file</h5>
+                    <div className='d-flex flex-column gap-3 justify-content-center'>
+
+
+                        {/* Input imagine */}
+                        <div>
+                            <label htmlFor="image">Immagine Profilo</label>
+                            <input
+                                id='image'
+                                className='form-control'
+                                type="file"
+                                placeholder='carica la tua immagine'
+                                name='image'
+                                onChange={handleChange} />
+                            {error.image && <span className="text-danger">{error.image}</span>}
+                        </div>
+
+                        {/* Input CV */}
+                        <div>
+                            <label htmlFor="resume">Curriculum</label>
+                            <input
+                                id='resume'
+                                className='form-control'
+                                type="file"
+                                placeholder='carica il tuo CV'
+                                name='resume'
+                                onChange={handleChange} />
+                            {error.resume && <span className="text-danger">{error.resume}</span>}
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* Input Specializzazione */}
+                <div className='card row flex-column col-7 p-3 specializzazione'>
+                    
+                    <h5 className='text-center py-3'>Scegli una o più specializzazioni</h5>
+                    <div className='d-flex flex-wrap justify-content-between'>
+                        {special.map((spec, index) => (
+                            // al server mando id specializzazione
+                            <div key={index} className="form-check form-check-inline col-3">
+                                <input
+                                    key={spec.id}
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    id={spec.id}
+                                    name='specializations'
+                                    value={spec.id}
+                                    checked={formData.specializations.includes(Number(spec.id))}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* bottone submit */}
+            <div className='btn-area d-flex justify-content-center'>
                 <button className="btn btn-primary" type='submit'>Salva i dati</button>
             </div>
         </form>
