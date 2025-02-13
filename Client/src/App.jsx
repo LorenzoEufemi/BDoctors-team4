@@ -156,7 +156,7 @@ function App() {
     setIdDoctor,
     submitForm,
     refresh,
-    resetFormReviw,
+    resetFormReview,
     errorReview,
     setErrorReview
   };
