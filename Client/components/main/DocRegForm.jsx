@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom"
-import axios from "axios"
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const initialData = {
     firstname: "",
@@ -26,47 +26,72 @@ const DocRegForm = () => {
     const [special, setSpecial] = useState([]);
 
     // stato per errori
-    const [error, setError] = useState(false);
+    const [error, setError] = useState([]);
 
     // funzione per gestire errori
     const isDataValid = () => {
 
-        // controllo nome e cognome
-        if ((formData.firstname.length && formData.lastname.length) <= 3) {
-            console.log("Nome e cognome devo essere di almeno 3 caratteri");
-        }
-
-        // controllo email
-        if (!formData.email.includes("@")) {
-            return ("l'email deve contenere la @")
-        }
-
-        // controllo indirizzo
-        if (formData.address.length <= 5) {
-            return ("l'indirizzo deve essere di almeno 5 caratteri")
-        }
+        let errors = [];
 
         // controllo campi vuoti
         for (let key in formData) {
-            if (key.length === 0) {
-                return ("campo obbligatorio")
-            }
-        }
+            if (key.trim() === "") {
+                errors.push(`Il campo ${key} è obbligatorio`);
+            };
+            
+        };
+
+        // controllo nome
+        if (formData.firstname.trim() !== "" && formData.firstname.length <= 3) {
+            errors.push("Il nome deve avere almeno 3 caratteri");
+        };
+
+        // controllo cognome
+        if (formData.lastname.trim() !== "" && formData.lastname.length <= 3) {
+            errors.push("Il cognome deve avere almeno 3 caratteri");
+        };
+
+        // controllo email
+        if (formData.email.trim() !== "" && !formData.email.includes("@")) {
+            errors.push("L'email deve contenere la @");
+        };
+
+        // controllo indirizzo
+        if (formData.address.trim() !== "" && formData.address.length <= 5) {
+            errors.push("L'indirizzo deve avere almeno 5 caratteri");
+        };
 
         // controllo numero telefono
-        for (let char of phone) {
-            if (!(char >= "0" && char <= "9") && (char !== ("+" && phone[0]))) {
-                return ("il numero deve contenere solo numeri o il + iniziale")
-            }
-        }
-    }
+        if (formData.phone.trim() !== "") {
+            for (let i = 0; i < formData.phone.length; i++) {
+                const char = formData.phone[i];
+
+                // verifica che il numero sia di almeno 10 caratteria
+                if (formData.phone.length < 10) {
+                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
+                    break;
+                };
+                // verifica se ci sono caratteri non numerici o non "+"
+                if ((char < '0' || char > '9') && char !== '+') {
+                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
+                    break;
+                };
+                // verifica se il "+" non è all'inizio (se presente)
+                if (char === '+' && i !== 0) {
+                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
+                    break;
+                };
+            };
+        };
+        return errors;
+    };
 
     // chiamata specializzazioni
     useEffect(() => {
         axios.get(`${apiUrl}specializations`).then((resp) => {
-            console.log(resp)
-            setSpecial(resp.data.data)
-        })
+            console.log(resp);
+            setSpecial(resp.data.data);
+        });
     }, []);
 
     // funzione per il cambiamento dei campi del form
@@ -109,7 +134,7 @@ const DocRegForm = () => {
                 ...prevData,
                 [name]: value
             }));
-        }
+        };
     };
 
     // funzione per submit
@@ -118,39 +143,43 @@ const DocRegForm = () => {
 
         setError(false);
 
-        if (!isDataValid()) {
-            setError(true);
+        // ottengo errori
+        const validationErrors = isDataValid();
 
-        } else {
-            // const checkError = isDataValid();
+        if (validationErrors.length > 0) {
 
-            // if (checkError) {
-            //     alert(checkError);
-            // }
+            // imposta gli errori nello state
+            setError(validationErrors);
 
-            //creiamo oggetto formadata per simulare form -non usiamo json
-            const dataToSend = new FormData();
-
-            // prende tutte le chiavi aggiornate con i dati dell'utente
-            for (let key in formData) {
-                dataToSend.append(key, formData[key]);
-            };
-
-            console.log(dataToSend);
-
-            // chiamata axios per inserirle nel db
-            axios.post(`${apiUrl}doctors`, dataToSend, {
-
-                // diciamo al server che tra i dati ci sono anche file
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                }
-            }).then((resp) => {
-                console.log(resp);
-                // rimanda alla homepage
-                navigate("/")
-            });
+            // return che blocca l'invio del form
+            return;
         };
+
+        //creiamo oggetto formadata per simulare form -non usiamo json
+        const dataToSend = new FormData();
+
+        // prende tutte le chiavi aggiornate con i dati dell'utente
+        for (let key in formData) {
+            dataToSend.append(key, formData[key]);
+        };
+
+        console.log(dataToSend);
+
+        // chiamata axios per inserirle nel db
+        axios.post(`${apiUrl}doctors`, dataToSend, {
+
+            // diciamo al server che tra i dati ci sono anche file
+            headers: {
+                "Content-Type": "multipart/form-data",
+            }
+        }).then((resp) => {
+            console.log(resp);
+            // rimanda alla homepage
+            navigate("/");
+
+        }).catch((err) => {
+            console.error("Errore nell'invio", err);
+        });
     };
 
 
@@ -170,10 +199,11 @@ const DocRegForm = () => {
                     value={formData.firstname}
                     onChange={handleChange}
                     aria-describedby="passwordHelpBlock" />
-                <div id="passwordHelpBlock" className="form-text">
-                Il firstname e il lastname devono essere piu' lunghi di 3 caratteri
-                </div>
 
+                {/* se l'array non è vuoto verificare se almeno un elemento nell'array soddisfa la condizione */}
+                {error.length > 0 && error.some(err => err.includes("nome")) && (
+                    <p className="text-danger">{error.find(err => err.includes("nome"))}</p>
+                )}
             </div>
 
             {/* Input Cognome */}
@@ -187,6 +217,10 @@ const DocRegForm = () => {
                     name='lastname'
                     value={formData.lastname}
                     onChange={handleChange} />
+
+                {error.length > 0 && error.some(err => err.includes("cognome")) && (
+                    <p className="text-danger">{error.find(err => err.includes("cognome"))}</p>
+                )}
             </div>
 
             {/* Input Email */}
@@ -200,6 +234,10 @@ const DocRegForm = () => {
                     name='email'
                     value={formData.email}
                     onChange={handleChange} />
+
+                {error.length > 0 && error.some(err => err.includes("email")) && (
+                    <p className="text-danger">{error.find(err => err.includes("email"))}</p>
+                )}
             </div>
 
             {/* Input Indirizzo */}
@@ -213,6 +251,10 @@ const DocRegForm = () => {
                     name='address'
                     value={formData.address}
                     onChange={handleChange} />
+
+                {error.length > 0 && error.some(err => err.includes("indirizzo")) && (
+                    <p className="text-danger">{error.find(err => err.includes("indirizzo"))}</p>
+                )}
             </div>
 
             {/* Input Città */}
@@ -239,6 +281,10 @@ const DocRegForm = () => {
                     name='phone'
                     value={formData.phone}
                     onChange={handleChange} />
+
+                {error.length > 0 && error.some(err => err.includes("telefono")) && (
+                    <p className="text-danger">{error.find(err => err.includes("telefono"))}</p>
+                )}
             </div>
 
             {/* Input imagine */}

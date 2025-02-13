@@ -18,29 +18,35 @@ function HomePage() {
 
     return (
         <>
-            <h1 className="text-center">ciao sono Homepage</h1>
-            {
-                (allSpec === null) ? <div>
-                    <p>aspetta</p>
-                </div> :
-                    <div>
-                        <label htmlFor="" className="form-control text-center">seleziona il medico per la specializzazione che ti serve</label>
-                        <select onChange={handleSelect} className="form-select" aria-label="Default select example">
-                            <option value={"null"} name={""}>--</option>
-                            {
-                                allSpec.map(curElem => (
+            <div className="hero-container">
+                <div className="hero-content">
 
-                                    <option name={curElem.specialization} value={curElem.id} key={curElem.specialization}>{curElem.specialization}
-                                    </option>
-                                ))
-                            }
-                        </select>
-                        <Link to="/doctors" className="btn btn-primary">cerca</Link>
-                    </div>
-            }
+                    <h1 className="text-center">ciao sono Homepage</h1>
+                    {
+                        (allSpec === null) ? <div>
+                            <p>aspetta</p>
+                        </div> :
+                            <div>
+                                <label htmlFor="" className="form-control text-center">seleziona il medico per la specializzazione che ti serve</label>
+                                <select onChange={handleSelect} className="form-select" aria-label="Default select example">
+                                    <option value={"null"} name={""}>--</option>
+                                    {
+                                        allSpec.map(curElem => (
+
+                                            <option name={curElem.specialization} value={curElem.id} key={curElem.specialization}>{curElem.specialization}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                <Link to="/doctors" className="btn btn-primary">cerca</Link>
+                            </div>
+                    }
+                </div>
+            </div>
             <SearchBar />
         </>
     );
 };
 
 export default HomePage;
+

@@ -5,11 +5,15 @@ import AppHeader from "../components/header/AppHeader";
 function AppLayout() {
     return (
         <>
-            <AppHeader />
-            <main className="container">
-                <Outlet />
-            </main>
-            <AppFooter />
+            
+                    <AppHeader />
+                    <main className="container">
+                        <Outlet />
+                    </main>
+                    <AppFooter />
+                
+
+           
         </>
     )
 };

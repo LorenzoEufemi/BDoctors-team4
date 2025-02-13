@@ -5,7 +5,6 @@ import GlobalContext from "../../context/GlobalContext";
 
 function SearchBar() {
     const { setSlugDoctor } = useContext(GlobalContext);
-
     const backurl = import.meta.env.VITE_BACKEND_URL;
     const [filters, setFilters] = useState({
         firstname: "",
@@ -133,6 +132,7 @@ function SearchBar() {
             {error && <div className="alert alert-danger">{error}</div>}
 
             <div>
+
                 {doctors.length === 0 && !loading && searching && <p>Nessun dottore trovato.</p>}
                 {searching && (
                     <ul className="list-group">

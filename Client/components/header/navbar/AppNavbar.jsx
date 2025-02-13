@@ -23,7 +23,7 @@ function AppNavbar() {
     }, []);
 
     return (
-        <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "rgba(23, 164, 138, 0.2)" }}>
+        <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#2B6394" }}>
             <div className="container-fluid d-flex justify-content-between">
                 <div className="d-flex align-items-center">
                     <NavLink to="/" className="d-flex align-items-center text-decoration-none">
@@ -52,7 +52,7 @@ function AppNavbar() {
                         ☰
                     </button>
                     {dropdownOpen && (
-                        <ul className="dropdown-menu dropdown-menu-end show shadow border-0 rounded" style={{ position: "absolute", top: "100%", right: 0, backgroundColor: "rgba(23, 164, 138, 0.2)" }}>
+                        <ul className="dropdown-menu dropdown-menu-end show shadow border-0 rounded" style={{ position: "absolute", top: "100%", right: 0, backgroundColor: "#2B6394" }}>
                             {navLinks.map((curLink, index) => (
                                 <li key={index}>
                                     <NavLink to={curLink.path} className="dropdown-item text-white" onClick={() => setDropdownOpen(false)}>
