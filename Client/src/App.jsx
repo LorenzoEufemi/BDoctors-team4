@@ -81,7 +81,9 @@ function App() {
 
   const submitForm = (e) => {
       e.preventDefault()
-      axios.post(`${backUrl}/doctors/${idDoctor}/reviews`, formReview).then(resp => {
+      axios.post(`${backUrl}doctors/${idDoctor}/reviews`, formReview).then(resp => {
+        console.log("sono dentro");
+        
         setFormReview(defaultReview)
         setRefresh(!refresh)
       })
