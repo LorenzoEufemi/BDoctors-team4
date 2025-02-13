@@ -29,7 +29,7 @@ function SingleDoctor() {
             {
                 (errorReview.length > 0) && (<div className="alert alert-danger" role="alert">
                 {errorReview}
-                <button className="btn-close" aria-label="Close" className="btn-close" onClick={()=> setErrorReview("")}></button>
+                <button className="btn-close" aria-label="Close" onClick={()=> setErrorReview("")}></button>
               </div>)
             }
 
