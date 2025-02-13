@@ -37,3 +37,24 @@ img {
     max-width: 600px;
     width: 100%;
 }
+
+/* HOMEPAGE HERO */
+.hero-content {
+    padding-left: 8rem;
+}
+
+/* HOMEPAGE CARD */
+.hp-card img {
+    object-fit: cover;
+}
+
+.card-text {
+    font-size: 0.7rem;
+    width: 100px;
+}
+
+.card-text h6 {
+    font-size: 0.9rem;
+}
+
+

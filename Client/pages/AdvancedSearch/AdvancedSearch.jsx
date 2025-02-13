@@ -72,7 +72,7 @@ function AdvancedSearch() {
     }, [filters, dottori]);
 
     return (
-        <>
+        <div className="container">
             <h1>Ricerca Dottori in {nameSpecSelected} </h1>
             <div className="d-flex justify-content-between">
                 <form onSubmit={handleSubmit} className="d-flex gap-3">
@@ -131,7 +131,7 @@ function AdvancedSearch() {
                     <p>nessun dottore con questa specializzazione</p>
                 )
             }
-        </>
+        </div>
     );
 }
 

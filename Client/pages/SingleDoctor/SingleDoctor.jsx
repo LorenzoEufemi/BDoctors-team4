@@ -25,7 +25,7 @@ function SingleDoctor() {
 
 
     return (
-        <>
+        <div className="container">
 
             <button onClick={() => navigate(-1)} className="btn btn-danger">indietro</button>
             {
@@ -78,7 +78,7 @@ function SingleDoctor() {
                 </>
             )}
 
-        </>
+        </div>
     )
 };
 
