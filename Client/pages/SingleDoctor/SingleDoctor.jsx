@@ -8,7 +8,7 @@ import Stars from "../../components/stars/Stars";
 function SingleDoctor() {
     const { slug } = useParams();
     const navigate = useNavigate()
-    const { slugDoctor, setIdDoctor, refresh } = useContext(GlobalContext)
+    const { slugDoctor, setIdDoctor, refresh, errorReview, setErrorReview } = useContext(GlobalContext)
     const backurl = import.meta.env.VITE_BACKEND_URL;
 
     const [doctorDetal, setDoctorDetal] = useState(null)
@@ -26,6 +26,12 @@ function SingleDoctor() {
 
     return (
         <div className="container">
+            {
+                (errorReview.length > 0) && (<div className="alert alert-danger" role="alert">
+                {errorReview}
+                <button className="btn-close" aria-label="Close" className="btn-close" onClick={()=> setErrorReview("")}></button>
+              </div>)
+            }
 
             <button onClick={() => navigate(-1)} className="btn btn-danger">indietro</button>
             {
@@ -54,6 +60,7 @@ function SingleDoctor() {
                         <img src="../../default-placeholder-doctor-halflength-portrait-600nw-1058724875.webp" alt="" className="w-25" />
 
                     </section>
+                    <AppModal nome={doctorDetal.firstname} cognome={doctorDetal.lastname}/>
                     <section>
                         {
                             Array.isArray(doctorDetal.reviews) ? (
@@ -62,6 +69,7 @@ function SingleDoctor() {
                                     <div className="card w-50" key={curItem.id}>
                                         <div className="card-body">
                                             <h5 className="card-title">Scritta da: {curItem.patient}</h5>
+                                            <p className="card-text">lasciata il: {curItem.created_at.slice(0 ,10)} </p>
                                             <p className="card-text">{curItem.review}</p>
                                             <p className="card-text">
                                                 <Stars vote={curItem.vote} />
@@ -74,7 +82,7 @@ function SingleDoctor() {
                             )
                         }
                     </section>
-                    <AppModal />
+                    
                 </>
             )}
 

@@ -3,6 +3,7 @@ import { useContext } from "react";
 
 function FormReview () {
 
+
     const { hendelChangeReview, formReview, submitForm } = useContext(GlobalContext)
     const votiArray = [0,1,2,3,4,5]
     return (
@@ -29,7 +30,7 @@ function FormReview () {
                     ))
                 }
             </select>
-            <button className="btn btn-success" data-bs-dismiss="modal">ok</button>
+            <button className="btn btn-success" data-bs-dismiss="modal">Invia recensione</button>
             </div>
         </form>
         </>
