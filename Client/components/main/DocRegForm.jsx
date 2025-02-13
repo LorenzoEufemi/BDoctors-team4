@@ -68,12 +68,12 @@ const DocRegForm = () => {
 
                 // Verifica se ci sono caratteri non numerici o non "+"
                 if ((char < '0' || char > '9') && char !== '+') {
-                    errors.push("Il numero deve contenere solo numeri e il + iniziale");
+                    errors.push("Il numero di telefono deve contenere solo numeri e il + iniziale");
                     break;
                 };
                 // Verifica se il "+" non è all'inizio (se presente)
                 if (char === '+' && i !== 0) {
-                    errors.push("Il numero deve contenere solo numeri e il + iniziale");
+                    errors.push("Il numero di telefono deve contenere solo numeri e il + iniziale");
                     break;
                 };
             };
