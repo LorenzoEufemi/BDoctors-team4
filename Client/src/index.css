@@ -57,4 +57,45 @@ img {
     font-size: 0.9rem;
 }
 
+/* FORM REGISTRAZIONE */
+.registrazione {
+    background-image: url(../public/sfondo-registrazione.png);
+    background-size: cover;
+}
 
+.titolo {
+    color: rgba(23, 164, 138, 0.7);
+}
+
+.registrazione .sottotitolo {
+    color: rgba(14, 92, 78, 0.7);
+}
+
+.registrazione h5 {
+    color: #2b6394;
+}
+
+.nome {
+    height: 100%;
+    gap: 3rem
+}
+
+.btn-area {
+    width: 100%;
+}
+
+.dati-anagrafici {
+    border: 1px solid rgba(23, 164, 138, 0.4);
+}
+
+.contatti {
+    border: 1px solid rgba(23, 164, 138, 0.4);
+}
+
+.files {
+    border: 1px solid rgba(23, 164, 138, 0.4);
+}
+
+.specializzazione {
+    border: 1px solid rgba(23, 164, 138, 0.4);
+}
