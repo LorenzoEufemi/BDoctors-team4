@@ -31,57 +31,51 @@ const DocRegForm = () => {
     // funzione per gestire errori
     const isDataValid = () => {
 
-        let errors = [];
-
-        // controllo campi vuoti
-        for (let key in formData) {
-            if (key.trim() === "") {
-                errors.push(`Il campo ${key} è obbligatorio`);
-            };
-            
-        };
+        let errors = {};
 
         // controllo nome
-        if (formData.firstname.trim() !== "" && formData.firstname.length <= 3) {
-            errors.push("Il nome deve avere almeno 3 caratteri");
+        if (formData.firstname.length <= 3) {
+            errors.firstname = "Il nome deve avere almeno 3 caratteri";
         };
 
         // controllo cognome
-        if (formData.lastname.trim() !== "" && formData.lastname.length <= 3) {
-            errors.push("Il cognome deve avere almeno 3 caratteri");
+        if (formData.lastname.length <= 3) {
+            errors.lastname = "Il cognome deve avere almeno 3 caratteri";
         };
 
         // controllo email
-        if (formData.email.trim() !== "" && !formData.email.includes("@")) {
-            errors.push("L'email deve contenere la @");
+        if (!formData.email.includes("@")) {
+            errors.email = "L'email deve contenere la @";
         };
 
         // controllo indirizzo
-        if (formData.address.trim() !== "" && formData.address.length <= 5) {
-            errors.push("L'indirizzo deve avere almeno 5 caratteri");
+        if (formData.address.length <= 5) {
+            errors.address = "L'indirizzo deve avere almeno 5 caratteri";
+        };
+
+        // controllo citta
+        if (formData.city.length <= 1) {
+            errors.city = "Il nome della città non è valido";
         };
 
         // controllo numero telefono
-        if (formData.phone.trim() !== "") {
-            for (let i = 0; i < formData.phone.length; i++) {
-                const char = formData.phone[i];
+        // verifica che il numero sia di almeno 10 caratteria
+        if (formData.phone.length < 10) {
+            errors.phone = "Il numero di telefono deve essere di almeno 10 caratteri";
 
-                // verifica che il numero sia di almeno 10 caratteria
-                if (formData.phone.length < 10) {
-                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
-                    break;
-                };
-                // verifica se ci sono caratteri non numerici o non "+"
-                if ((char < '0' || char > '9') && char !== '+') {
-                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
-                    break;
-                };
-                // verifica se il "+" non è all'inizio (se presente)
-                if (char === '+' && i !== 0) {
-                    errors.push("Il numero di telefono deve essere di almeno 10 caratteri e deve contenere solo numeri ed in caso il + iniziale");
-                    break;
-                };
-            };
+        // verifica sui simboli nel numero
+        } else if (!/^\+?[0-9]+$/.test(formData.phone)) {
+            errors.phone = "Il numero di telefono deve contenere solo numeri ed in caso il + iniziale";
+        };
+
+        // controllo file immagine
+        if (formData.image === null) {
+            errors.image = "L'immagine profilo è necessaria";
+        };
+
+        // controllo file CV
+        if (formData.resume === null) {
+            errors.resume = "Il caricamento del CV è necessario";
         };
         return errors;
     };
@@ -141,12 +135,13 @@ const DocRegForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        setError(false);
+        setError({});
 
         // ottengo errori
         const validationErrors = isDataValid();
 
-        if (validationErrors.length > 0) {
+        // se sono presenti delle chiavi errore 
+        if (Object.keys(validationErrors).length > 0) {
 
             // imposta gli errori nello state
             setError(validationErrors);
@@ -201,9 +196,7 @@ const DocRegForm = () => {
                     aria-describedby="passwordHelpBlock" />
 
                 {/* se l'array non è vuoto verificare se almeno un elemento nell'array soddisfa la condizione */}
-                {error.length > 0 && error.some(err => err.includes("nome")) && (
-                    <p className="text-danger">{error.find(err => err.includes("nome"))}</p>
-                )}
+                {error.firstname && <p className="text-danger">{error.firstname}</p>}
             </div>
 
             {/* Input Cognome */}
@@ -218,9 +211,7 @@ const DocRegForm = () => {
                     value={formData.lastname}
                     onChange={handleChange} />
 
-                {error.length > 0 && error.some(err => err.includes("cognome")) && (
-                    <p className="text-danger">{error.find(err => err.includes("cognome"))}</p>
-                )}
+                {error.lastname && <p className="text-danger">{error.lastname}</p>}
             </div>
 
             {/* Input Email */}
@@ -235,9 +226,7 @@ const DocRegForm = () => {
                     value={formData.email}
                     onChange={handleChange} />
 
-                {error.length > 0 && error.some(err => err.includes("email")) && (
-                    <p className="text-danger">{error.find(err => err.includes("email"))}</p>
-                )}
+                {error.phone && <p className="text-danger">{error.phone}</p>}
             </div>
 
             {/* Input Indirizzo */}
@@ -252,9 +241,7 @@ const DocRegForm = () => {
                     value={formData.address}
                     onChange={handleChange} />
 
-                {error.length > 0 && error.some(err => err.includes("indirizzo")) && (
-                    <p className="text-danger">{error.find(err => err.includes("indirizzo"))}</p>
-                )}
+                {error.address && <p className="text-danger">{error.address}</p>}
             </div>
 
             {/* Input Città */}
@@ -268,6 +255,7 @@ const DocRegForm = () => {
                     name='city'
                     value={formData.city}
                     onChange={handleChange} />
+                {error.city && <p className="text-danger">{error.city}</p>}
             </div>
 
             {/* Input Telefono */}
@@ -282,9 +270,7 @@ const DocRegForm = () => {
                     value={formData.phone}
                     onChange={handleChange} />
 
-                {error.length > 0 && error.some(err => err.includes("telefono")) && (
-                    <p className="text-danger">{error.find(err => err.includes("telefono"))}</p>
-                )}
+                {error.phone && <p className="text-danger">{error.phone}</p>}
             </div>
 
             {/* Input imagine */}
@@ -297,6 +283,7 @@ const DocRegForm = () => {
                     placeholder='carica la tua immagine'
                     name='image'
                     onChange={handleChange} />
+                {error.image && <p className="text-danger">{error.image}</p>}
             </div>
 
             {/* Input CV */}
@@ -309,6 +296,7 @@ const DocRegForm = () => {
                     placeholder='carica il tuo CV'
                     name='resume'
                     onChange={handleChange} />
+                {error.resume && <p className="text-danger">{error.resume}</p>}
             </div>
 
             {/* Input Specializzazione */}
