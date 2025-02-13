@@ -3,6 +3,7 @@ import GlobalContext from "../../context/GlobalContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import AppModal from "/components/AppModal/AppModal.jsx"
+import Stars from "../../components/stars/Stars";
 
 function SingleDoctor() {
     const { slug } = useParams();
@@ -45,7 +46,9 @@ function SingleDoctor() {
                             <h2>telefono: <a href="">{doctorDetal.phone}</a></h2>
                             <h2>studio in: {doctorDetal.address}</h2>
                             <h2>città: {doctorDetal.city}</h2>
-                            <h2>voto dei pazienti: {parseFloat(doctorDetal.vote_avg)}</h2>
+                            <h2>voto dei pazienti:
+                                <Stars vote={parseFloat(doctorDetal.vote_avg)} />
+                            </h2>
                         </div>
                         <img src="../../default-placeholder-doctor-halflength-portrait-600nw-1058724875.webp" alt="" className="w-25" />
 
@@ -53,22 +56,24 @@ function SingleDoctor() {
                     <section>
                         {
                             Array.isArray(doctorDetal.reviews) ? (
-                                
-                                    doctorDetal.reviews.map(curItem => (
-                                        <div className="card w-50" key={curItem.id}>
-                                            <div className="card-body">
-                                                <h5 className="card-title">Scritta da: {curItem.patient}</h5>
-                                                <p className="card-text">{curItem.review}</p>
-                                                <p className="card-text">{curItem.vote}</p>
-                                            </div>
+
+                                doctorDetal.reviews.map(curItem => (
+                                    <div className="card w-50" key={curItem.id}>
+                                        <div className="card-body">
+                                            <h5 className="card-title">Scritta da: {curItem.patient}</h5>
+                                            <p className="card-text">{curItem.review}</p>
+                                            <p className="card-text">
+                                                <Stars vote={curItem.vote} />
+                                            </p>
                                         </div>
-                                    ))
+                                    </div>
+                                ))
                             ) : (
                                 <p>Nessuna recensione per questo dottore</p>
                             )
                         }
                     </section>
-                    <AppModal/>
+                    <AppModal />
                 </>
             )}
 
