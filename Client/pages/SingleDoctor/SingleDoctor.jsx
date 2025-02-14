@@ -23,6 +23,7 @@ function SingleDoctor() {
     }, [refresh])
 
 
+console.log(doctorDetal);
 
     return (
         <div className="container">
@@ -50,10 +51,14 @@ function SingleDoctor() {
                         <div>
                             <h1>Nome: {doctorDetal.firstname} {doctorDetal.lastname}</h1>
                             <h2>Email: <a href="">{doctorDetal.email}</a></h2>
-                            <h2>telefono: <a href="">{doctorDetal.phone}</a></h2>
-                            <h2>studio in: {doctorDetal.address}</h2>
-                            <h2>città: {doctorDetal.city}</h2>
-                            <h2>voto dei pazienti:
+                            <h2>Telefono: <a href="">{doctorDetal.phone}</a></h2>
+                            <h2>Studio in: {doctorDetal.address}</h2>
+                            <h2>Città: {doctorDetal.city}</h2>
+                            {/* {doctorDetal.specializations.map((spec, index) => (
+                                <h2 key={index}>{spec.specialization}</h2>
+                            ))} */}
+                            <h2>Specializzato in: {doctorDetal.specialization}</h2>
+                            <h2>Voto dei pazienti:
                                 <Stars vote={parseFloat(doctorDetal.vote_avg)} />
                             </h2>
                         </div>
