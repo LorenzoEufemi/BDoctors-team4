@@ -178,9 +178,11 @@ const store = (req, res, next) => {
         strict: true,
     }) + `-${uuidv4()}`;
 
+
+
     // assicura che specializations sia un array
     const specializationsArray = Array.isArray(specializations) ? specializations : [specializations];
-
+    console.log(specializationsArray, "specializzation");
     // verifca nome e cognome
     if ((firstname.length && lastname.length) <= 3) {
         return res.status(400).json({
@@ -244,25 +246,56 @@ const store = (req, res, next) => {
             const doctorId = results[0].id;
 
             // sql per inserimento tabella ponte
-            const sqlTabellaPonte = `
+            let sqlTabellaPonte = `
               INSERT INTO doctors_specializations(doctor_id, specialization_id)
-              VALUES(?, ?)
-            `;
+              VALUES `;
 
-            specializationsArray.forEach(specId => {
-                dbConnection.query(sqlTabellaPonte, [doctorId, specId], (err, risults) => {
-                    if (err) {
-                        return next(new Error(err.message));
-                    }
-                });
-                return res.status(201).json({
-                    status: "success",
-                    message: "doctor aggiunto con successo",
-                    // i file vengono salvati nel database e nei percorsi corretti
-                    image: imageName,
-                    resume: resumeName
-                });
+
+
+
+
+
+            const arrayParams = specializations.split(",").map(Number);
+
+
+
+
+            console.log(arrayParams, "array params");
+
+            for (let num in arrayParams) {
+                sqlTabellaPonte += `( ? , ? ),`
+            }
+
+
+            sqlTabellaPonte = sqlTabellaPonte.substring(0, sqlTabellaPonte.length - 1)
+
+
+
+
+            const variabileColibri = []
+            arrayParams.forEach(curElem => {
+                variabileColibri.push(doctorId)
+                variabileColibri.push(curElem)
+            })
+
+
+
+
+
+
+            dbConnection.query(sqlTabellaPonte, variabileColibri, (err, risults) => {
+                if (err) {
+                    return next(new Error(err.message));
+                }
             });
+            return res.status(201).json({
+                status: "success",
+                message: "doctor aggiunto con successo",
+                // i file vengono salvati nel database e nei percorsi corretti
+                image: imageName,
+                resume: resumeName
+            });
+
         });
     });
 };
