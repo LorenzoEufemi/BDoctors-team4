@@ -9,11 +9,14 @@ const index = (req, res, next) => {
     limit = parseInt(limit);
     const offset = (page - 1) * limit;
 
+    // GROUP_CONCAT(specializations.specialization) AS specializations
+    // LEFT JOIN doctors_specializations ON doctors_specializations.doctor_id = doctors.id
+    // LEFT JOIN specializations ON doctors_specializations.specialization_id = specializations.id
+
+    // sql per prendere solo dottori
     let sql = `
-      SELECT doctors.*, GROUP_CONCAT(specializations.specialization) AS specializations
+      SELECT doctors.*
       FROM doctors
-      LEFT JOIN doctors_specializations ON doctors_specializations.doctor_id = doctors.id
-      LEFT JOIN specializations ON doctors_specializations.specialization_id = specializations.id
     `;
 
     const params = [];
@@ -24,11 +27,8 @@ const index = (req, res, next) => {
             if (key === "firstname" || key === "lastname") {
                 conditions.push(`doctors.${key} LIKE ?`);
                 params.push(`%${filters[key]}%`);
-            } else if (key === "specialization") {
-                conditions.push("specializations.specialization LIKE ?");
-                params.push(`%${filters[key]}%`);
-            }
-        }
+            };
+        };
     };
 
     if (conditions.length > 0) {
@@ -38,24 +38,81 @@ const index = (req, res, next) => {
     sql += ` GROUP BY doctors.id LIMIT ? OFFSET ?`;
     params.push(limit, offset);
 
-    dbConnection.query(sql, params, (err, results) => {
+    dbConnection.query(sql, params, (err, doctors) => {
 
         if (err) {
             return next(new Error(err.message))
         }
-        if (results.length === 0) {
+        if (doctors.length === 0) {
             return res.status(404).json({
                 status: "fail",
                 message: "Doctor not found"
-            })
-        }
+            });
+        };
 
-        return res.status(200).json({
-            status: "success",
-            page,
-            limit,
-            data: results
-        })
+        const allDocId = doctors.map(doc => doc.id);
+
+        // se ci sono dottori ma non hanno specializzazioni
+        if (allDocId.length === 0) {
+            return res.status(200).json({
+                status: "success",
+                page,
+                limit,
+                data: doctors
+            });
+        };
+
+        // sql abbinando tabella-ponte e tabella specializzazioni per prendere id dottore da tabella-ponte e le specializzazioni
+        const specializationsSql = `
+            SELECT doctors_specializations.doctor_id, specializations.*
+            FROM doctors_specializations
+            JOIN specializations ON doctors_specializations.specialization_id = specializations.id
+            WHERE doctors_specializations.doctor_id IN (?)
+        `;
+
+        dbConnection.query(specializationsSql, [allDocId], (err, specializations) => {
+            if (err) {
+                return next(new Error(err.message))
+            };
+
+            // associare specializzazioni a dottori
+            const docWithSpec = doctors.map(doctor => {
+
+                const uniqueSpec = [];
+
+                specializations.forEach(spec => {
+                    if (spec.doctor_id === doctor.id) {
+                        // controlla se l'id della spec è già presente nell'array
+                        if (!uniqueSpec.some(special => special.id === spec.id)) {
+
+                            // pusho i dati che mi servono della singola specializzazione
+                            uniqueSpec.push({
+                                id: spec.id,
+                                specialization: spec.specialization,
+                                created_at: spec.created_at,
+                                updated_at: spec.updated_at,
+                                slug: spec.slug
+                            });
+                        };
+                    };
+                });
+
+                return {
+
+                    // tutti i dati del dottore
+                    ...doctor,
+                    // più  specilizzazioni
+                    specializations: uniqueSpec
+                };
+            });
+
+            return res.status(200).json({
+                status: "success",
+                page,
+                limit,
+                data: docWithSpec
+            });
+        });
     });
 };
 
