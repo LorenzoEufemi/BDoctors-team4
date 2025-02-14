@@ -121,11 +121,15 @@ const show = (req, res, next) => {
 
     // Doctor details
     const sql = `
-        SELECT doctors.*, CAST(AVG(reviews.vote) AS DECIMAL(10, 1)) AS vote_avg
-        FROM doctors
-        LEFT JOIN reviews
-        ON reviews.doctor_id = doctors.id
-        WHERE doctors.slug = ?`;
+         SELECT doctors.*, 
+       CAST(AVG(reviews.vote) AS DECIMAL(10, 1)) AS vote_avg,
+       GROUP_CONCAT(DISTINCT specializations.specialization SEPARATOR ', ') AS specialization
+FROM doctors
+LEFT JOIN reviews ON reviews.doctor_id = doctors.id
+LEFT JOIN doctors_specializations ON doctors_specializations.doctor_id = doctors.id
+LEFT JOIN specializations ON doctors_specializations.specialization_id = specializations.id
+WHERE doctors.slug = ?
+GROUP BY doctors.id;`;
 
     const reviewsSql = `
         SELECT reviews.*
@@ -168,7 +172,7 @@ const store = (req, res, next) => {
     const resumeName = req.files?.resume ? req.files.resume[0].filename : null;
 
     // Estraggo gli altri dati dal body
-    const { firstname, lastname, phone, email, address, city, specializations} = req.body
+    const { firstname, lastname, phone, email, address, city, specializations } = req.body
     const slug = slugify(`${firstname} ${lastname}`, {
         lower: true,
         strict: true,
@@ -250,7 +254,7 @@ const store = (req, res, next) => {
                     if (err) {
                         return next(new Error(err.message));
                     }
-            });
+                });
                 return res.status(201).json({
                     status: "success",
                     message: "doctor aggiunto con successo",
