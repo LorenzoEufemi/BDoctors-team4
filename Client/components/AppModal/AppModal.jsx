@@ -10,8 +10,9 @@ const AppModal = ({ nome, cognome }) => {
 
     return (
         <>
+           
             {/* < !--Button trigger modal-- > */}
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button style={{ background: "#4FBE89" }} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Lascia una recensione al dottor {nome} {cognome}
             </button>
 
@@ -33,6 +34,7 @@ const AppModal = ({ nome, cognome }) => {
                     </div>
                 </div>
             </div>
+            
         </>
     )
 }
