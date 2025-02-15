@@ -79,9 +79,9 @@ function AdvancedSearch() {
     }, [filters, dottori]);
 
     return (
-        <div className="container">
+        <div className="advanced-search-container">
             <h1>Ricerca Dottori in {nameSpecSelected} </h1>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-center">
                 <form onSubmit={handleSubmit} className="d-flex gap-3">
                     <div className="">
                         <label htmlFor="firstname">Nome:</label>
@@ -129,15 +129,25 @@ function AdvancedSearch() {
                     </div>
                 )
             }
-            {
-                Array.isArray(dottori) ? (
-                    filteredDottori.map((curElem) => (
-                        <DoctorCard dottore={curElem} key={curElem.id} />
-                    ))
-                ) : (
-                    <p>nessun dottore con questa specializzazione</p>
-                )
-            }
+            <div className="d-flex justify-content-between my-5">
+                <div className="my-2 doctor-list">
+                    {
+                        Array.isArray(dottori) ? (
+                            filteredDottori.map((curElem) => (
+                                <DoctorCard dottore={curElem} key={curElem.id} />
+                            ))
+                        ) : (
+                            <p>nessun dottore con questa specializzazione</p>
+                        )}
+                </div>
+                <div className="decoration-image ">
+                    <img
+                        src="/femaleDec.png"
+                        alt="Decorazione"
+                        className="img-fluid decoration-img"
+                    />
+                </div>
+            </div>
         </div>
     );
 }

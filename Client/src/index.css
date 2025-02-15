@@ -3,7 +3,23 @@
     padding: 0;
     margin: 0;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-   
+}
+
+footer {
+    position: fixed;
+    /* Posiziona il footer in modo fisso */
+    bottom: 0;
+    /* Posiziona il footer alla fine della pagina */
+    width: 100%;
+    /* Fa sì che il footer occupi tutta la larghezza */
+    background-color: #222;
+    /* Colore di sfondo */
+    color: white;
+    /* Colore del testo */
+    text-align: center;
+    /* Centra il testo */
+    padding: 10px;
+    /* Aggiunge un po' di spazio intorno al testo */
 }
 
 img {
@@ -98,4 +114,136 @@ img {
 
 .specializzazione {
     border: 1px solid rgba(23, 164, 138, 0.4);
+}
+
+---------------------------------------------------
+/* DoctorCard */
+
+.d-card {
+    max-width: 450px;
+
+    border-radius: 12px;
+    border: 2px solid #222;;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    min-height: 200px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.d-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenitore immagine */
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 100%;
+     /* width: 40% */
+   
+    /* 🔹 Occupa tutta l'altezza della card */
+}
+
+.img-container img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 🔹 Mantiene il rapporto corretto */
+}
+
+.card-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Titolo */
+.d-card-header {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2B6394;
+    margin-bottom: 5px;
+}
+
+/* Testo */
+.card-location,
+.card-phone {
+    font-size: 14px;
+    color: #4FBE89;
+    margin-bottom: 3px;
+}
+
+/* Pulsante */
+.btn-design {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #4FBE89;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: transform 0.3s;
+    align-self: flex-start;
+}
+
+.btn-design:hover {
+    background: #2B6394;
+}
+
+------------------------------------------------
+/* AdvancedSearch */
+
+.advanced-search-container {
+    /* padding: 20px;
+        background-color: #FCF7F3; */
+        /* Background della pagina */
+    /* Colore di sfondo */
+    
+    display: flex;
+    justify-content: flex-start;
+    /* Allinea all'inizio */
+    padding: 40px 100px;
+    /* Aggiunge margine ai lati */
+    position: relative;
+   
+}
+
+
+.doctor-list {
+
+    width: 60%;
+    /* Occupa il 60% della larghezza */
+    margin: 0 auto;
+    /* Centra rispetto alla pagina */
+
+    /* padding-right: 20px; */
+}
+
+body {
+    background-color: #FCF7F3;
+}
+
+.decoration-image {
+    margin-top: 150px;
+    position: absolute;
+    top: 75%;
+    right: 20px;
+
+}
+
+.decoration-img {
+    width: 500px;
+    /* Dimensione fissa orizzontale */
+    height: 450px;
+    /* Dimensione massima verticale */
+    
+    /* Adatta la larghezza in base al contenitore */
+    object-fit: contain;
+    /* Mantieni le proporzioni */
 }
