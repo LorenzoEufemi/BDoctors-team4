@@ -110,8 +110,8 @@ img {
     margin-right: 20%;
         /* margin-left: 20%; */
     height: 300px;
-    overflow: hidden;
     /* Leggermente più bassa */
+        /* Mantenere la disposizione in una riga */
 }
 
 /* Hover effect */
@@ -120,25 +120,18 @@ img {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Contenitore immagine */
-.img-container {
-    display: flex;
-    align-items: center;
-    /* Centra l'immagine verticalmente */
-    justify-content: center;
-    background: #f8f9fa;
-    padding: 20px;
-}
+
 
 /* Immagine del dottore */
-.img-container img {
+.d-card-img {
     width: 100%;
-    height: 100%;
-    /* Immagine prende tutta l'altezza */
-    object-fit: cover;
-    /* Mantiene la proporzione */
-    border-radius: 10px;
-    padding: 15px;
+    height: auto;
+    /* Mantieni la proporzione */
+    max-height: 200px;
+    /* Puoi regolare questa altezza in base alla tua preferenza */
+    object-fit: contain;
+    /* L'immagine non sarà tagliata, si adatta meglio al contenitore */
+    border-radius: 15px;
 }
 
 /* Titolo */
@@ -167,11 +160,19 @@ img {
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
-    transition: background 0.3s;
+    transition: transform 0.3s;
 }
 
 .btn-design:hover {
     background: #2B6394;
+}
+
+
+@media (min-width: 992px) {
+    .d-card-img {
+        max-height: 250px;
+        /* Aumenta l'altezza dell'immagine sui dispositivi desktop */
+    }
 }
 
 /* * Media Queries per mobile */ 

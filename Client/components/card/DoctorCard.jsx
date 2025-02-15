@@ -10,10 +10,10 @@ function DoctorCard({ dottore }) {
         <>
             <div className="d-card rounded my-3" >
                 <div className="row g-0">
-                    <div className="col-md-4 img-container">
+                    <div className="col-md-4 lg-4">
                         <img
+                            className="d-card-img rounded"
                             src="/doc.jpg"
-                            className="img-fluid rounded-start"
                             alt="Dottore"
                         />
                     </div>
