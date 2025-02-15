@@ -3,6 +3,10 @@ import { Link } from "react-router-dom"
 import GlobalContext from "../../context/GlobalContext";
 import SearchBar from "../../components/searchbar/Searchbar";
 import TopDocs from "../../components/TopDocsHomePage/TopDocs";
+import DiconoDiNoi from "../../components/DiconoDiNoi/DiconoDiNoi";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function HomePage() {
     const { allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec } = useContext(GlobalContext);
@@ -46,6 +50,7 @@ function HomePage() {
             </div>
             <SearchBar />
             <TopDocs />
+            <DiconoDiNoi/>
         </>
     );
 };

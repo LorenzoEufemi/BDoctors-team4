@@ -2,12 +2,13 @@ import { useContext } from "react"
 import GlobalContext from "../../context/GlobalContext"
 
 import { Link } from "react-router-dom"
+import DiconoDiNoi from "../DiconoDiNoi/DiconoDiNoi"
 function DoctorCard({ dottore }) {
     const { firstname, lastname, city, phone, email, slug, id} = dottore
     const { setSlugDoctor } = useContext(GlobalContext)
     return (
         <>
-            <div className="d-card rounded my-3" style={{ backgroundColor: "#CFE7DE" }}>
+            <div className="d-card rounded my-3" >
                 <div className="row g-0">
                     <div className="col-md-4 img-container">
                         <img

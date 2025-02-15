@@ -140,13 +140,7 @@ function AdvancedSearch() {
                             <p>nessun dottore con questa specializzazione</p>
                         )}
                 </div>
-                <div className="decoration-image ">
-                    <img
-                        src="/femaleDec.png"
-                        alt="Decorazione"
-                        className="img-fluid decoration-img"
-                    />
-                </div>
+               
             </div>
         </div>
     );
