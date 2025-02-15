@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DoctorCard from "../../components/card/DoctorCard";
 import { useLocation } from 'react-router-dom';
+import SearchBar from "../../components/searchbar/Searchbar";
 
 
 function AdvancedSearch() {
@@ -82,41 +83,7 @@ function AdvancedSearch() {
         <div className="container">
             <h1>Ricerca Dottori in {nameSpecSelected} </h1>
             <div className="d-flex justify-content-between">
-                <form onSubmit={handleSubmit} className="d-flex gap-3">
-                    <div className="">
-                        <label htmlFor="firstname">Nome:</label>
-                        <input
-                            type="text"
-                            id="firstname"
-                            name="firstname"
-                            value={filters.firstname}
-                            onChange={handleFilterChange}
-                            placeholder="Cerca per nome"
-                            className="form-control"
-                            required
-                        />
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-
-                    <div className="mr-2">
-                        <label htmlFor="lastname">Cognome:</label>
-                        <input
-                            type="text"
-                            id="lastname"
-                            name="lastname"
-                            value={filters.lastname}
-                            onChange={handleFilterChange}
-                            placeholder="Cerca per cognome"
-                            className="form-control"
-                            required
-                        />
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                </form>
+                <SearchBar />
             </div>
 
             <button className="btn" onClick={() => navigate(-1)}>indietro</button>
