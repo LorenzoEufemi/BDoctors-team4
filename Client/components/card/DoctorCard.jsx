@@ -3,7 +3,7 @@ import GlobalContext from "../../context/GlobalContext"
 
 import { Link } from "react-router-dom"
 function DoctorCard({ dottore }) {
-    const { firstname, lastname, city, phone, email, slug, id} = dottore
+    const { firstname, lastname, city, phone, slug,} = dottore
     const { setSlugDoctor } = useContext(GlobalContext)
     return (
         <>

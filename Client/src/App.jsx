@@ -12,44 +12,37 @@ import axios from "axios";
 function App() {
   const backUrl = import.meta.env.VITE_BACKEND_URL;
 
-  // Recupera i dati dal localStorage, se presenti
+  // recupera i dati dal localStorage, se presenti
   const savedSpec = localStorage.getItem('selectedSpec');
   const savedAllSpec = localStorage.getItem('allSpec');
   const saveNameSpecSelected = localStorage.getItem('nameSpecSelected')
   const saveSlugDoctor = localStorage.getItem('slugDoctor')
   const saveIdDoctor = localStorage.getItem('idDoctor')
 
-
-  const defaultReview = {
-    email: "",
-    review: "",
-    vote: 0,
-    patient: ""
-  }
-
-
+  // stati che si usano in più pagine/componenti
   const [allSpec, setAllSpec] = useState(savedAllSpec ? JSON.parse(savedAllSpec) : null);
   const [selectedSpec, setSelectedSpec] = useState(savedSpec ? Number(savedSpec) : null);
   const [nameSpecSelected, setNameSpecSelected] = useState(saveNameSpecSelected ? String(saveNameSpecSelected) : null); // Mantieni stringa
   const [slugDoctor, setSlugDoctor] = useState(saveSlugDoctor ? String(saveSlugDoctor) : null)
   const [idDoctor, setIdDoctor] = useState(saveIdDoctor ? String(saveIdDoctor) : null)
-  const [formReview, setFormReview] = useState(defaultReview)
-  const [refresh, setRefresh] = useState(true)
-  const [errorReview, setErrorReview] = useState("")
+  
 
 
   useEffect(() => {
     if (!savedAllSpec) {
       axios.get(`${backUrl}specializations`).then(result => {
+
         setAllSpec(result.data.data);
-        localStorage.setItem('allSpec', JSON.stringify(result.data.data));  // Salva allSpec nel localStorage
+        // salva allSpec nel localStorage
+        localStorage.setItem('allSpec', JSON.stringify(result.data.data));
       });
     }
   }, [savedAllSpec]);
 
   useEffect(() => {
     if (selectedSpec !== null) {
-      localStorage.setItem('selectedSpec', selectedSpec);  // Salva selectedSpec nel localStorage
+      // salva selectedSpec nel localStorage
+      localStorage.setItem('selectedSpec', selectedSpec);
     }
   }, [selectedSpec]);
 
@@ -71,6 +64,126 @@ function App() {
     }
   }, [slugDoctor])
 
+
+
+  /////////////////////////
+  /////// HOMEPAGE ////////
+  /////////////////////////
+  const handleSelect = (event) => {
+    setSelectedSpec(event.target.value !== "null" ? Number(event.target.value) : null)
+    setNameSpecSelected(event.target.options[event.target.selectedIndex].text);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      specialization: event.target.value,
+    }));
+  };
+
+
+
+  //////////////////////////
+  /// ADVANCED SEARCHBAR ///
+  //////////////////////////
+  const [filters, setFilters] = useState({
+    firstname: "",
+    lastname: "",
+    specialization: "",
+  });
+
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+  const [searching, setSearching] = useState(false);
+
+  // aggiorna input utente
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
+  // gestione submit del form
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // reset lista medici
+    setDoctors([]);
+    // reset della pagina a 1
+    setPage(1);
+    // abilita la ricerca
+    setSearching(true);  
+  };
+
+  // ricerca dottori 
+  const searchDoctors = async () => {
+
+    // caricamento connesione lenta
+    setLoading(true);
+
+    // se c'è un errore, lo salva
+    setError("");
+
+    // gestisce il codice che potrebbe generare errori
+    try {
+      // fa sì che il codice si "fermi" fino a quando la risposta dalla richiesta non arriva, senza bloccare il thread principale
+      const response = await axios.get(`${backurl}doctors`, {
+        params: { ...filters, page, limit },
+      });
+
+      setDoctors(response.data.data);
+
+      // cattura errori
+    } catch (error) {
+      setError("Errore nella ricerca dei dottori.");
+
+      // disattiva loading
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // impedisce di andare su una pagina inferiore a 1
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1) {
+      setPage(newPage);
+    }
+  };
+
+  // disabilitare il pulsante "Successivo" se non ci sono più medici
+  const disableNextButton = doctors.length < limit;
+
+  // gestione selezione spec
+  const handleSelectSpecialization = (event) => {
+    // aggiorna filtro specilizzazione quando l'utente selezione una specializzazione
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      specialization: event.target.value,
+    }));
+  };
+
+
+
+  /////////////////////////
+  ///// SINGLE DOCTOR /////
+  /////////////////////////
+  const [refresh, setRefresh] = useState(true)
+  const [errorReview, setErrorReview] = useState("")
+
+
+  /////////////////////////
+  ////// FORM REVIEW //////
+  /////////////////////////
+  const defaultReview = {
+    email: "",
+    review: "",
+    vote: 0,
+    patient: ""
+  }
+
+  const [formReview, setFormReview] = useState(defaultReview);
+
   const hendelChangeReview = (e) => {
     const { name, value } = e.target
     const newObject = {
@@ -85,11 +198,11 @@ function App() {
     let validation = 0
     let error = ""
     setErrorReview(error)
+
+
     for (let key in formReview) {
       // console.log("sono qui");
       console.log(key);
-
-
 
       if (key !== "vote") {
         const spaceless = formReview[key].replace(/\s+/g, "")
@@ -130,8 +243,9 @@ function App() {
         }
       }
     }
+
     setErrorReview(error)
-    if (validation === 3) {      
+    if (validation === 3) {
       axios.post(`${backUrl}doctors/${idDoctor}/reviews`, formReview).then(resp => {
         setFormReview(defaultReview)
         setRefresh(!refresh)
@@ -143,6 +257,11 @@ function App() {
     setFormReview(defaultReview)
   }
 
+
+
+  /////////////////////////
+  ///// GLOBAL CONTEXT ////
+  /////////////////////////
   const GlobalProviderValue = {
     allSpec,
     selectedSpec,
@@ -158,7 +277,27 @@ function App() {
     refresh,
     resetFormReview,
     errorReview,
-    setErrorReview
+    setErrorReview,
+    filters,
+    setFilters,
+    doctors,
+    setDoctors,
+    loading,
+    setLoading,
+    error,
+    setError,
+    page,
+    setPage,
+    limit,
+    searching,
+    setSearching,
+    handleInputChange,
+    handleSubmit,
+    searchDoctors,
+    handlePageChange,
+    handleSelectSpecialization,
+    disableNextButton,
+    handleSelect
   };
 
 
