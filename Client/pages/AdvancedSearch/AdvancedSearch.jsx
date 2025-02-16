@@ -80,9 +80,9 @@ function AdvancedSearch() {
 
     return (
         <div className="advanced-search-container">
-            <h1>Ricerca Dottori in {nameSpecSelected} </h1>
+            <h1 className="ads-title">Ricerca Dottori in {nameSpecSelected} </h1>
             <div className="d-flex justify-content-center">
-                <form onSubmit={handleSubmit} className="d-flex gap-3">
+                <form onSubmit={handleSubmit} className="d-flex gap-3 ads-form">
                     <div className="">
                         <label htmlFor="firstname">Nome:</label>
                         <input
@@ -92,7 +92,7 @@ function AdvancedSearch() {
                             value={filters.firstname}
                             onChange={handleFilterChange}
                             placeholder="Cerca per nome"
-                            className="form-control"
+                            className="form-control ads-input"
                             required
                         />
                         <div className="valid-feedback">
@@ -109,7 +109,7 @@ function AdvancedSearch() {
                             value={filters.lastname}
                             onChange={handleFilterChange}
                             placeholder="Cerca per cognome"
-                            className="form-control"
+                            className="form-control ads-input"
                             required
                         />
                         <div className="valid-feedback">
@@ -119,7 +119,9 @@ function AdvancedSearch() {
                 </form>
             </div>
 
-            <button className="btn" onClick={() => navigate(-1)}>indietro</button>
+            <button className="btn-back" onClick={() => navigate(-1)}>
+                <i class="fa-solid fa-caret-left"></i>
+            </button>
             {
                 loading && (
                     <div className="d-flex justify-content-center">
@@ -140,7 +142,7 @@ function AdvancedSearch() {
                             <p>nessun dottore con questa specializzazione</p>
                         )}
                 </div>
-               
+
             </div>
         </div>
     );
