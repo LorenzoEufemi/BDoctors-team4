@@ -99,9 +99,8 @@ img {
     border: 1px solid rgba(23, 164, 138, 0.4);
 }
 
-/* DoctorCard */
+/* DOCTORCARD - IN ADVANCEDSEARCH */
 
-/* Card principale */
 .d-card {
     background: #ffffff;
     border-radius: 15px;
@@ -110,31 +109,22 @@ img {
     margin-right: 20%;
         /* margin-left: 20%; */
     height: 300px;
-    /* Leggermente più bassa */
-        /* Mantenere la disposizione in una riga */
+    
 }
 
-/* Hover effect */
 .d-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-
-
-/* Immagine del dottore */
 .d-card-img {
     width: 100%;
     height: auto;
-    /* Mantieni la proporzione */
     max-height: 200px;
-    /* Puoi regolare questa altezza in base alla tua preferenza */
     object-fit: contain;
-    /* L'immagine non sarà tagliata, si adatta meglio al contenitore */
     border-radius: 15px;
 }
 
-/* Titolo */
 .d-card-header {
     font-size: 20px;
     font-weight: bold;
@@ -142,7 +132,6 @@ img {
     margin: 10px;
 }
 
-/* Posizione e telefono */
 .card-location,
 .card-phone {
     font-size: 14px;
@@ -150,7 +139,6 @@ img {
     margin: 10px;
 }
 
-/* Bottone */
 .btn-design {
     display: inline-block;
     background: #4FBE89;
@@ -167,27 +155,25 @@ img {
     background: #2B6394;
 }
 
-
 @media (min-width: 992px) {
     .d-card-img {
         max-height: 250px;
-        /* Aumenta l'altezza dell'immagine sui dispositivi desktop */
     }
 }
 
-/* * Media Queries per mobile */ 
+/*Media Queries per mobile */ 
 @media (max-width: 768px) {
     .d-card {
         width: 90%;
         margin-left: 5%;
-        height: auto; /* Altezza dinamica */
+        height: auto; 
         flex-direction: column;
         text-align: center;
     }
 
     .img-container {
         width: 100%;
-        height: 200px; /* Dimensione fissa per evitare problemi */
+        height: 200px;
     }
 
     .img-container img {
@@ -208,6 +194,7 @@ img {
         font-size: 13px;
     }
 }
+
 /* ADVANCED SEARCH */
 
 .advanced-search-container {
@@ -221,51 +208,36 @@ img {
 .ads-title {
     color: #2B6394;
     border-bottom: 2px solid #4FBE89;
-    /* Linea sottile arancione */
     margin: 20px;
 }
 
 .doctor-list {
 
     width: 80%;
-    /* Occupa il 60% della larghezza */
     margin: 0 auto;
-    /* Centra rispetto alla pagina */
-
-    /* padding-right: 20px; */
 }
 
 .btn-back {
     position: absolute;
     top: 50%;
-    /* Posiziona il bottone al centro in altezza */
     left: 20px;
-    /* Posiziona il bottone a sinistra */
     transform: translateY(-50%);
-    /* Centra esattamente il bottone in altezza */
     background-color: transparent;
-    /* Rimuovi lo sfondo */
     border: none;
-    /* Rimuovi il bordo */
     color: #FFA500;
-    /* Colore arancione */
     font-size: 50px;
-    /* Grandezza icona più grande */
     cursor: pointer;
-    /* Cambia il cursore al passaggio sopra */
     transition: color 0.3s ease;
 }
 
-/* Hover per il bottone */
 .btn-back:hover {
     color: #FF6347;
-    /* Cambia colore quando hover */
 }
+
 /* DICONO DI NOI COMPONENT. */
 
 .rstars {
     color: #FFD700;
-    /* Giallo oro */
     font-size: 20px;
     margin-bottom: 10px;
     text-align: center;
@@ -297,20 +269,12 @@ img {
 
 /* SLIDER */
 
-/* .slider-wrapper {
-   background-color: #2B6394;
-    width: 80%;
-    margin: 0 auto;
-    border-radius: 10px;
-} */
-
 .slider-wrapper {
     background-color: #2B6394;
     width: 80%;
     margin: 0 auto;
     border-radius: 10px;
     padding: 10px 20px;
-    /* Ridotto il padding */
     display: flex;
     align-items: center;
 }
@@ -320,26 +284,19 @@ img {
     margin-left: 20px;
     color: #2B6394;
     font-size: 35px;
-    /* Dimensione del testo */
     font-weight: bold;
-    /* Testo più marcato */
     font-family: "Playfair Display", serif;
     
 }
 
 .quote-icon {
     font-size: 40px;
-    /* Dimensione più grande */
     color: #2B6394;
-    /* Stesso colore del testo */
     margin-bottom: 5px;
-    /* Distanza tra l'icona e il titolo */
 }
 
-/* Riduci l'altezza della background-box */
 .background-box {
     max-height: 250px;
-    /* Altezza più compatta */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -348,21 +305,17 @@ img {
     
 }
 
-/* Media Query per schermi piccoli */
 @media (max-width: 768px) {
     .slider-wrapper {
         padding: 10px;
-        /* Ridotto padding per schermi piccoli */
     }
 
     .slider-wrapper h3 {
         font-size: 1.5rem;
-        /* Font più piccolo su dispositivi mobili */
     }
 
     .quote-icon {
         font-size: 2rem;
-        /* Icona più piccola su dispositivi mobili */
     }
 }
 
@@ -375,6 +328,7 @@ img {
 
 /* SEARCHBAR COMPONENT */
 
+
 /* CONTATTACI */
 
 .contact-container{
@@ -385,7 +339,6 @@ img {
 .divider {
     border: none;
     border-top: 2px solid purple;
-    /* Linea verde sotto il titolo */
     margin-top: 10px;
     margin-bottom: 30px;
 }
@@ -393,11 +346,8 @@ img {
 .contact-title {
     color: purple;
     border-bottom: 2px solid #4FBE89;
-    /* Aggiunge una linea verde sotto il titolo */
     padding-bottom: 10px;
-    /* Distanza tra il testo e la linea */
     margin-bottom: 20px;
-    /* Distanza tra la linea e gli altri contenuti */
 }
 
 
@@ -449,7 +399,7 @@ img {
 }
 
 .btn-contact:hover {
-    background-color: orange;
+    background-color: purple;
     text-decoration: none;
 
 }

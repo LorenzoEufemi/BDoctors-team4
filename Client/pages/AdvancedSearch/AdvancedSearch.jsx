@@ -82,7 +82,7 @@ function AdvancedSearch() {
         <div className="advanced-search-container">
             <h1 className="ads-title">Ricerca Dottori in {nameSpecSelected} </h1>
             <div className="d-flex justify-content-center">
-                <form onSubmit={handleSubmit} className="d-flex gap-3 ads-form">
+                <form onSubmit={handleSubmit} className="d-flex gap-3">
                     <div className="">
                         <label htmlFor="firstname">Nome:</label>
                         <input
@@ -92,7 +92,7 @@ function AdvancedSearch() {
                             value={filters.firstname}
                             onChange={handleFilterChange}
                             placeholder="Cerca per nome"
-                            className="form-control ads-input"
+                            className="form-control"
                             required
                         />
                         <div className="valid-feedback">
@@ -109,7 +109,7 @@ function AdvancedSearch() {
                             value={filters.lastname}
                             onChange={handleFilterChange}
                             placeholder="Cerca per cognome"
-                            className="form-control ads-input"
+                            className="form-control"
                             required
                         />
                         <div className="valid-feedback">
