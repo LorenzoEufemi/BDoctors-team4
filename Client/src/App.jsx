@@ -105,8 +105,9 @@ function App() {
     }));
   };
 
-  // gestione submit del form
+  // gestione submit del form - AdvancedSearch
   const handleSubmit = (event) => {
+    console.log("searchruns")
     event.preventDefault();
     // reset lista medici
     setDoctors([]);
@@ -118,7 +119,7 @@ function App() {
 
   // ricerca dottori 
   const searchDoctors = async () => {
-
+    console.log("searchDoctors runs")
     // caricamento connesione lenta
     setLoading(true);
 
@@ -128,7 +129,7 @@ function App() {
     // gestisce il codice che potrebbe generare errori
     try {
       // fa sì che il codice si "fermi" fino a quando la risposta dalla richiesta non arriva, senza bloccare il thread principale
-      const response = await axios.get(`${backurl}doctors`, {
+      const response = await axios.get(`${backUrl}doctors`, {
         params: { ...filters, page, limit },
       });
 
@@ -136,8 +137,9 @@ function App() {
 
       // cattura errori
     } catch (error) {
+      
       setError("Errore nella ricerca dei dottori.");
-
+      console.log("error: ", error)
       // disattiva loading
     } finally {
       setLoading(false);

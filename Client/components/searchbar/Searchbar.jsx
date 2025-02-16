@@ -10,6 +10,10 @@ function SearchBar() {
 
     // Quando i filters o la pagina cambiano, resettiamo i medici
     useEffect(() => {
+       console.log("cane")
+       console.log("filters:", filters)
+       console.log("page:", page)
+       console.log("searching:", searching)
         if (searching) {
             searchDoctors();
         }
