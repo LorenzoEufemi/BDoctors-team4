@@ -220,6 +220,7 @@ img {
 
 .ads-title {
     color: #2B6394;
+    border-bottom: 2px solid #4FBE89;
     /* Linea sottile arancione */
     margin: 20px;
 }
