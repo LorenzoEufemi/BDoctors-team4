@@ -12,7 +12,7 @@ const initialData = {
     phone: "",
     image: null,
     resume: null,
-    specializations: [],
+    specializations: "",
 }
 
 
@@ -69,8 +69,8 @@ const DocRegForm = () => {
             errors.phone = "Il numero di telefono deve essere di 10 caratteri";
 
             // verifica sui simboli nel numero
-        } else if (!/^\+?[0-9]+$/.test(formData.phone)) {
-            errors.phone = "Il numero di telefono deve contenere solo numeri";
+            } else if (!/^\+?[0-9]+$/.test(formData.phone)) {
+                errors.phone = "Il numero di telefono deve contenere solo numeri";
         };
 
         // controllo file immagine
@@ -82,6 +82,11 @@ const DocRegForm = () => {
         if (formData.resume === null) {
             errors.resume = "Il caricamento del CV è necessario";
         };
+
+        // controllo specilizzazioni
+        if (formData.specializations.length === 0) {
+            errors.specializations = "E' necessario scegliere almeno una specilizzazione";
+        }
         return errors;
     };
 
@@ -188,10 +193,10 @@ const DocRegForm = () => {
 
         <form className='d-flex flex-column gap-3 row-gap-5 py-4' onSubmit={handleSubmit}>
 
-            <div className='row justify-content-between top-form'>
+            <div className='row justify-content-lg-between justify-content-sm-center top-form gap-5'>
 
                 {/* dati anagrafici */}
-                <div className='card p-3 col-lg-4 col-md-5 dati-anagrafici'>
+                <div className='card p-3 col-lg-4 col-md-12 dati-anagrafici'>
                     <h5 className='text-center py-1'>Dati anagrafici</h5>
                     <div className='d-flex flex-column justify-content-center nome'>
 
@@ -231,7 +236,7 @@ const DocRegForm = () => {
 
 
                 {/* contatti */}
-                <div className='card row flex-column col-7 p-3 contatti-form'>
+                <div className='card row flex-column col-lg-7 col-sm-12 p-3 contatti-form'>
 
                     <h5 className='text-center py-1'>Contatti</h5>
                     <div className='row flex-column g-2'>
@@ -298,7 +303,7 @@ const DocRegForm = () => {
                 </div>
             </div>
 
-            <div className='row justify-content-between bottom-form'>
+            <div className='row justify-content-lg-between justify-content-md-center bottom-form gap-md-5'>
 
                 {/* Files */}
                 <div className='card p-3 col-lg-4 col-md-12 files'>
@@ -340,15 +345,27 @@ const DocRegForm = () => {
 
                     <h5 className='text-center py-3'>Scegli una o più specializzazioni</h5>
                     <div className='d-flex flex-wrap justify-content-between align-items-start gap-2'>
+                        
+                        <button 
+                            className="btn dropdown-btn col-12" 
+                            type="button" 
+                            onClick={() => setIsOpen(!isOpen)}
+                            style={{backgroundColor: "rgba(23, 164, 138, 0.4)", color:"white"}}
+                            >
+                                {isOpen ? "chiudi" : "specializzazioni"}                            
+                        </button>
+
+                        <div className='d-flex flex-wrap align-items-center justify-content-between'>
 
                         <button className="btn dropdown-btn col-12" type="button" onClick={() => setIsOpen(!isOpen)}>{isOpen ? "chiudi" : "specializzazioni"}</button>
 
                         <div className='row align-items-center'>
+
                             {special.map((spec, index) => (
-                                <div key={index}>
+                                <div key={index} className='col-5'>
 
                                     {/* // al server mando id specializzazione */}
-                                    <div className="form-check form-check-inline col-3 check-lg">
+                                    <div className="form-check form-check-inline check-lg">
                                         <input
                                             key={spec.id}
                                             className="form-check-input"
@@ -383,8 +400,8 @@ const DocRegForm = () => {
 
                                     </div>
                                 </div>
-
                             ))}
+                            {error.specializations && <span className="text-danger">{error.specializations}</span>}
                         </div>
                     </div>
                 </div>

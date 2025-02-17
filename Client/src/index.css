@@ -109,6 +109,7 @@ footer {
 .registrazione {
     background-image: url(../public/sfondo-registrazione.png);
     background-size: cover;
+    object-fit: fill;
 }
 
 .titolo {
@@ -155,6 +156,7 @@ footer {
 
 .dropdown-btn {
     display: none;
+    color: white;
 }
 
 /* ADVANCED SERACH PAGE */
@@ -244,52 +246,6 @@ text-decoration: none;
 
 .btn-design:hover {
     background: #2B6394;
-}
-
-/*Media Queries per mobile */ 
-@media (max-width: 1200px) {
-    .d-card {
-        width: 90%;
-        margin-left: 5%;
-        height: auto;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .d-card-body {
-        padding: 10px;
-    }
-
-    .btn-design {
-    margin-top: 20px;
-    align-self: center;          
-    }
-}
-
-@media screen and (max-width: 648px) {
-
-    /* div.hero-content {
-        padding-left: 0px;
-    } */
-    .testo-corto{
-        display: block;
-    }
-    .testo-lungo{
-        display: none;
-    }
-    
-     .hero-content h1{
-        text-align: start !important;
-     }
-}
-@media screen and (max-width: 448px) {
-    .d-flex .testo-corto{
-        display: none;
-    }
-    .testo-cortissimo{
-        display: block;
-    }
-
 }
 
 /* ADVANCED SEARCH */
@@ -402,31 +358,11 @@ text-decoration: none;
 
 }
 
-@media (max-width: 768px) {
-    .slider-wrapper {
-        padding: 10px;
-    }
-
-    .slider-wrapper h3 {
-        font-size: 1.5rem;
-    }
-
-    .quote-icon {
-        font-size: 2rem;
-    }
-}
-
-/* FOOTER */
-
-
-
-
 
 /* SEARCHBAR COMPONENT */
 
 
 /* CONTATTACI */
-
 .contact-container {
     width: 80%;
     margin: 0 auto;
@@ -497,8 +433,6 @@ text-decoration: none;
 .btn-contact:hover {
     background-color: purple;
     text-decoration: none;
-
-
 }
 
 /* ///////////////////// */
@@ -506,9 +440,43 @@ text-decoration: none;
 /* ///////////////////// */
 
 /* Desktop First */
+@media (max-width: 1200px) {
+    .d-card {
+        width: 90%;
+        margin-left: 5%;
+        height: auto;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .d-card-body {
+        padding: 10px;
+    }
+
+    .btn-design {
+    margin-top: 20px;
+    align-self: center;          
+    }
+}
+
+/* 960px */
+@media screen and (max-width: 960px) {
+
+}
 
 /* 768px */
 @media screen and (max-width: 768px) {
+    .slider-wrapper {
+        padding: 10px;
+    }
+
+    .slider-wrapper h3 {
+        font-size: 1.5rem;
+    }
+
+    .quote-icon {
+        font-size: 2rem;
+    }
 
     /* DOC REG FORM */
     .bottom-form {
@@ -516,6 +484,65 @@ text-decoration: none;
         align-items: center;
         gap: 3rem;
     }
+}
+
+
+@media screen and (max-width: 648px) {
+
+    /* div.hero-content {
+        padding-left: 0px;
+    } */
+    .testo-corto{
+        display: block;
+    }
+    .testo-lungo{
+        display: none;
+    }
+    
+    .hero-content h1{
+        text-align: start !important;
+     }
+
+    .specializzazione-form {
+        width: 100%;
+    }
+
+    .check-lg {
+        display: none;
+    }
+
+    .check-sm {
+        display: block;
+    }
+
+    .dropdown-btn {
+        display: block;
+        color: white;
+    }
+
+    .dropdown-container {
+        width: 40%;
+    }
+
+    .filter-dropdown {
+        font-size: 0.8rem;
+    }
+
+    .footer-icon {
+        color: #2B6394;
+
+    }
+}
+
+@media screen and (max-width: 448px) {
+    .d-flex .testo-corto {
+        display: none;
+    }
+
+    .testo-cortissimo {
+        display: block;
+    }
+
 }
 
 /* 425px */
@@ -544,34 +571,5 @@ text-decoration: none;
         width: 100%;
     }
 
-    .specializzazione-form {
-        width: 100%;
-    }
-
-    .check-lg {
-        display: none;
-    }
-
-    .check-sm {
-        display: block;
-    }
-
-    .dropdown-btn {
-        display: block;
-        color: white;
-        background-color: rgba(23, 164, 138, 0.4);
-    }
-
-    .dropdown-container {
-        width: 40%;
-    }
-
-    .filter-dropdown {
-        font-size: 0.8rem;
-    }
-
-.footer-icon {
-    color: #2B6394;
-
-}
+    
 }
