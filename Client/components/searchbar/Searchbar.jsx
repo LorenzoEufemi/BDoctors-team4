@@ -19,6 +19,7 @@ function SearchBar() {
         }
     }, [filters, page, searching]);
 
+
     return (
         <div className="container mt-4">
             <h1>Ricerca Dottori</h1>

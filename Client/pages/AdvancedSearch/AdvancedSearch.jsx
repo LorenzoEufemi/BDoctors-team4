@@ -11,6 +11,7 @@ function AdvancedSearch() {
     const location = useLocation();
 
     const queryParams = new URLSearchParams(location.search);
+    console.log("Query params inviati:", queryParams);
     const specializationQueryParam = queryParams.get('specialization');
 
     const backurl = import.meta.env.VITE_BACKEND_URL;

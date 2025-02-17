@@ -105,7 +105,8 @@ function App() {
     }));
   };
 
-  // gestione submit del form - AdvancedSearch
+
+  // // gestione submit del form - AdvancedSearch
   const handleSubmit = (event) => {
     console.log("searchruns")
     event.preventDefault();
@@ -116,6 +117,7 @@ function App() {
     // abilita la ricerca
     setSearching(true);  
   };
+
 
   // ricerca dottori 
   const searchDoctors = async () => {
@@ -130,9 +132,9 @@ function App() {
     try {
       // fa sì che il codice si "fermi" fino a quando la risposta dalla richiesta non arriva, senza bloccare il thread principale
       const response = await axios.get(`${backUrl}doctors`, {
-        params: { ...filters, page, limit },
+        params: {...filters, page, limit },
       });
-
+      console.log("searchDoctors runs")
       setDoctors(response.data.data);
 
       // cattura errori
@@ -145,6 +147,7 @@ function App() {
       setLoading(false);
     }
   };
+
 
   // impedisce di andare su una pagina inferiore a 1
   const handlePageChange = (newPage) => {
