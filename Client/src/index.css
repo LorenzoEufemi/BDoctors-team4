@@ -420,79 +420,7 @@ text-decoration: none;
 
 
 
-/* ///////////////////// */
-/****** MEDIA QUERY ******/
-/* ///////////////////// */
 
-/* Desktop First */
-
-/* 768px */
-@media screen and (max-width: 768px) {
-
-    /* DOC REG FORM */
-    .bottom-form {
-        flex-direction: column;
-        align-items: center;
-        gap: 3rem;
-    }
-}
-
-/* 425px */
-@media screen and (max-width: 425px) {
-
-    /* DOC REG FORM */
-    .top-form {
-        flex-direction: column;
-        align-items: center;
-        gap: 3rem;
-    }
-
-    .dati-anagrafici {
-        width: 100%;
-    }
-
-    .nome {
-        gap: 1rem;
-    }
-
-    .contatti-form {
-        width: 100%;
-    }
-
-    .files {
-        width: 100%;
-    }
-
-    .specializzazione-form {
-        width: 100%;
-    }
-
-    .check-lg {
-        display: none;
-    }
-
-    .check-sm {
-        display: block;
-    }
-
-    .dropdown-btn {
-        display: block;
-        color: white;
-        background-color: rgba(23, 164, 138, 0.4);
-    }
-
-    .dropdown-container {
-        width: 40%;
-    }
-
-    .filter-dropdown {
-        font-size: 0.8rem;
-    }
-
-.footer-icon {
-    color: #2B6394;
-
-}
 
 /* SEARCHBAR COMPONENT */
 
@@ -570,6 +498,80 @@ text-decoration: none;
     background-color: purple;
     text-decoration: none;
 
+
+}
+
+/* ///////////////////// */
+/****** MEDIA QUERY ******/
+/* ///////////////////// */
+
+/* Desktop First */
+
+/* 768px */
+@media screen and (max-width: 768px) {
+
+    /* DOC REG FORM */
+    .bottom-form {
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+    }
+}
+
+/* 425px */
+@media screen and (max-width: 425px) {
+
+    /* DOC REG FORM */
+    .top-form {
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    .dati-anagrafici {
+        width: 100%;
+    }
+
+    .nome {
+        gap: 1rem;
+    }
+
+    .contatti-form {
+        width: 100%;
+    }
+
+    .files {
+        width: 100%;
+    }
+
+    .specializzazione-form {
+        width: 100%;
+    }
+
+    .check-lg {
+        display: none;
+    }
+
+    .check-sm {
+        display: block;
+    }
+
+    .dropdown-btn {
+        display: block;
+        color: white;
+        background-color: rgba(23, 164, 138, 0.4);
+    }
+
+    .dropdown-container {
+        width: 40%;
+    }
+
+    .filter-dropdown {
+        font-size: 0.8rem;
+    }
+
+.footer-icon {
+    color: #2B6394;
 
 }
 }
