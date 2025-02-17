@@ -69,8 +69,9 @@ function AdvancedSearch() {
         });
 
         setFilteredDottori(filtered);
+        
     };
-
+    console.log(filteredDottori)
     const handleSubmit = (event) => {
         event.preventDefault();
         filterDoctors();
