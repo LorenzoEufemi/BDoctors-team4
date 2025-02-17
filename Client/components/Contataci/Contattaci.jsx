@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Contattaci = () => {
+    const navigate = useNavigate()
     return (
         <div className="contact-container my-5">
             <h1 className='contact-title' >Contattaci</h1>
@@ -16,7 +18,9 @@ const Contattaci = () => {
                     <img src="/img/contact1.png" alt="Contattaci online" className="img-fluid" />
                 </div>
             </div>
-
+            <button className="btn-back" onClick={() => navigate(-1)}>
+                <i class="fa-solid fa-caret-left"></i>
+            </button>
             {/* Seconda riga - ordine invertito */}
             <div className="row align-items-center mb-5 d-flex">
                 <div className="col-md-6 contact-card">
