@@ -8,6 +8,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import GlobalContext from "../context/GlobalContext";
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import Contattaci from "../components/Contataci/Contattaci";
 
 function App() {
   const backUrl = import.meta.env.VITE_BACKEND_URL;
@@ -307,6 +308,7 @@ function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/contattaci" element={<Contattaci />} />
             <Route path="/doctors">
               <Route index element={<AdvancedSearch />} />
               <Route path=":slug" element={<SingleDoctor />} />

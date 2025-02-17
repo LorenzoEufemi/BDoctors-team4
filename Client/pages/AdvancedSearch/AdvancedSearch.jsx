@@ -80,13 +80,49 @@ function AdvancedSearch() {
     }, [filters, dottori]);
 
     return (
-        <div className="container adv-search">
-            <h1>Ricerca Dottori in {nameSpecSelected} </h1>
-            <div className="d-flex justify-content-between">
-                <SearchBar />
+        <div className="advanced-search-container">
+            <h1 className="ads-title">Ricerca Dottori in {nameSpecSelected} </h1>
+            <div className="d-flex justify-content-center">
+                <form onSubmit={handleSubmit} className="d-flex gap-3">
+                    <div className="">
+                        <label htmlFor="firstname">Nome:</label>
+                        <input
+                            type="text"
+                            id="firstname"
+                            name="firstname"
+                            value={filters.firstname}
+                            onChange={handleFilterChange}
+                            placeholder="Cerca per nome"
+                            className="form-control"
+                            required
+                        />
+                        <div className="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+
+                    <div className="mr-2">
+                        <label htmlFor="lastname">Cognome:</label>
+                        <input
+                            type="text"
+                            id="lastname"
+                            name="lastname"
+                            value={filters.lastname}
+                            onChange={handleFilterChange}
+                            placeholder="Cerca per cognome"
+                            className="form-control"
+                            required
+                        />
+                        <div className="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            <button className="btn" onClick={() => navigate(-1)}>indietro</button>
+            <button className="btn-back" onClick={() => navigate(-1)}>
+                <i class="fa-solid fa-caret-left"></i>
+            </button>
             {
                 loading && (
                     <div className="d-flex justify-content-center">
@@ -96,15 +132,19 @@ function AdvancedSearch() {
                     </div>
                 )
             }
-            {
-                Array.isArray(dottori) ? (
-                    filteredDottori.map((curElem) => (
-                        <DoctorCard dottore={curElem} key={curElem.id} />
-                    ))
-                ) : (
-                    <p>nessun dottore con questa specializzazione</p>
-                )
-            }
+            <div className="d-flex justify-content-between my-5">
+                <div className="my-2 doctor-list">
+                    {
+                        Array.isArray(dottori) ? (
+                            filteredDottori.map((curElem) => (
+                                <DoctorCard dottore={curElem} key={curElem.id} />
+                            ))
+                        ) : (
+                            <p>nessun dottore con questa specializzazione</p>
+                        )}
+                </div>
+
+            </div>
         </div>
     );
 }

@@ -2,6 +2,10 @@ import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom"
 import GlobalContext from "../../context/GlobalContext";
 import TopDocs from "../../components/TopDocsHomePage/TopDocs";
+import DiconoDiNoi from "../../components/DiconoDiNoi/DiconoDiNoi";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function HomePage() {
     const { allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect } = useContext(GlobalContext);
@@ -40,6 +44,7 @@ function HomePage() {
             </div>
             <div className="spacing" style={{ height: "90px" }}></div>
             <TopDocs />
+            <DiconoDiNoi/>
         </>
     );
 };
