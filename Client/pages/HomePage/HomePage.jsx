@@ -8,16 +8,28 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function HomePage() {
-    const { allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect } = useContext(GlobalContext);
+    const { isSuccess, setIsSuccess, allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect } = useContext(GlobalContext);
 
     useEffect(() => {
         setSelectedSpec(null)
         setNameSpecSelected("")
     }, []);
 
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsSuccess(false);
+        }, 5000);
+        return () => clearTimeout(timer)
+    }, [])
+
+
+
     return (
         <>
+           
             <div className="hero-container">
+
                 <div className="hero-content">
 
                     <h1 className="text-center testo-lungo" style={{ color: " rgba(23, 164, 138, 0.7)" }}>Benvenuto su BDoctors</h1>
@@ -43,14 +55,24 @@ function HomePage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <Link  to={`/doctors/?specialization=${selectedSpec}`} className="btn text-white mt-3 ms-2" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>cerca</Link>
+                                    <Link to={`/doctors/?specialization=${selectedSpec}`} className="btn text-white mt-3 ms-2" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>cerca</Link>
                                 </div>
                             </div>
                     }
                 </div>
             </div>
             <div className="spacing" style={{ height: "90px" }}></div>
-            <TopDocs />
+            {
+                isSuccess && (
+                    <div className="alert alert-success row justify-content-between " role="alert">
+                        <div className="col-11">
+                            <p className="text-center">Dottore aggiunto con successo!</p>
+                        </div>
+                        <button className="btn-close col-1" aria-label="Close" onClick={() => setIsSuccess(false)}></button>
+                    </div>
+                )
+            }
+            <TopDocs /> 
             <DiconoDiNoi />
         </>
     );

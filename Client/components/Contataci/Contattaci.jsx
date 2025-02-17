@@ -19,7 +19,7 @@ const Contattaci = () => {
                 </div>
             </div>
             <button className="btn-back" onClick={() => navigate(-1)}>
-                <i class="fa-solid fa-caret-left"></i>
+                <i class="fa-solid fa-caret-left" style={{ color: "#4FBE89" }}></i>
             </button>
             {/* Seconda riga - ordine invertito */}
             <div className="row align-items-center mb-5 d-flex">

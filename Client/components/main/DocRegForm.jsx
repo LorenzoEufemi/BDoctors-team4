@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import GlobalContext from '../../context/GlobalContext';
 
 const initialData = {
     firstname: "",
@@ -20,6 +21,9 @@ const DocRegForm = () => {
     const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
     const navigate = useNavigate();
+
+    const { setIsSuccess } = useContext(GlobalContext)
+
 
     // stati per form e specializzazioni
     const [formData, setFormData] = useState(initialData);
@@ -175,6 +179,7 @@ const DocRegForm = () => {
             }
         }).then((resp) => {
             console.log(resp);
+            setIsSuccess(true)
             // rimanda alla homepage
             navigate("/");
 
@@ -351,6 +356,11 @@ const DocRegForm = () => {
                         </button>
 
                         <div className='d-flex flex-wrap align-items-center justify-content-between'>
+
+                        <button className="btn dropdown-btn col-12" type="button" onClick={() => setIsOpen(!isOpen)}>{isOpen ? "chiudi" : "specializzazioni"}</button>
+
+                        <div className='row align-items-center'>
+
                             {special.map((spec, index) => (
                                 <div key={index} className='col-5'>
 
@@ -373,19 +383,19 @@ const DocRegForm = () => {
                                     <div className="dropdown-container relative">
 
                                         {isOpen && (
-                                        <div className="absolute form-check form-check-inline col-lg-3 col-sm-6 filter-dropdown check-sm">
-                                            <input
-                                                key={spec.id}
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                id={spec.id}
-                                                name='specializations'
-                                                value={spec.id}
-                                                checked={formData.specializations.includes(Number(spec.id))}
-                                                onChange={handleChange}
-                                            />
-                                            <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
-                                        </div>
+                                            <div className="absolute form-check form-check-inline col-lg-3 col-sm-6 filter-dropdown check-sm">
+                                                <input
+                                                    key={spec.id}
+                                                    className="form-check-input"
+                                                    type="checkbox"
+                                                    id={spec.id}
+                                                    name='specializations'
+                                                    value={spec.id}
+                                                    checked={formData.specializations.includes(Number(spec.id))}
+                                                    onChange={handleChange}
+                                                />
+                                                <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
+                                            </div>
                                         )}
 
                                     </div>
