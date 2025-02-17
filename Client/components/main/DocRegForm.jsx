@@ -69,8 +69,8 @@ const DocRegForm = () => {
             errors.phone = "Il numero di telefono deve essere di 10 caratteri";
 
             // verifica sui simboli nel numero
-            } else if (!/^\+?[0-9]+$/.test(formData.phone)) {
-                errors.phone = "Il numero di telefono deve contenere solo numeri";
+        } else if (!/^\+?[0-9]+$/.test(formData.phone)) {
+            errors.phone = "Il numero di telefono deve contenere solo numeri";
         };
 
         // controllo file immagine
@@ -345,63 +345,64 @@ const DocRegForm = () => {
 
                     <h5 className='text-center py-3'>Scegli una o più specializzazioni</h5>
                     <div className='d-flex flex-wrap justify-content-between align-items-start gap-2'>
-                        
-                        <button 
-                            className="btn dropdown-btn col-12" 
-                            type="button" 
+
+                        <button
+                            className="btn dropdown-btn col-12"
+                            type="button"
                             onClick={() => setIsOpen(!isOpen)}
-                            style={{backgroundColor: "rgba(23, 164, 138, 0.4)", color:"white"}}
-                            >
-                                {isOpen ? "chiudi" : "specializzazioni"}                            
+                            style={{ backgroundColor: "rgba(23, 164, 138, 0.4)", color: "white" }}
+                        >
+                            {isOpen ? "chiudi" : "specializzazioni"}
                         </button>
 
                         <div className='d-flex flex-wrap align-items-center justify-content-between'>
 
-                        <button className="btn dropdown-btn col-12" type="button" onClick={() => setIsOpen(!isOpen)}>{isOpen ? "chiudi" : "specializzazioni"}</button>
+                            <button className="btn dropdown-btn col-12" type="button" onClick={() => setIsOpen(!isOpen)}>{isOpen ? "chiudi" : "specializzazioni"}</button>
 
-                        <div className='row align-items-center'>
+                            <div className='row align-items-center'>
 
-                            {special.map((spec, index) => (
-                                <div key={index} className='col-5'>
+                                {special.map((spec, index) => (
+                                    <div key={index} className='col-5'>
 
-                                    {/* // al server mando id specializzazione */}
-                                    <div className="form-check form-check-inline check-lg">
-                                        <input
-                                            key={spec.id}
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id={spec.id}
-                                            name='specializations'
-                                            value={spec.id}
-                                            checked={formData.specializations.includes(Number(spec.id))}
-                                            onChange={handleChange}
-                                        />
-                                        <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
+                                        {/* // al server mando id specializzazione */}
+                                        <div className="form-check form-check-inline check-lg">
+                                            <input
+                                                key={spec.id}
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                id={spec.id}
+                                                name='specializations'
+                                                value={spec.id}
+                                                checked={formData.specializations.includes(Number(spec.id))}
+                                                onChange={handleChange}
+                                            />
+                                            <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
+                                        </div>
+
+                                        {/* visualizzazione mobile */}
+                                        <div className="dropdown-container relative">
+
+                                            {isOpen && (
+                                                <div className="absolute form-check form-check-inline col-lg-3 col-sm-6 filter-dropdown check-sm">
+                                                    <input
+                                                        key={spec.id}
+                                                        className="form-check-input"
+                                                        type="checkbox"
+                                                        id={spec.id}
+                                                        name='specializations'
+                                                        value={spec.id}
+                                                        checked={formData.specializations.includes(Number(spec.id))}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
+                                                </div>
+                                            )}
+
+                                        </div>
                                     </div>
-
-                                    {/* visualizzazione mobile */}
-                                    <div className="dropdown-container relative">
-
-                                        {isOpen && (
-                                            <div className="absolute form-check form-check-inline col-lg-3 col-sm-6 filter-dropdown check-sm">
-                                                <input
-                                                    key={spec.id}
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    id={spec.id}
-                                                    name='specializations'
-                                                    value={spec.id}
-                                                    checked={formData.specializations.includes(Number(spec.id))}
-                                                    onChange={handleChange}
-                                                />
-                                                <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
-                                            </div>
-                                        )}
-
-                                    </div>
-                                </div>
-                            ))}
-                            {error.specializations && <span className="text-danger">{error.specializations}</span>}
+                                ))}
+                                {error.specializations && <span className="text-danger">{error.specializations}</span>}
+                            </div>
                         </div>
                     </div>
                 </div>

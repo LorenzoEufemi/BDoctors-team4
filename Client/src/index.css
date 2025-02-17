@@ -109,7 +109,7 @@ footer {
 .registrazione {
     background-image: url(../public/sfondo-registrazione.png);
     background-size: cover;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .titolo {
