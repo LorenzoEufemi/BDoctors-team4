@@ -26,7 +26,7 @@ function App() {
   const [nameSpecSelected, setNameSpecSelected] = useState(saveNameSpecSelected ? String(saveNameSpecSelected) : null); // Mantieni stringa
   const [slugDoctor, setSlugDoctor] = useState(saveSlugDoctor ? String(saveSlugDoctor) : null)
   const [idDoctor, setIdDoctor] = useState(saveIdDoctor ? String(saveIdDoctor) : null)
-  
+  const [isSuccess, setIsSuccess] = useState(false)
 
 
   useEffect(() => {
@@ -281,6 +281,8 @@ function App() {
   ///// GLOBAL CONTEXT ////
   /////////////////////////
   const GlobalProviderValue = {
+    isSuccess,
+    setIsSuccess,
     allSpec,
     selectedSpec,
     setSelectedSpec,
