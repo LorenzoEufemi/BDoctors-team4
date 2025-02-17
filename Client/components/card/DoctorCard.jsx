@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import DiconoDiNoi from "../DiconoDiNoi/DiconoDiNoi"
 function DoctorCard({ dottore }) {
     const { firstname, lastname, city, phone, slug, address} = dottore
-    const { setSlugDoctor } = useContext(GlobalContext)
+    const { setSlugDoctor, doctors } = useContext(GlobalContext)
     return (
         <>
             <div className="d-card rounded my-3" >
@@ -31,6 +31,15 @@ function DoctorCard({ dottore }) {
                                 </h5>
                             <p className="card-location">{city}, {address}</p>
                             <p className="card-phone">Tel: {phone}</p>
+
+                            {/* {
+                                doctors.map((doc) => {
+                                    <p key={doc.id} className="card-phone">{doc.specializations}</p>
+
+                                })
+
+                            } */}
+
                             <Link
                                 to={`/doctors/${slug}`}
                                 onClick={() => setSlugDoctor(slug)}
