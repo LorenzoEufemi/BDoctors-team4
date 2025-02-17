@@ -67,7 +67,7 @@ function SearchBar() {
                         name="specialization"
                         value={filters.specialization}
                         onChange={() => handleSelect(event)}
-                        className="form-control"
+                        className="form-select"
                     >
                         <option value="">-- Seleziona una specializzazione --</option>
                         {allSpec && allSpec.map((spec) => (
