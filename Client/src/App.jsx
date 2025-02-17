@@ -175,7 +175,7 @@ function App() {
   ///// SINGLE DOCTOR /////
   /////////////////////////
   const [refresh, setRefresh] = useState(true)
-  const [errorReview, setErrorReview] = useState("")
+  const [errorReview, setErrorReview] = useState( [])
 
 
   /////////////////////////
@@ -184,7 +184,7 @@ function App() {
   const defaultReview = {
     email: "",
     review: "",
-    vote: 0,
+    vote: null,
     patient: ""
   }
 
@@ -197,14 +197,16 @@ function App() {
       [name]: value
     }
     setFormReview(newObject)
+    
   }
 
   const submitForm = (e) => {
     e.preventDefault()
     let validation = 0
-    let error = ""
+    let error = []
     setErrorReview(error)
-
+    console.log(formReview);
+    
 
     for (let key in formReview) {
       // console.log("sono qui");
@@ -224,10 +226,10 @@ function App() {
               validation = validation + 1
             } else {
               validation = false
-              error = error + "la email contiene il numero sbagliato di @ "
+              error.push(`La email contiene il numero sbagliato di @* `)
             }
           } else {
-            error = error + "la email è troppo corta "
+            error.push("La email è troppo corta* ")
             validation = false
           }
         }
@@ -235,7 +237,7 @@ function App() {
           if (spaceless.length >= 3) {
             validation = validation + 1
           } else {
-            error = error + "il nome sulla recensione dev'essere di almeno 3 caratteri"
+            error.push(`Il nome sulla recensione dev'essere di almeno 3 caratteri* `)
             validation = false
           }
         }
@@ -244,14 +246,22 @@ function App() {
             validation = validation + 1
           } else {
             validation = false
-            error = error + "la recensione dev'essere di almeno 10 caratteri "
+            error.push("La recensione dev'essere di almeno 10 caratteri* ")
           }
+        }
+      } else {
+        console.log("sono qui");
+        
+        if (formReview[key] === null) {
+          error.push("Devi lasciare un voto ")
+        } else {
+          validation++
         }
       }
     }
 
     setErrorReview(error)
-    if (validation === 3) {
+    if (validation === 4) {
       axios.post(`${backUrl}doctors/${idDoctor}/reviews`, formReview).then(resp => {
         setFormReview(defaultReview)
         setRefresh(!refresh)
@@ -261,6 +271,8 @@ function App() {
 
   const resetFormReview = () => {
     setFormReview(defaultReview)
+    console.log(resetFormReview);
+    
   }
 
 

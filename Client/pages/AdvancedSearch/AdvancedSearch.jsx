@@ -122,8 +122,8 @@ function AdvancedSearch() {
                 </form>
             </div>
 
-            <button className="btn-back" onClick={() => navigate(-1)}>
-                <i class="fa-solid fa-caret-left"></i>
+            <button className="btn-back z-3 position-fixed rounded-3" onClick={() => navigate(-1)}>
+                <i className="fa-solid fa-caret-left" style={{ color: "#4FBE89" }}></i>
             </button>
             {
                 loading && (
