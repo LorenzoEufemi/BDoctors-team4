@@ -68,7 +68,7 @@ function AdvancedSearch() {
             return matchesFirstname && matchesLastname;
         });
 
-        setFilteredDottori(filtered);
+        setDottori(filtered);
         
     };
     console.log(filteredDottori)
