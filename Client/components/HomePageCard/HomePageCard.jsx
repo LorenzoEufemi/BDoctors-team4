@@ -7,9 +7,10 @@ const HomePageCard = () => {
 
     const apiUrl = import.meta.env.VITE_BACKEND_URL;
     const [doctors, setDoctors] = useState([]);
-    const { setSlugDoctor } = useContext(GlobalContext);
+    const { setSlugDoctor, setError} = useContext(GlobalContext);
 
     useEffect(() => {
+        setError("")
         axios.get(`${apiUrl}doctors`).then((resp) => {
             setDoctors(resp.data.data);
         });

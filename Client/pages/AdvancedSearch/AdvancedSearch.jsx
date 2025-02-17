@@ -15,28 +15,33 @@ function AdvancedSearch() {
     const specializationQueryParam = queryParams.get('specialization');
 
     const backurl = import.meta.env.VITE_BACKEND_URL;
-    const { selectedSpec, nameSpecSelected } = useContext(GlobalContext);
+    const { selectedSpec, nameSpecSelected, doctors, setDoctors, setFilters, filters } = useContext(GlobalContext);
     const navigate = useNavigate();
 
-    const [dottori, setDottori] = useState(null);
-    const [filteredDottori, setFilteredDottori] = useState([]);
-    const [filters, setFilters] = useState({
-        firstname: '',
-        lastname: '',
-    });
+    // const [dottori, setDottori] = useState(null);
+    // const [filteredDottori, setFilteredDottori] = useState([]);
+    // const [filters, setFilters] = useState({
+    //     firstname: '',
+    //     lastname: '',
+    // });
 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (specializationQueryParam) {
+            setFilters({
+                ...filters,
+                firstname: "",
+                lastname: "",
+                // specialization: "",
+            })
             setLoading(true);
             axios
                 .get(`${backurl}specializations/${specializationQueryParam}`)
                 .then((result) => {
                     console.log(result.data); // Aggiungi questa linea per vedere cosa contiene la risposta
                     setLoading(false);
-                    setDottori(result.data.data);
-                    setFilteredDottori(result.data.data);
+                    setDoctors(result.data.data);
                 })
                 .catch((error) => {
                     setLoading(false);
@@ -45,47 +50,45 @@ function AdvancedSearch() {
         }
     }, [specializationQueryParam, backurl]);
 
-    const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        setFilters((prevFilters) => {
-            const updatedFilters = { ...prevFilters, [name]: value };
-            console.log("Filtri aggiornati:", updatedFilters);
-            return updatedFilters;
-        });
-    };
+    // non utilizzata
+    // const handleFilterChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFilters((prevFilters) => {
+    //         const updatedFilters = { ...prevFilters, [name]: value };
+    //         console.log("Filtri aggiornati:", updatedFilters);
+    //         return updatedFilters;
+    //     });
+    // };
 
-    const filterDoctors = () => {
-        const { firstname, lastname, specialization } = filters;
+    // const filterDoctors = () => {
+    //     const { firstname, lastname, specialization } = filters;
 
-        if (!firstname && !lastname && !specialization) {
-            setFilteredDottori(dottori);
-            return;
-        }
+    //     if (!firstname && !lastname && !specialization) {
+    //         setFilteredDottori(dottori);
+    //         return;
+    //     }
+    //     const filtered = dottori.filter((doctor) => {
+    //         const matchesFirstname = firstname ? doctor.firstname?.toLowerCase().includes(firstname.toLowerCase()) : true;
+    //         const matchesLastname = lastname ? doctor.lastname?.toLowerCase().includes(lastname.toLowerCase()) : true;
+    //         return matchesFirstname && matchesLastname;
+    //     });
+    //     setDottori(filtered);
+    // };
 
-        const filtered = dottori.filter((doctor) => {
-            const matchesFirstname = firstname ? doctor.firstname?.toLowerCase().includes(firstname.toLowerCase()) : true;
-            const matchesLastname = lastname ? doctor.lastname?.toLowerCase().includes(lastname.toLowerCase()) : true;
-            return matchesFirstname && matchesLastname;
-        });
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     filterDoctors();
+    // };
 
-        setDottori(filtered);
-        
-    };
-    console.log(filteredDottori)
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        filterDoctors();
-    };
-
-    useEffect(() => {
-        filterDoctors();
-    }, [filters, dottori]);
+    // useEffect(() => {
+    //     filterDoctors();
+    // }, [filters, dottori]);
 
     return (
         <div className="advanced-search-container">
             <h1 className="ads-title">Ricerca Dottori in {nameSpecSelected} </h1>
             <div className="d-flex justify-content-center">
-                <form onSubmit={handleSubmit} className="d-flex gap-3">
+                {/* <form onSubmit={handleSubmit} className="d-flex gap-3">
                     <div className="">
                         <label htmlFor="firstname">Nome:</label>
                         <input
@@ -119,8 +122,10 @@ function AdvancedSearch() {
                             Looks good!
                         </div>
                     </div>
-                </form>
+                </form> */}
             </div>
+
+            <SearchBar />
 
             <button className="btn-back z-3 position-fixed rounded-3" onClick={() => navigate(-1)}>
                 <i className="fa-solid fa-caret-left" style={{ color: "#4FBE89" }}></i>
@@ -137,8 +142,8 @@ function AdvancedSearch() {
             <div className="d-flex justify-content-between my-5">
                 <div className="my-2 doctor-list">
                     {
-                        Array.isArray(dottori) ? (
-                            filteredDottori.map((curElem) => (
+                        Array.isArray(doctors) ? (
+                            doctors.map((curElem) => (
                                 <DoctorCard dottore={curElem} key={curElem.id} />
                             ))
                         ) : (
