@@ -116,7 +116,8 @@ function App() {
     // reset della pagina a 1
     setPage(1);
     // abilita la ricerca
-    setSearching(true);  
+    setSearching(true); 
+    searchDoctors(); 
   };
 
 
@@ -135,7 +136,7 @@ function App() {
       const response = await axios.get(`${backUrl}doctors`, {
         params: {...filters, page, limit },
       });
-      console.log("searchDoctors runs")
+      console.log("results: ", response)
       setDoctors(response.data.data);
 
       // cattura errori

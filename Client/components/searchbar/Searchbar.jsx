@@ -17,7 +17,7 @@ function SearchBar() {
         if (searching) {
             searchDoctors();
         }
-    }, [filters, page, searching]);
+    }, [page, searching]);
 
 
     return (
