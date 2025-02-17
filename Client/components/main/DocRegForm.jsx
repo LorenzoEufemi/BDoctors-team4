@@ -24,6 +24,7 @@ const DocRegForm = () => {
     // stati per form e specializzazioni
     const [formData, setFormData] = useState(initialData);
     const [special, setSpecial] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
 
     // stato per errori
     const [error, setError] = useState([]);
@@ -61,11 +62,11 @@ const DocRegForm = () => {
         // controllo numero telefono
         // verifica che il numero sia di almeno 10 caratteria
         if (formData.phone.length < 10) {
-            errors.phone = "Il numero di telefono deve essere di almeno 10 caratteri";
+            errors.phone = "Il numero di telefono deve essere di 10 caratteri";
 
             // verifica sui simboli nel numero
         } else if (!/^\+?[0-9]+$/.test(formData.phone)) {
-            errors.phone = "Il numero di telefono deve contenere solo numeri ed in caso il + iniziale";
+            errors.phone = "Il numero di telefono deve contenere solo numeri";
         };
 
         // controllo file immagine
@@ -182,12 +183,13 @@ const DocRegForm = () => {
 
         <form className='d-flex flex-column gap-3 row-gap-5 py-4' onSubmit={handleSubmit}>
 
-            <div className='row justify-content-between'>
+            <div className='row justify-content-between top-form'>
 
                 {/* dati anagrafici */}
-                <div className='card p-3 col-4 dati-anagrafici'>
+                <div className='card p-3 col-lg-4 col-md-5 dati-anagrafici'>
                     <h5 className='text-center py-1'>Dati anagrafici</h5>
                     <div className='d-flex flex-column justify-content-center nome'>
+
                         {/* Input Nome */}
                         <div className=''>
                             <label htmlFor="firstname">Nome*</label>
@@ -195,7 +197,7 @@ const DocRegForm = () => {
                                 id='firstname'
                                 className='form-control'
                                 type="text"
-                                placeholder='scrivi il tuo nome'
+                                placeholder='il tuo nome'
                                 name='firstname'
                                 value={formData.firstname}
                                 onChange={handleChange}
@@ -212,7 +214,7 @@ const DocRegForm = () => {
                                 id='lastname'
                                 className='form-control'
                                 type="text"
-                                placeholder='scrivi il tuo Cognome'
+                                placeholder='il tuo cognome'
                                 name='lastname'
                                 value={formData.lastname}
                                 onChange={handleChange} />
@@ -224,7 +226,7 @@ const DocRegForm = () => {
 
 
                 {/* contatti */}
-                <div className='card row flex-column col-7 p-3 contatti'>
+                <div className='card row flex-column col-7 p-3 contatti-form'>
 
                     <h5 className='text-center py-1'>Contatti</h5>
                     <div className='row flex-column g-2'>
@@ -236,7 +238,7 @@ const DocRegForm = () => {
                                 id='email'
                                 className='form-control'
                                 type="text"
-                                placeholder='scrivi la tua email'
+                                placeholder='la tua email'
                                 name='email'
                                 value={formData.email}
                                 onChange={handleChange} />
@@ -251,7 +253,7 @@ const DocRegForm = () => {
                                 id='address'
                                 className='form-control'
                                 type="text"
-                                placeholder='scrivi il tuo indirizzo'
+                                placeholder='il tuo indirizzo'
                                 name='address'
                                 value={formData.address}
                                 onChange={handleChange} />
@@ -266,7 +268,7 @@ const DocRegForm = () => {
                                 id='city'
                                 className='form-control'
                                 type="text"
-                                placeholder='scrivi la tua citta'
+                                placeholder='la tua città'
                                 name='city'
                                 value={formData.city}
                                 onChange={handleChange} />
@@ -280,7 +282,7 @@ const DocRegForm = () => {
                                 id='phone'
                                 className='form-control'
                                 type="text"
-                                placeholder='scrivi il tuo telefono'
+                                placeholder='il tuo telefono'
                                 name='phone'
                                 value={formData.phone}
                                 onChange={handleChange} />
@@ -291,10 +293,10 @@ const DocRegForm = () => {
                 </div>
             </div>
 
-            <div className='row justify-content-between'>
+            <div className='row justify-content-between bottom-form'>
 
                 {/* Files */}
-                <div className='card p-3 col-4 files'>
+                <div className='card p-3 col-lg-4 col-md-12 files'>
                     <h5 className='text-center py-3'>I tuoi file</h5>
                     <div className='d-flex flex-column gap-3 justify-content-center'>
 
@@ -329,26 +331,56 @@ const DocRegForm = () => {
 
 
                 {/* Input Specializzazione */}
-                <div className='card row flex-column col-7 p-3 specializzazione'>
-                    
+                <div className='card row flex-column col-lg-7 col-md-12 p-3 specializzazione-form'>
+
                     <h5 className='text-center py-3'>Scegli una o più specializzazioni</h5>
-                    <div className='d-flex flex-wrap justify-content-between'>
-                        {special.map((spec, index) => (
-                            // al server mando id specializzazione
-                            <div key={index} className="form-check form-check-inline col-3">
-                                <input
-                                    key={spec.id}
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    id={spec.id}
-                                    name='specializations'
-                                    value={spec.id}
-                                    checked={formData.specializations.includes(Number(spec.id))}
-                                    onChange={handleChange}
-                                />
-                                <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
-                            </div>
-                        ))}
+                    <div className='d-flex flex-wrap justify-content-between align-items-start gap-2'>
+                        
+                        <button className="btn dropdown-btn col-12" type="button" onClick={() => setIsOpen(!isOpen)}>{isOpen ? "chiudi" : "specializzazioni"}</button>
+
+                        <div className='row align-items-center'>
+                            {special.map((spec, index) => (
+                                <div key={index}>
+
+                                    {/* // al server mando id specializzazione */}
+                                    <div className="form-check form-check-inline col-3 check-lg">
+                                        <input
+                                            key={spec.id}
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id={spec.id}
+                                            name='specializations'
+                                            value={spec.id}
+                                            checked={formData.specializations.includes(Number(spec.id))}
+                                            onChange={handleChange}
+                                        />
+                                        <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
+                                    </div>
+
+                                    {/* visualizzazione mobile */}
+                                    <div class="dropdown-container relative">
+
+                                        {isOpen && (
+                                        <div className="absolute form-check form-check-inline col-lg-3 col-sm-6 filter-dropdown check-sm">
+                                            <input
+                                                key={spec.id}
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                id={spec.id}
+                                                name='specializations'
+                                                value={spec.id}
+                                                checked={formData.specializations.includes(Number(spec.id))}
+                                                onChange={handleChange}
+                                            />
+                                            <label htmlFor={spec.id} className="form-check-label">{spec.specialization}</label>
+                                        </div>
+                                        )}
+
+                                    </div>
+                                </div>
+
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
