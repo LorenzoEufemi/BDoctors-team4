@@ -1,6 +1,5 @@
 function AppFooter() {
     return (
-        <>
             <footer className='text-center text-white' style={{ backgroundColor: "rgba(23, 164, 138, 0.2)" }}>
                 <div className='container p-4 pb-0'>
                     <section className='mb-4'>
@@ -15,7 +14,6 @@ function AppFooter() {
                     <div className='text-center p-3' style={{ backgroundColor: "#2B6394" }}>
                         © 2025 Copyright: BDoctors.com
                     </div>
-                </div>
             </footer>
     );
 };
