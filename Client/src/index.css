@@ -3,6 +3,7 @@
     padding: 0;
     margin: 0;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 }
 
 img {
@@ -18,6 +19,31 @@ img {
     margin: 0 auto;
 }
 
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 62px;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+}
+
+main {
+   flex: 1;
+}
+
+footer {
+    width: 100%;
+}
 
 .hero-container {
     background-image: url('/hero.jpg');
@@ -43,17 +69,26 @@ img {
 }
 
 /* HOMEPAGE CARD */
+.hp-card {
+    width: 25rem;
+    border: 0;
+}
+
 .hp-card img {
     object-fit: cover;
+    height: 100%;
 }
 
 .card-text {
     font-size: 0.7rem;
-    width: 100px;
 }
 
 .card-text h6 {
     font-size: 0.9rem;
+}
+
+.hp-card a {
+    text-decoration: none;
 }
 
 /* FORM REGISTRAZIONE */
@@ -98,6 +133,7 @@ img {
 .specializzazione {
     border: 1px solid rgba(23, 164, 138, 0.4);
 }
+
 
 /* DOCTORCARD - IN ADVANCEDSEARCH */
 
@@ -403,3 +439,4 @@ img {
     text-decoration: none;
 
 }
+

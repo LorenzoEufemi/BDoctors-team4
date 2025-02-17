@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DoctorCard from "../../components/card/DoctorCard";
 import { useLocation } from 'react-router-dom';
+import SearchBar from "../../components/searchbar/Searchbar";
 
 
 function AdvancedSearch() {

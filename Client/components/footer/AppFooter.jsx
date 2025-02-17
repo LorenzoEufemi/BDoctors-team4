@@ -12,12 +12,12 @@ function AppFooter() {
                     </section>
                 </div>
 
-                <div className='text-center p-3' style={{ backgroundColor: "#2B6394" }}>
-                    © 2025 Copyright: BDoctors.com
+                    <div className='text-center p-3' style={{ backgroundColor: "#2B6394" }}>
+                        © 2025 Copyright: BDoctors.com
+                    </div>
                 </div>
             </footer>
-        </>
-    )
+    );
 };
 
 export default AppFooter;
