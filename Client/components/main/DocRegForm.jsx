@@ -358,7 +358,7 @@ const DocRegForm = () => {
                                     </div>
 
                                     {/* visualizzazione mobile */}
-                                    <div class="dropdown-container relative">
+                                    <div className="dropdown-container relative">
 
                                         {isOpen && (
                                         <div className="absolute form-check form-check-inline col-lg-3 col-sm-6 filter-dropdown check-sm">
