@@ -51,20 +51,20 @@ function SingleDoctor() {
 
             {controlli && (
                 <>
-                    <section className="row align-items-center">
-                        <div className="col-md-4 text-center">
+                    <section className="row row-col justyfy-content-between justify-content-md-center">
+                        <div className=" col col-12 col-md-6 col-lg-5 col-xl-4 text-start mb-3">
                             <img src="/doc.jpg" alt="" className="rounded-3" style={{ width: "300px", height: "300px", objectFit: "cover" }} />
                         </div>
-                        <div className="col-md-8" >
+                        <div className=" col col-12 col-md-6 col-lg-7 col-xl-8">
                             <h1 style={{ color: "#2B6394" }}>{doctorDetal.firstname} {doctorDetal.lastname}</h1>
-                            <h4><strong>Email:</strong> <a href="">{doctorDetal.email}</a></h4>
-                            <h4><strong>Telefono:</strong> <a href="">{doctorDetal.phone}</a></h4>
-                            <h4><strong>Studio in:</strong> {doctorDetal.address}</h4>
-                            <h4><strong>Città:</strong> {doctorDetal.city}</h4>
-                            <h5><strong>Specializzato/a in:</strong> {doctorDetal.specialization}</h5>
-                            <h5><strong>Voto dei pazienti: </strong>
+                            <i class="fa-solid fa-phone mb-2"></i><span><a href="" className="text-decoration-none"> {doctorDetal.phone}</a></span> <br />
+                            <i class="fa-regular fa-at mb-2"></i> <span> <a href="" className="text-decoration-none"> {doctorDetal.email}</a></span> <br />
+                            <i class="fa-solid fa-city mb-2"></i><span> {doctorDetal.city}</span> <br />
+                            <i class="fa-solid fa-location-dot mb-2"></i><span> {doctorDetal.address}</span><br />
+                            <i class="fa-solid fa-notes-medical mb-2"></i><span> {doctorDetal.specialization}</span><br />
+                            <p>
                                 <Stars vote={parseFloat(doctorDetal.vote_avg)} />
-                            </h5>
+                            </p>
                         </div>
                     </section>
 
@@ -73,33 +73,38 @@ function SingleDoctor() {
                             <AppModal nome={doctorDetal.firstname} cognome={doctorDetal.lastname} />
                         </div>
 
-                        <h2 className="mb-3" style={{ color: "#2B6394" }}>Recensioni dei pazienti</h2>
-                        {
-                            Array.isArray(doctorDetal.reviews) ? (
+                        <p className="d-inline-flex gap-1">
+                            <button className="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <h2 className="mb-3" style={{ color: "#2B6394" }}>Recensioni dei pazienti <span><i class="fa-solid fa-angle-down"></i></span></h2>
+                            </button>
+                        </p>
+                        <div className="collapse" id="collapseExample">
+                            {
+                                Array.isArray(doctorDetal.reviews) ? (
 
-                                doctorDetal.reviews.map(curItem => (
-                                    <div className="card mb-3 shadow-sm w-70 d-flex" key={curItem.id}>
-                                        <div className="row row-cols">
+                                    doctorDetal.reviews.map(curItem => (
+                                        <div className="card mb-3 shadow-sm w-70" key={curItem.id}>
+                                            <div className="">
+                                                <div className="card-body">
+                                                    <h5 style={{ color: "#2B6394" }} className="card-title"><strong>Scritta da:</strong> {curItem.patient}</h5>
 
-                                            <div className="card-body col-8 mx-3">
-                                                <h5 style={{ color: "#2B6394" }} className="card-title"><strong>Scritta da:</strong> {curItem.patient}</h5>
-
-                                                <p className="card-text">{curItem.review}</p>
-                                                <p className="card-text">
-                                                    <Stars vote={curItem.vote} />
-                                                </p>
+                                                    <p className="card-text">{curItem.review}</p>
+                                                    <p className="card-text">
+                                                        <Stars vote={curItem.vote} />
+                                                    </p>
+                                                </div>
+                                                <div className="card-footer">
+                                                    <p className="card-text">lasciata il: {curItem.created_at.slice(0, 10)} </p>
+                                                </div>
                                             </div>
-                                            <div className="card-body col-3">
-                                                <p className="card-text text-end mx-3">lasciata il: {curItem.created_at.slice(0, 10)} </p>
-                                            </div>
+
                                         </div>
-
-                                    </div>
-                                ))
-                            ) : (
-                                <p>Nessuna recensione per questo dottore</p>
-                            )
-                        }
+                                    ))
+                                ) : (
+                                    <p>Nessuna recensione per questo dottore</p>
+                                )
+                            }
+                        </div>
                     </section>
                 </>
             )}
