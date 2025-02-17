@@ -38,6 +38,7 @@ function HomePage() {
                     }
                 </div>
             </div>
+            <div className="spacing" style={{ height: "90px" }}></div>
             <TopDocs />
         </>
     );

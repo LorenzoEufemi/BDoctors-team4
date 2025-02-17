@@ -190,7 +190,7 @@ const DocRegForm = () => {
                     <div className='d-flex flex-column justify-content-center nome'>
                         {/* Input Nome */}
                         <div className=''>
-                            <label htmlFor="firstname">Nome</label>
+                            <label htmlFor="firstname">Nome*</label>
                             <input
                                 id='firstname'
                                 className='form-control'
@@ -207,7 +207,7 @@ const DocRegForm = () => {
 
                         {/* Input Cognome */}
                         <div className=''>
-                            <label htmlFor="lastname">Cognome</label>
+                            <label htmlFor="lastname">Cognome*</label>
                             <input
                                 id='lastname'
                                 className='form-control'
@@ -231,7 +231,7 @@ const DocRegForm = () => {
 
                         {/* Input Email */}
                         <div>
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">Email*</label>
                             <input
                                 id='email'
                                 className='form-control'
@@ -246,7 +246,7 @@ const DocRegForm = () => {
 
                         {/* Input Indirizzo */}
                         <div>
-                            <label htmlFor="address">Indirizzo</label>
+                            <label htmlFor="address">Indirizzo*</label>
                             <input
                                 id='address'
                                 className='form-control'
@@ -261,7 +261,7 @@ const DocRegForm = () => {
 
                         {/* Input Città */}
                         <div>
-                            <label htmlFor="city">Citta'</label>
+                            <label htmlFor="city">Città*</label>
                             <input
                                 id='city'
                                 className='form-control'
@@ -275,7 +275,7 @@ const DocRegForm = () => {
 
                         {/* Input Telefono */}
                         <div>
-                            <label htmlFor="phone">Telefono</label>
+                            <label htmlFor="phone">Telefono*</label>
                             <input
                                 id='phone'
                                 className='form-control'
@@ -301,7 +301,7 @@ const DocRegForm = () => {
 
                         {/* Input imagine */}
                         <div>
-                            <label htmlFor="image">Immagine Profilo</label>
+                            <label htmlFor="image">Immagine Profilo*</label>
                             <input
                                 id='image'
                                 className='form-control'
@@ -314,7 +314,7 @@ const DocRegForm = () => {
 
                         {/* Input CV */}
                         <div>
-                            <label htmlFor="resume">Curriculum</label>
+                            <label htmlFor="resume">Curriculum*</label>
                             <input
                                 id='resume'
                                 className='form-control'

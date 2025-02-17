@@ -80,7 +80,7 @@ function AdvancedSearch() {
     }, [filters, dottori]);
 
     return (
-        <div className="container">
+        <div className="container adv-search">
             <h1>Ricerca Dottori in {nameSpecSelected} </h1>
             <div className="d-flex justify-content-between">
                 <SearchBar />
