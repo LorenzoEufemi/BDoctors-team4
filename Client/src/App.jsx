@@ -8,6 +8,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import GlobalContext from "../context/GlobalContext";
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import Contattaci from "../components/Contataci/Contattaci";
 
 function App() {
   const backUrl = import.meta.env.VITE_BACKEND_URL;
@@ -105,8 +106,10 @@ function App() {
     }));
   };
 
-  // gestione submit del form
+
+  // // gestione submit del form - AdvancedSearch
   const handleSubmit = (event) => {
+    console.log("searchruns")
     event.preventDefault();
     // reset lista medici
     setDoctors([]);
@@ -116,9 +119,10 @@ function App() {
     setSearching(true);  
   };
 
+
   // ricerca dottori 
   const searchDoctors = async () => {
-
+    console.log("searchDoctors runs")
     // caricamento connesione lenta
     setLoading(true);
 
@@ -128,21 +132,23 @@ function App() {
     // gestisce il codice che potrebbe generare errori
     try {
       // fa sì che il codice si "fermi" fino a quando la risposta dalla richiesta non arriva, senza bloccare il thread principale
-      const response = await axios.get(`${backurl}doctors`, {
-        params: { ...filters, page, limit },
+      const response = await axios.get(`${backUrl}doctors`, {
+        params: {...filters, page, limit },
       });
-
+      console.log("searchDoctors runs")
       setDoctors(response.data.data);
 
       // cattura errori
     } catch (error) {
+      
       setError("Errore nella ricerca dei dottori.");
-
+      console.log("error: ", error)
       // disattiva loading
     } finally {
       setLoading(false);
     }
   };
+
 
   // impedisce di andare su una pagina inferiore a 1
   const handlePageChange = (newPage) => {
@@ -169,7 +175,7 @@ function App() {
   ///// SINGLE DOCTOR /////
   /////////////////////////
   const [refresh, setRefresh] = useState(true)
-  const [errorReview, setErrorReview] = useState("")
+  const [errorReview, setErrorReview] = useState( [])
 
 
   /////////////////////////
@@ -178,7 +184,7 @@ function App() {
   const defaultReview = {
     email: "",
     review: "",
-    vote: 0,
+    vote: null,
     patient: ""
   }
 
@@ -191,14 +197,16 @@ function App() {
       [name]: value
     }
     setFormReview(newObject)
+    
   }
 
   const submitForm = (e) => {
     e.preventDefault()
     let validation = 0
-    let error = ""
+    let error = []
     setErrorReview(error)
-
+    console.log(formReview);
+    
 
     for (let key in formReview) {
       // console.log("sono qui");
@@ -218,10 +226,10 @@ function App() {
               validation = validation + 1
             } else {
               validation = false
-              error = error + "la email contiene il numero sbagliato di @ "
+              error.push(`La email contiene il numero sbagliato di @* `)
             }
           } else {
-            error = error + "la email è troppo corta "
+            error.push("La email è troppo corta* ")
             validation = false
           }
         }
@@ -229,7 +237,7 @@ function App() {
           if (spaceless.length >= 3) {
             validation = validation + 1
           } else {
-            error = error + "il nome sulla recensione dev'essere di almeno 3 caratteri"
+            error.push(`Il nome sulla recensione dev'essere di almeno 3 caratteri* `)
             validation = false
           }
         }
@@ -238,14 +246,22 @@ function App() {
             validation = validation + 1
           } else {
             validation = false
-            error = error + "la recensione dev'essere di almeno 10 caratteri "
+            error.push("La recensione dev'essere di almeno 10 caratteri* ")
           }
+        }
+      } else {
+        console.log("sono qui");
+        
+        if (formReview[key] === null) {
+          error.push("Devi lasciare un voto ")
+        } else {
+          validation++
         }
       }
     }
 
     setErrorReview(error)
-    if (validation === 3) {
+    if (validation === 4) {
       axios.post(`${backUrl}doctors/${idDoctor}/reviews`, formReview).then(resp => {
         setFormReview(defaultReview)
         setRefresh(!refresh)
@@ -255,6 +271,8 @@ function App() {
 
   const resetFormReview = () => {
     setFormReview(defaultReview)
+    console.log(resetFormReview);
+    
   }
 
 
@@ -307,11 +325,12 @@ function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/contact-us" element={<Contattaci />} />
             <Route path="/doctors">
               <Route index element={<AdvancedSearch />} />
               <Route path=":slug" element={<SingleDoctor />} />
             </Route>
-            <Route path="/accedi" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

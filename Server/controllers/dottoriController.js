@@ -14,22 +14,42 @@ const index = (req, res, next) => {
     // LEFT JOIN specializations ON doctors_specializations.specialization_id = specializations.id
 
     // sql per prendere solo dottori
+    // let sql = `
+    //   SELECT doctors.*
+    //   FROM doctors
+    // `;
+
     let sql = `
-      SELECT doctors.*
-      FROM doctors
-    `;
+    SELECT doctors.*
+    FROM doctors
+    LEFT JOIN doctors_specializations ON doctors_specializations.doctor_id = doctors.id
+    INNER JOIN specializations ON doctors_specializations.specialization_id = specializations.id
+`;
 
     const params = [];
     const conditions = [];
 
+    // Filtri per nome e cognome - MIA
     for (const key in filters) {
         if (filters[key]) {
             if (key === "firstname" || key === "lastname") {
                 conditions.push(`doctors.${key} LIKE ?`);
                 params.push(`%${filters[key]}%`);
-            };
-        };
-    };
+            } else if (key === "specialization") {
+                conditions.push(`specializations.id = ?`);
+                params.push(parseInt(filters[key]));
+            }
+        }
+    }
+
+    // for (const key in filters) {
+    //     if (filters[key]) {
+    //         if (key === "firstname" || key === "lastname") {
+    //             conditions.push(`doctors.${key} LIKE ?`);
+    //             params.push(`%${filters[key]}%`);
+    //         };
+    //     };
+    // };
 
     if (conditions.length > 0) {
         sql += ` WHERE ${conditions.join(" AND ")}`;
@@ -37,9 +57,10 @@ const index = (req, res, next) => {
 
     sql += ` GROUP BY doctors.id LIMIT ? OFFSET ?`;
     params.push(limit, offset);
+    console.log("sql:", sql)
+    console.log("params:", params)
 
     dbConnection.query(sql, params, (err, doctors) => {
-
         if (err) {
             return next(new Error(err.message))
         }
