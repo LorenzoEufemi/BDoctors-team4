@@ -313,12 +313,12 @@ function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/contattaci" element={<Contattaci />} />
+            <Route path="/contact-us" element={<Contattaci />} />
             <Route path="/doctors">
               <Route index element={<AdvancedSearch />} />
               <Route path=":slug" element={<SingleDoctor />} />
             </Route>
-            <Route path="/accedi" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

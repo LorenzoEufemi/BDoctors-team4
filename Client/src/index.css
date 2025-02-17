@@ -2,7 +2,7 @@
 * {
     padding: 0;
     margin: 0;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
 }
 
@@ -19,7 +19,8 @@ img {
     margin: 0 auto;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -38,7 +39,7 @@ header {
 }
 
 main {
-   flex: 1;
+    flex: 1;
 }
 
 footer {
@@ -63,6 +64,12 @@ footer {
     width: 100%;
 }
 
+/* NAVBAR */
+.navbar-nav .nav-link.active {
+    color: rgba(23, 164, 138, 0.7) !important;
+    /* Cambia 'red' con il colore che preferisci */
+}
+
 /* HOMEPAGE HERO */
 .hero-content {
     padding-left: 8rem;
@@ -77,6 +84,13 @@ footer {
 .hp-card img {
     object-fit: cover;
     height: 100%;
+}
+
+.testo-corto {
+    display: none;
+}
+.testo-cortissimo{
+    display: none;
 }
 
 .card-text {
@@ -145,7 +159,7 @@ footer {
     margin-right: 20%;
         /* margin-left: 20%; */
     height: 300px;   
-}
+
 
 .d-card-body {
     display: flex;
@@ -221,13 +235,12 @@ text-decoration: none;
     background: #2B6394;
 }
 
-
 /*Media Queries per mobile */ 
 @media (max-width: 1200px) {
     .d-card {
         width: 90%;
         margin-left: 5%;
-        height: auto; 
+        height: auto;
         flex-direction: column;
         text-align: center;
     }
@@ -242,14 +255,40 @@ text-decoration: none;
     }
 }
 
+@media screen and (max-width: 648px) {
+
+    /* div.hero-content {
+        padding-left: 0px;
+    } */
+    .testo-corto{
+        display: block;
+    }
+    .testo-lungo{
+        display: none;
+    }
+    
+     .hero-content h1{
+        text-align: start !important;
+     }
+}
+@media screen and (max-width: 448px) {
+    .d-flex .testo-corto{
+        display: none;
+    }
+    .testo-cortissimo{
+        display: block;
+    }
+
+}
+
 /* ADVANCED SEARCH */
 
 .advanced-search-container {
     /* padding: 20px;
         background-color: #FCF7F3; */
-        /* Background della pagina */
-        margin: 0 auto;  
-        background-color:#FBFDFC;
+    /* Background della pagina */
+    margin: 0 auto;
+    background-color: #FBFDFC;
 }
 
 .ads-title {
@@ -333,7 +372,7 @@ text-decoration: none;
     font-size: 35px;
     font-weight: bold;
     font-family: "Playfair Display", serif;
-    
+
 }
 
 .quote-icon {
@@ -349,7 +388,7 @@ text-decoration: none;
     align-items: center;
     overflow: hidden;
     padding: 10px 0;
-    
+
 }
 
 @media (max-width: 768px) {
@@ -369,8 +408,8 @@ text-decoration: none;
 /* FOOTER */
 
 .footer-icon {
-    color: #2B6394; 
-    
+    color: #2B6394;
+
 }
 
 /* SEARCHBAR COMPONENT */
@@ -378,7 +417,7 @@ text-decoration: none;
 
 /* CONTATTACI */
 
-.contact-container{
+.contact-container {
     width: 80%;
     margin: 0 auto;
 }
@@ -450,4 +489,3 @@ text-decoration: none;
     text-decoration: none;
 
 }
-
