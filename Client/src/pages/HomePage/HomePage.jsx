@@ -51,7 +51,7 @@ function HomePage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <Link to={`/doctors/?specialization=${selectedSpec}`} onClick={() => handleSearch(event)} className="btn text-white mt-3 ms-2" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>cerca</Link>
+                                    <Link to={`/doctors?${selectedSpec ? "specialization=" + selectedSpec : ""} `} onClick={() => handleSearch(event)} className="btn text-white mt-3 ms-2" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>cerca</Link>
                                 </div>
                             </div>
                     }

@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 function DoctorCard({ dottore }) {
     const backUrl = import.meta.env.VITE_BACKEND_URL;
     const { firstname, lastname, city, phone, slug, address} = dottore;
-    const { setSlugDoctor, doctors } = useContext(GlobalContext);
+    const { setSlugDoctor, doctors} = useContext(GlobalContext);
+    console.log(doctors)
 
     return (
         <>
@@ -30,7 +31,7 @@ function DoctorCard({ dottore }) {
                                 </Link>
                                 </h5>
                             <p className="card-location">{city}, {address}</p>
-                            <p className="card-phone">Tel: {phone}</p>
+                            <p className="card-phone">Tel: {`+39 ${phone}`}</p>
                             <Link
                                 to={`/doctors/${slug}`}
                                 onClick={() => setSlugDoctor(slug)}
