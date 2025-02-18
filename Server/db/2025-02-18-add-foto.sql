@@ -1,0 +1,15 @@
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc1.jpg', `resume` = 'resume.pdf' WHERE (`id` = '1');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc2.jpg', `resume` = 'resume.pdf' WHERE (`id` = '2');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc3.jpg', `resume` = 'resume.pdf' WHERE (`id` = '3');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc4.jpg', `resume` = 'resume.pdf' WHERE (`id` = '4');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc5.webp', `resume` = 'resume.pdf' WHERE (`id` = '5');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc6.jpeg', `resume` = 'resume.pdf' WHERE (`id` = '6');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc7.jpg', `resume` = 'resume.pdf' WHERE (`id` = '7');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc8.jpg', `resume` = 'resume.pdf' WHERE (`id` = '8');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc9.jpeg', `resume` = 'resume.pdf' WHERE (`id` = '9');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc10.jpg', `resume` = 'resume.pdf' WHERE (`id` = '10');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc11.jpg', `resume` = 'resume.pdf' WHERE (`id` = '11');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc12.webp', `resume` = 'resume.pdf' WHERE (`id` = '12');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc13.jpg', `resume` = 'resume.pdf' WHERE (`id` = '13');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc14.jpg', `resume` = 'resume.pdf' WHERE (`id` = '14');
+UPDATE `doctor_db`.`doctors` SET `image` = 'doc15.webp', `resume` = 'resume.pdf' WHERE (`id` = '15');
