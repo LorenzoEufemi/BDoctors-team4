@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AppLayout from "../layout/AppLayout";
-import AdvancedSearch from "../pages/AdvancedSearch/AdvancedSearch";
-import HomePage from "../pages/HomePage/HomePage";
-import SingleDoctor from "../pages/SingleDoctor/SingleDoctor";
-import Login from "../pages/Login/Login";
-import NotFound from "../pages/NotFound/NotFound";
-import GlobalContext from "../context/GlobalContext";
-import { useState, useContext, useEffect } from "react";
+import AppLayout from "./layout/AppLayout";
+import AdvancedSearch from "./pages/AdvancedSearch/AdvancedSearch";
+import HomePage from "./pages/HomePage/HomePage";
+import SingleDoctor from "./pages/SingleDoctor/SingleDoctor";
+import Login from "./pages/Login/Login";
+import NotFound from "./pages/NotFound/NotFound";
+import GlobalContext from "./context/GlobalContext";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import Contattaci from "../components/Contataci/Contattaci";
+import Contattaci from "./components/Contattaci/Contattaci";
 
 function App() {
   const backUrl = import.meta.env.VITE_BACKEND_URL;
@@ -29,7 +29,6 @@ function App() {
   const [idDoctor, setIdDoctor] = useState(saveIdDoctor ? String(saveIdDoctor) : null)
   const [isSuccess, setIsSuccess] = useState(false)
   const [nameSpec, setNameSpec] = useState(saveNameSpec ? String(saveNameSpec) : null)
-
 
   useEffect(() => {
     axios.get(`${backUrl}specializations`)
@@ -53,21 +52,19 @@ function App() {
     if (nameSpecSelected !== null) {
       localStorage.setItem('nameSpecSelected', nameSpecSelected)
     }
-  }, [nameSpecSelected])
+  }, [nameSpecSelected]);
 
   useEffect(() => {
     if (idDoctor !== null) {
       localStorage.setItem('idDoctor', idDoctor)
     }
-  }, [idDoctor])
+  }, [idDoctor]);
 
   useEffect(() => {
     if (slugDoctor !== null) {
       localStorage.setItem('slugDoctor', slugDoctor)
     }
-  }, [slugDoctor])
-
-
+  }, [slugDoctor]);
 
   /////////////////////////
   /////// HOMEPAGE ////////
@@ -80,8 +77,6 @@ function App() {
       specialization: event.target.value,
     }));
   };
-
-
 
   //////////////////////////
   /// ADVANCED SEARCHBAR ///
@@ -108,10 +103,8 @@ function App() {
     }));
   };
 
-
   // // gestione submit del form - AdvancedSearch
   const handleSubmit = (event) => {
-    console.log("searchruns")
     event.preventDefault();
     // reset lista medici
     setDoctors([]);
@@ -120,40 +113,30 @@ function App() {
     setNameSpecSelected(nameSpec);
     // abilita la ricerca
     setSearching(true); 
-    searchDoctors(); 
-   
+    searchDoctors();    
   };
-
 
   // ricerca dottori 
   const searchDoctors = async () => {
-    console.log("searchDoctors runs")
     // caricamento connesione lenta
     setLoading(true);
-
     // se c'è un errore, lo salva
     setError("");
-
     // gestisce il codice che potrebbe generare errori
     try {
       // fa sì che il codice si "fermi" fino a quando la risposta dalla richiesta non arriva, senza bloccare il thread principale
       const response = await axios.get(`${backUrl}doctors`, {
         params: {...filters, page, limit },
       });
-      console.log("results: ", response)
       setDoctors(response.data.data);
-
       // cattura errori
     } catch (error) {
-      
       setError("Errore nella ricerca dei dottori.");
-      console.log("error: ", error)
       // disattiva loading
     } finally {
       setLoading(false);
     }
   };
-
 
   // impedisce di andare su una pagina inferiore a 1
   const handlePageChange = (newPage) => {
@@ -174,14 +157,11 @@ function App() {
     }));
   };
 
-
-
   /////////////////////////
   ///// SINGLE DOCTOR /////
   /////////////////////////
-  const [refresh, setRefresh] = useState(true)
-  const [errorReview, setErrorReview] = useState( [])
-
+  const [refresh, setRefresh] = useState(true);
+  const [errorReview, setErrorReview] = useState([]);
 
   /////////////////////////
   ////// FORM REVIEW //////
@@ -191,7 +171,7 @@ function App() {
     review: "",
     vote: null,
     patient: ""
-  }
+  };
 
   const [formReview, setFormReview] = useState(defaultReview);
 
@@ -200,22 +180,17 @@ function App() {
     const newObject = {
       ...formReview,
       [name]: value
-    }
-    setFormReview(newObject)
-    
-  }
+    };
+    setFormReview(newObject);
+  };
 
   const submitForm = (e) => {
-    e.preventDefault()
-    let validation = 0
-    let error = []
-    setErrorReview(error)
-    console.log(formReview);
-    
+    e.preventDefault();
+    let validation = 0;
+    let error = [];
+    setErrorReview(error);
 
     for (let key in formReview) {
-      // console.log("sono qui");
-      console.log(key);
 
       if (key !== "vote") {
         const spaceless = formReview[key].replace(/\s+/g, "")
@@ -263,24 +238,20 @@ function App() {
           validation++
         }
       }
-    }
+    };
 
     setErrorReview(error)
     if (validation === 4) {
       axios.post(`${backUrl}doctors/${idDoctor}/reviews`, formReview).then(resp => {
-        setFormReview(defaultReview)
-        setRefresh(!refresh)
-      })
-    }
-  }
+        setFormReview(defaultReview);
+        setRefresh(!refresh);
+      });
+    };
+  };
 
   const resetFormReview = () => {
     setFormReview(defaultReview)
-    console.log(resetFormReview);
-    
-  }
-
-
+  };
 
   /////////////////////////
   ///// GLOBAL CONTEXT ////
@@ -326,7 +297,6 @@ function App() {
     setNameSpec
   };
 
-
   return (
     <GlobalContext.Provider value={GlobalProviderValue}>
       <BrowserRouter>
@@ -344,7 +314,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </GlobalContext.Provider>
-  )
+  );
 };
 
 export default App;
