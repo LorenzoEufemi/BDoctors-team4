@@ -9,12 +9,12 @@ function AppNavbar() {
             title: "Home"
         },
         {
-            path: "/login",
-            title: "Accedi"
-        },
-        {
             path: "/contact-us",
             title: "Contattaci"
+        },
+        {
+            path: "/login",
+            title: "Accedi"
         }
     ];
 
