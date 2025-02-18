@@ -14,7 +14,7 @@ function DoctorCard({ dottore }) {
                     <div className="col-md-4 col-12">
                         <img
                             className="d-card-img img-fluid rounded"
-                            src={`${backUrl}/images/${dottore.image}`}
+                            src={dottore.image ? `${backUrl}/images/${dottore.image}` : "https://picsum.photos/400/600"}
                             alt="Dottore"
                         />
                     </div>
