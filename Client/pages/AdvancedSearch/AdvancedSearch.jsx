@@ -87,7 +87,7 @@ function AdvancedSearch() {
 
     return (
         <div className="advanced-search-container">
-            <h1 className="ads-title">Ricerca Dottori in {nameSpecSelected} </h1>
+            <h1 className="ads-title">Ricerca {nameSpecSelected === "-- Seleziona una specializzazione --" ? "Tutti i Dottori" : nameSpecSelected}</h1>
             <div className="d-flex justify-content-center">
                 {/* <form onSubmit={handleSubmit} className="d-flex gap-3">
                     <div className="">
