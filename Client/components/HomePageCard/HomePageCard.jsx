@@ -30,8 +30,8 @@ const HomePageCard = () => {
                             <span className="text-muted small">{doc.city}</span>
                             <div className='d-flex gap-1 flex-wrap'>
                                 {
-                                    doc.specializations.map((spec) => (
-                                        <span className="text-muted small">{spec.specialization}</span>
+                                    doc.specializations.map((spec, index) => (
+                                        <span className="text-muted small" key={index}>{spec.specialization}</span>
 
                                     ))
                                 }
