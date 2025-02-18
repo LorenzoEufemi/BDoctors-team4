@@ -54,7 +54,7 @@ function SingleDoctor() {
                 <>
                     <section className="row row-col justyfy-content-between justify-content-md-center">
                         <div className=" col col-12 col-md-6 col-lg-5 col-xl-4 text-start mb-3">
-                            <img src={`${backurl}images/${doctorDetal.image}`} alt="" className="rounded-3" style={{ width: "300px", height: "300px", objectFit: "cover" }} />
+                            <img src={doctorDetal.image ? `${backurl}images/${doctorDetal.image}` : "https://picsum.photos/300/300"} alt="" className="rounded-3" style={{ width: "300px", height: "300px", objectFit: "cover" }} />
                         </div>
                         <div className=" col col-12 col-md-6 col-lg-7 col-xl-8">
                             <h1 style={{ color: "#2B6394" }}>{doctorDetal.firstname} {doctorDetal.lastname}</h1>
