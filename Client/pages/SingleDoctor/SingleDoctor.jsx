@@ -7,13 +7,14 @@ import Stars from "../../components/stars/Stars";
 
 function SingleDoctor() {
     const navigate = useNavigate();
-    const { slugDoctor, setIdDoctor, refresh, errorReview, setErrorReview } = useContext(GlobalContext);
+    const { slugDoctor, setIdDoctor, refresh, errorReview, setErrorReview, setIsSuccess } = useContext(GlobalContext);
     const backurl = import.meta.env.VITE_BACKEND_URL;
 
     const [doctorDetal, setDoctorDetal] = useState(null);
     const [controlli, setControlli] = useState(false);
 
     useEffect(() => {
+        setIsSuccess(false)
         setErrorReview([]);
         axios.get(`${backurl}doctors/${slugDoctor}`).then(result => {
             setDoctorDetal(result.data.data);

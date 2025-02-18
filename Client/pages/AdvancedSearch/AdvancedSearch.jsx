@@ -15,7 +15,7 @@ function AdvancedSearch() {
     const specializationQueryParam = queryParams.get('specialization');
 
     const backurl = import.meta.env.VITE_BACKEND_URL;
-    const { selectedSpec, nameSpecSelected, doctors, setDoctors, setFilters, filters } = useContext(GlobalContext);
+    const { selectedSpec, nameSpecSelected, doctors, setDoctors, setFilters, filters,setIsSuccess } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     // const [dottori, setDottori] = useState(null);
@@ -28,6 +28,7 @@ function AdvancedSearch() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setIsSuccess(false);
         if (specializationQueryParam) {
             setFilters({
                 ...filters,

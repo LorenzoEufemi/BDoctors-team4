@@ -6,7 +6,7 @@ import GlobalContext from "../../context/GlobalContext";
 function SearchBar() {
 
     // context
-    const { allSpec, filters, loading, error, page, searching, handleInputChange, handleSubmit, searchDoctors, handleSelect } = useContext(GlobalContext);   
+    const { allSpec, filters, loading, error, page, searching, handleInputChange, handleSubmit, searchDoctors, handleSelect, setFilters, setSelectedSpec, setNameSpec } = useContext(GlobalContext);   
 
     // Quando i filters o la pagina cambiano, resettiamo i medici
     useEffect(() => {
@@ -19,6 +19,14 @@ function SearchBar() {
         }
     }, [page, searching]);
 
+    const handleSelectSearch = (event) => {
+        setNameSpec(event.target.options[event.target.selectedIndex].text)
+       
+        setFilters((prevFilters) => ({
+          ...prevFilters,
+          specialization: event.target.value,
+        }));
+      };
 
     return (
         <div className="container mt-4">
@@ -66,7 +74,7 @@ function SearchBar() {
                     <select
                         name="specialization"
                         value={filters.specialization}
-                        onChange={() => handleSelect(event)}
+                        onChange={() => handleSelectSearch(event)}
                         className="form-select"
                     >
                         <option value="">-- Seleziona una specializzazione --</option>

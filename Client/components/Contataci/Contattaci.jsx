@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import GlobalContext from '../../context/GlobalContext';
 
 const Contattaci = () => {
+    const {setIsSuccess} = useContext(GlobalContext);
+
+    useEffect(() => {
+        setIsSuccess(false);
+    },[]);
     const navigate = useNavigate()
     return (
         <div className="contact-container my-5">
@@ -19,7 +26,7 @@ const Contattaci = () => {
                 </div>
             </div>
             <button className="btn-back" onClick={() => navigate(-1)}>
-                <i class="fa-solid fa-caret-left" style={{ color: "#4FBE89" }}></i>
+                <i className="fa-solid fa-caret-left" style={{ color: "#4FBE89" }}></i>
             </button>
             {/* Seconda riga - ordine invertito */}
             <div className="row align-items-center mb-5 d-flex">

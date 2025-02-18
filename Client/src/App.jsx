@@ -19,6 +19,7 @@ function App() {
   const saveNameSpecSelected = localStorage.getItem('nameSpecSelected')
   const saveSlugDoctor = localStorage.getItem('slugDoctor')
   const saveIdDoctor = localStorage.getItem('idDoctor')
+  const saveNameSpec = localStorage.getItem('nameSpecSelected')
 
   // stati che si usano in più pagine/componenti
   const [allSpec, setAllSpec] = useState(savedAllSpec ? JSON.parse(savedAllSpec) : null);
@@ -27,6 +28,7 @@ function App() {
   const [slugDoctor, setSlugDoctor] = useState(saveSlugDoctor ? String(saveSlugDoctor) : null)
   const [idDoctor, setIdDoctor] = useState(saveIdDoctor ? String(saveIdDoctor) : null)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [nameSpec, setNameSpec] = useState(saveNameSpec ? String(saveNameSpec) : null)
 
 
   useEffect(() => {
@@ -115,9 +117,11 @@ function App() {
     setDoctors([]);
     // reset della pagina a 1
     setPage(1);
+    setNameSpecSelected(nameSpec);
     // abilita la ricerca
     setSearching(true); 
     searchDoctors(); 
+   
   };
 
 
@@ -318,7 +322,8 @@ function App() {
     handlePageChange,
     handleSelectSpecialization,
     disableNextButton,
-    handleSelect
+    handleSelect,
+    setNameSpec
   };
 
 

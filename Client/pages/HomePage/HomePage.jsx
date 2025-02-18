@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function HomePage() {
-    const { isSuccess, setIsSuccess, allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect } = useContext(GlobalContext);
+    const { isSuccess, setIsSuccess, allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect,handleSubmit } = useContext(GlobalContext);
 
     useEffect(() => {
         setSelectedSpec(null)
@@ -23,7 +23,10 @@ function HomePage() {
         return () => clearTimeout(timer)
     }, [])
 
-
+const handleSearch = (event) => {
+    console.log(event);
+    
+}
 
     return (
         <>
@@ -55,7 +58,7 @@ function HomePage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <Link to={`/doctors/?specialization=${selectedSpec}`} className="btn text-white mt-3 ms-2" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>cerca</Link>
+                                    <Link to={`/doctors/?specialization=${selectedSpec}`}  onClick={() => handleSearch(event)} className="btn text-white mt-3 ms-2" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>cerca</Link>
                                 </div>
                             </div>
                     }

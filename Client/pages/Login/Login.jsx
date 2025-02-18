@@ -1,7 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import DocRegForm from "../../components/main/DocRegForm";
+import { useEffect , useContext} from "react";
+import GlobalContext from "../../context/GlobalContext";
+
 
 function Login() {
+    const {setIsSuccess} = useContext(GlobalContext);
+    useEffect(() => {
+        setIsSuccess(false);
+    },[])
     const navigate = useNavigate();
     return (
         <>
