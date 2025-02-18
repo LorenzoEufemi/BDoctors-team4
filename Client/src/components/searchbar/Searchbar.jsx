@@ -1,8 +1,10 @@
 import { useEffect, useContext } from "react";
 import GlobalContext from "../../context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
     const { allSpec, filters, loading, error, page, searching, handleInputChange, handleSubmit, searchDoctors, setFilters, setNameSpec } = useContext(GlobalContext);
+    const navigate = useNavigate()
 
     // Quando i filters o la pagina cambiano, resettiamo i medici
     useEffect(() => {
@@ -22,10 +24,19 @@ function SearchBar() {
             specialization: event.target.value,
         }));
     };
+    const handleFormSubmit = (event) => {
+        event.preventDefault(); // Previene il comportamento predefinito del form
+        handleSubmit(event); // Chiama la funzione handleSubmit dal contesto
+        navigate(`/doctors/?specialization=${filters.specialization}`); // <-- Aggiorna l'URL
+    }
 
     return (
         <div className="container mt-4">
-            <form onSubmit={() => handleSubmit(event)} className="d-flex gap-3 mb-4">
+
+
+            <h1>Ricerca Dottori</h1>
+            <form onSubmit={handleFormSubmit} className="d-flex gap-3 mb-4">
+
                 {/* Nome Input */}
                 <div className="mb-3 w-25">
                     <label htmlFor="firstname" className="form-label">
