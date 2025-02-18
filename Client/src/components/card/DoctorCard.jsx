@@ -3,6 +3,7 @@ import GlobalContext from "../../context/GlobalContext";
 import { Link } from "react-router-dom";
 
 function DoctorCard({ dottore }) {
+    const backUrl = import.meta.env.VITE_BACKEND_URL;
     const { firstname, lastname, city, phone, slug, address} = dottore;
     const { setSlugDoctor, doctors } = useContext(GlobalContext);
 
@@ -13,7 +14,7 @@ function DoctorCard({ dottore }) {
                     <div className="col-md-4 col-12">
                         <img
                             className="d-card-img img-fluid rounded"
-                            src="/doc.jpg"
+                            src={`${backUrl}/images/${dottore.image}`}
                             alt="Dottore"
                         />
                     </div>

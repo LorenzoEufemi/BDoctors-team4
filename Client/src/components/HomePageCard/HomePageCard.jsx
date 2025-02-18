@@ -22,7 +22,11 @@ function HomePageCard() {
                 <div className="card hp-card d-flex align-items-center justify-content-center py-2 m-0" key={doc.id}>
                     <div className="d-flex align-items-center justify-content-center gap-2">
                         <div className='d-flex align-items-center' style={{ width: "30%" }}>
-                            <img src="/doc.jpg" className="rounded-circle" alt="Foto profilo" />
+                            <img
+                                src={`${apiUrl}/images/${doc.image}`}
+                                className="rounded-circle"
+                                alt="Foto profilo"
+                            />
                         </div>
 
                         <div className='card-text' style={{ width: "65%" }}>
