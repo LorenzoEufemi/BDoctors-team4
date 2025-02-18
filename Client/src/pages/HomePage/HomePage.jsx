@@ -41,7 +41,7 @@ function HomePage() {
                                     <label htmlFor="" className="testo-corto text-center" style={{ color: "#2B6394" }}>Seleziona la specializzazione </label>
                                     <label htmlFor="" className="testo-cortissimo text-center" style={{ color: "#2B6394" }}>Specializzazione</label>
                                     <select onChange={() => handleSelect(event)} className="form-select mb-2" aria-label="Default select example">
-                                        <option value={"null"} name={""}>--</option>
+                                        <option value={"null"} name={""}>Tutti i dottori</option>
                                         {
                                             allSpec.map(curElem => (
                                                 <option name={curElem.specialization} value={curElem.id} key={curElem.specialization}>{curElem.specialization}
