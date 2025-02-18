@@ -30,22 +30,22 @@ function App() {
 
 
   useEffect(() => {
+    axios.get(`${backUrl}specializations`)
+      .then(result => {
+        setAllSpec(result.data.data);
+        localStorage.setItem('allSpec', JSON.stringify(result.data.data));
+      })
+      .catch(error => console.error("Errore nel recupero delle specializzazioni:", error));
+  }, []); // Il useEffect viene eseguito solo al primo render
+
+  useEffect(() => {
     if (!savedAllSpec) {
       axios.get(`${backUrl}specializations`).then(result => {
-
         setAllSpec(result.data.data);
-        // salva allSpec nel localStorage
         localStorage.setItem('allSpec', JSON.stringify(result.data.data));
       });
     }
   }, [savedAllSpec]);
-
-  useEffect(() => {
-    if (selectedSpec !== null) {
-      // salva selectedSpec nel localStorage
-      localStorage.setItem('selectedSpec', selectedSpec);
-    }
-  }, [selectedSpec]);
 
   useEffect(() => {
     if (nameSpecSelected !== null) {
