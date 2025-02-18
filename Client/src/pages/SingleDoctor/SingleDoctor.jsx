@@ -54,16 +54,44 @@ function SingleDoctor() {
                 <>
                     <section className="row row-col justyfy-content-between justify-content-md-center">
                         <div className=" col col-12 col-md-6 col-lg-5 col-xl-4 text-start mb-3">
-                            <img src="/doc.jpg" alt="" className="rounded-3" style={{ width: "300px", height: "300px", objectFit: "cover" }} />
+
+                            <img src={`${backurl}images/${doctorDetal.image}`} alt="" className="rounded-3" style={{ width: "300px", height: "300px", objectFit: "cover" }} />
                         </div>
                         <div className=" col col-12 col-md-6 col-lg-7 col-xl-8">
                             <h1 style={{ color: "#2B6394" }}>{doctorDetal.firstname} {doctorDetal.lastname}</h1>
-                            <i class="fa-solid fa-phone mb-2"></i><span><a href="" className="text-decoration-none"> {doctorDetal.phone}</a></span> <br />
-                            <i class="fa-regular fa-at mb-2"></i> <span> <a href="" className="text-decoration-none"> {doctorDetal.email}</a></span> <br />
-                            <i class="fa-solid fa-city mb-2"></i><span> {doctorDetal.city}</span> <br />
-                            <i class="fa-solid fa-location-dot mb-2"></i><span> {doctorDetal.address}</span><br />
-                            <i class="fa-solid fa-notes-medical mb-2"></i><span> {doctorDetal.specialization}</span><br />
-                            <p>
+
+                            <div className="d-flex flex-column gap-1">
+                                <div className="row align-items-center">
+                                    <i className="fa-solid fa-phone col-1"></i>
+                                    <a href="" className="text-decoration-none col-7"> {doctorDetal.phone}</a>
+                                </div>
+                                <div className="row align-items-center">
+                                    <i className="fa-regular fa-at col-1"></i>
+                                    <a href="" className="text-decoration-none col-7"> {doctorDetal.email}</a>
+                                </div>
+                                <div className="row align-items-center">
+                                    <i className="fa-solid fa-city col-1"></i>
+                                    <span className="text-decoration-none col-7"> {doctorDetal.city}</span>
+                                </div>
+                                <div className="row align-items-center">
+                                    <i className="fa-solid fa-location-dot col-1"></i>
+                                    <span className="text-decoration-none col-7"> {doctorDetal.address}</span>
+                                </div>
+                                <div className="row align-items-center">
+                                    <i className="fa-solid fa-notes-medical col-1"></i>
+                                    <span className="text-decoration-none col-7"> {doctorDetal.specialization}</span>
+                                </div>
+                                <div className="row align-items-center">
+                                    <i className="fa-solid fa-download col-1"></i>
+                                    {doctorDetal.resume ? (
+                                        <a className="text-decoration-none col-7" href={`${backurl}/resume/${doctorDetal.resume}`} download> Leggi il mio CV</a>
+                                    ) : (
+                                        <span>CV non ancora presente</span>
+                                    )}
+                                </div>
+                            </div>
+                            
+                            <p className="mt-3">
                                 <Stars vote={parseFloat(doctorDetal.vote_avg)} />
                             </p>
                         </div>

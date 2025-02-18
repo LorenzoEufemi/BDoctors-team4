@@ -34,6 +34,7 @@ function SearchBar() {
     return (
         <div className="container mt-4">
             <form onSubmit={handleFormSubmit} className="d-flex gap-3 mb-4">
+
                 {/* Nome Input */}
                 <div className="mb-3 w-25">
                     <label htmlFor="firstname" className="form-label">
@@ -77,7 +78,7 @@ function SearchBar() {
                         onChange={() => handleSelectSearch(event)}
                         className="form-select"
                     >
-                        <option value="">Tutti i Medici</option>
+                        <option value="">Tutti i dottori</option>
                         {allSpec && allSpec.map((spec) => (
                             <option key={spec.id} value={spec.id}>
                                 {spec.specialization}
