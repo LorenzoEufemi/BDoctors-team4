@@ -49,12 +49,11 @@ function SingleDoctor() {
                     </div>
                 )
             }
-
+          
             {controlli && (
                 <>
                     <section className="row row-col justyfy-content-between justify-content-md-center">
                         <div className=" col col-12 col-md-6 col-lg-5 col-xl-4 text-start mb-3">
-
                             <img src={`${backurl}images/${doctorDetal.image}`} alt="" className="rounded-3" style={{ width: "300px", height: "300px", objectFit: "cover" }} />
                         </div>
                         <div className=" col col-12 col-md-6 col-lg-7 col-xl-8">
