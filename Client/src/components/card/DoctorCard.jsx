@@ -15,7 +15,7 @@ function DoctorCard({ dottore }) {
 setClick(!click)
 // setShowAlert(true)
 // setTimeout(() => 
-//     setShowAlert(false), 3000); 
+// setShowAlert(false), 3000); 
     }
 
     return (
