@@ -112,11 +112,11 @@ footer {
 }
 
 .card-text {
-    font-size: 0.7rem;
+    font-size: 1.1rem;
 }
 
 .card-text h6 {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
 }
 
 .hp-card a {
@@ -396,7 +396,7 @@ text-decoration: none;
 }
 
 .rcard-text {
-    font-size: 14px;
+    font-size: 1.5rem;
     color: #333;
     margin-bottom: 10px;
 }
@@ -548,6 +548,12 @@ text-decoration: none;
     .btn-design {
         margin-top: 20px;
         align-self: center;
+    }
+
+    .rcard-text {
+        font-size: 0.8rem;
+        min-height: 70px;
+        
     }
 }
 

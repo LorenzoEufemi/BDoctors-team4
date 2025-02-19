@@ -7,7 +7,7 @@ function DiconoDiNoi() {
 
     const reviews = [
         { id: 1, text: "Ottimo medico, la mia esperienza è stata molto positiva consigliato!", rating: 5, author: "Luca" },
-        { id: 2, text: "Sono molto soddisfatta della visita, estremamente professionale", rating: 4, author: "Maria" },
+        { id: 2, text: "Sono molto soddisfatta della visita, professionale", rating: 4, author: "Maria" },
         { id: 3, text: "Ottimo dottore, mi sento molto meglio dopo i suoi suggerimenti!", rating: 3.5, author: "Giovanni" },
         { id: 4, text: "Ho perso già 10kg da quando ho iniziato la dieta del medico.", rating: 5, author: "Elena" },
         { id: 5, text: "Esperienza positiva, ritornerò dal medico per controlli futuri.", rating: 4.5, author: "Marco" },
