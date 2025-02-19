@@ -7,7 +7,6 @@ function DoctorCard({ dottore }) {
     const backUrl = import.meta.env.VITE_BACKEND_URL;
     const { firstname, lastname, city, phone, slug, address } = dottore;
     const { setSlugDoctor, doctors } = useContext(GlobalContext);
-    console.log(doctors)
     const [click, setClick] = useState(false)
     //    const[showAlert, setShowAlert] = useState(false)
 
@@ -16,7 +15,7 @@ function DoctorCard({ dottore }) {
         // setShowAlert(true)
         // setTimeout(() => 
         // setShowAlert(false), 3000); 
-    }
+    };
 
     return (
         <>
@@ -35,8 +34,10 @@ function DoctorCard({ dottore }) {
                         />
                     </div>
                     <div className="col-md-8 col-12">
+
                         <div className="d-card-body">
                             <div className="d-flex flex-column justify-content-between d-card-text">
+
                                 <h5 className="d-card-header">
                                     <Link
                                         to={`/doctors/${slug}`}
@@ -47,11 +48,13 @@ function DoctorCard({ dottore }) {
                                 </h5>
                                 {/* <i class={`fa-heart ${click ? "fa-solid red" :"fa-regular" } heart-icon`} onClick={handleHeartClick}>
                                     <span className="tooltip-text">Salva tra i preferiti</span></i> */}
+
                                 <div className="d-flex flex-column">
                                     <p className="card-location"><i class="fa-solid fa-location-dot me-2"></i>{city}, {address}</p>
                                     <p className="card-phone"> <i className="fa-solid fa-phone me-1"></i>Tel: {`+39 ${phone}`}</p>
                                 </div>
                             </div>
+
                             <Link
                                 to={`/doctors/${slug}`}
                                 onClick={() => setSlugDoctor(slug)}

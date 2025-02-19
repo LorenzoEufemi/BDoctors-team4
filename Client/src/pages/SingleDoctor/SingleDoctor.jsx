@@ -108,7 +108,7 @@ function SingleDoctor() {
                         </p>
                         <div className="collapse" id="collapseExample">
                             {
-                                Array.isArray(doctorDetal.reviews) ? (
+                                Array.isArray(doctorDetal.reviews) && doctorDetal.reviews.length > 0 ? (
 
                                     doctorDetal.reviews.map(curItem => (
                                         <div className="card mb-3 shadow-sm w-70" key={curItem.id}>
@@ -129,7 +129,7 @@ function SingleDoctor() {
                                         </div>
                                     ))
                                 ) : (
-                                    <p>Nessuna recensione per questo dottore</p>
+                                    <p>Nessuna recensione per questo dottore. Lascia la prima recensione! </p>
                                 )
                             }
                         </div>

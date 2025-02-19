@@ -30,6 +30,8 @@ function App() {
   const [isSuccess, setIsSuccess] = useState(false)
   const [nameSpec, setNameSpec] = useState(saveNameSpec ? String(saveNameSpec) : null)
 
+
+
   useEffect(() => {
     axios.get(`${backUrl}specializations`)
       .then(result => {
@@ -81,11 +83,13 @@ function App() {
   //////////////////////////
   /// ADVANCED SEARCHBAR ///
   //////////////////////////
+
   const [filters, setFilters] = useState({
     firstname: "",
     lastname: "",
     specialization: "",
   });
+  
 
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -140,6 +144,7 @@ function App() {
 
   // impedisce di andare su una pagina inferiore a 1
   const handlePageChange = (newPage) => {
+  
     if (newPage >= 1) {
       setPage(newPage);
     }

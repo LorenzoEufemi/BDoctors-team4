@@ -3,19 +3,15 @@ import GlobalContext from "../../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
-    const { allSpec, filters, loading, error, page, searching, handleInputChange, handleSubmit, searchDoctors, setFilters, setNameSpec } = useContext(GlobalContext);
+    const { allSpec, filters, loading, error, page, limit, searching, handleInputChange, handleSubmit, searchDoctors, setFilters, setNameSpec } = useContext(GlobalContext);
     const navigate = useNavigate()
 
     // Quando i filters o la pagina cambiano, resettiamo i medici
     useEffect(() => {
-        console.log("cane")
-        console.log("filters:", filters)
-        console.log("page:", page)
-        console.log("searching:", searching)
         if (searching) {
             searchDoctors();
         }
-    }, [page, searching]);
+    }, [page, searching, limit]);
 
     const handleSelectSearch = (event) => {
         setNameSpec(event.target.options[event.target.selectedIndex].text);
@@ -95,7 +91,7 @@ function SearchBar() {
                     <span className="visually-hidden">Loading...</span>
                 </div>
             )}
-            {error && <div className="alert alert-danger">{error}</div>}
+           
         </div>
     );
 };
