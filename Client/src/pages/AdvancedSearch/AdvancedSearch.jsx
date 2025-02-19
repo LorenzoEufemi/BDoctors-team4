@@ -14,7 +14,6 @@ function AdvancedSearch() {
     const { nameSpecSelected, doctors, setDoctors, setFilters, filters, setIsSuccess, searchDoctors, handlePageChange, disableNextButton, page, error } = useContext(GlobalContext);
 
     const navigate = useNavigate();
-    const [limit] = useState(10);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {

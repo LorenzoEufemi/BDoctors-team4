@@ -12,6 +12,7 @@ function SingleDoctor() {
 
     const [doctorDetal, setDoctorDetal] = useState(null);
     const [controlli, setControlli] = useState(false);
+    
 
     useEffect(() => {
         setIsSuccess(false)
@@ -83,7 +84,7 @@ function SingleDoctor() {
                                 <div className="row align-items-center">
                                     <i className="fa-solid fa-download col-1"></i>
                                     {doctorDetal.resume ? (
-                                        <a className="text-decoration-none col-7" href={`${backurl}/resume/${doctorDetal.resume}`} download> Leggi il mio CV</a>
+                                        <a className="text-decoration-none col-7" href={`${backurl}/resume/${doctorDetal.resume}`} target="_blank" download> Leggi il mio CV</a>
                                     ) : (
                                         <span>CV non ancora presente</span>
                                     )}
@@ -103,7 +104,7 @@ function SingleDoctor() {
 
                         <p className="d-inline-flex gap-1">
                             <button className="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                <h2 className="mb-3" style={{ color: "#2B6394" }}>Recensioni dei pazienti <span><i class="fa-solid fa-angle-down"></i></span></h2>
+                                <h2 className="mb-3" style={{ color: "#2B6394" }}>Recensioni dei pazienti <span><i className="fa-solid fa-angle-down"></i></span></h2>
                             </button>
                         </p>
                         <div className="collapse" id="collapseExample">
@@ -122,10 +123,10 @@ function SingleDoctor() {
                                                     </p>
                                                 </div>
                                                 <div className="card-footer">
-                                                    <p className="card-text">lasciata il: {curItem.created_at.slice(0, 10)} </p>
+                                                    <p className="card-text">lasciata il:{" "}
+                                                    {new Date(curItem.created_at).toLocaleDateString("it-IT")}</p>
                                                 </div>
                                             </div>
-
                                         </div>
                                     ))
                                 ) : (
