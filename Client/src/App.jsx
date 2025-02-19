@@ -135,7 +135,7 @@ function App() {
       setDoctors(response.data.data);
       // cattura errori
     } catch (error) {
-      setError("Errore nella ricerca dei dottori.");
+      setError("Nessun risultato trovato...");
       // disattiva loading
     } finally {
       setLoading(false);
