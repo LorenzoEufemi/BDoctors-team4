@@ -40,7 +40,7 @@ function HomePage() {
                                     <label htmlFor="" className="testo-lungo text-center" style={{ color: "#2B6394" }}>Seleziona il medico per la specializzazione che ti serve</label>
                                     <label htmlFor="" className="testo-corto text-center" style={{ color: "#2B6394" }}>Seleziona la specializzazione </label>
                                     <label htmlFor="" className="testo-cortissimo text-center" style={{ color: "#2B6394" }}>Specializzazione</label>
-                                    <select onChange={() => handleSelect(event)} className="form-select mb-2" aria-label="Default select example">
+                                    <select onChange={() => handleSelect(event)} className="form-select mb-2 homeSearchBar-input" aria-label="Default select example">
                                         <option value={"null"} name={""}>Tutti i dottori</option>
                                         {
                                             allSpec.map(curElem => (
@@ -51,7 +51,7 @@ function HomePage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <Link to={`/doctors?${selectedSpec ? "specialization=" + selectedSpec : ""} `} onClick={() => handleSearch(event)} className="btn text-white mt-3 ms-2" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>cerca</Link>
+                                    <Link to={`/doctors?${selectedSpec ? "specialization=" + selectedSpec : ""} `} onClick={() => handleSearch(event)} className="btn text-white mt-3 ms-2 home-btn" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>cerca</Link>
                                 </div>
                             </div>
                     }
