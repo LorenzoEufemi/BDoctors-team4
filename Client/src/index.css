@@ -651,6 +651,20 @@ text-decoration: none;
 
     }
 }
+@media screen and (max-width: 480px) {
+   
+    .adv-search {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+
+    .adv-search-name, .adv-search-lastname, .adv-search-spec {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+    }
+
+
+}
 
 @media screen and (max-width: 448px) {
     .d-flex .testo-corto {
@@ -660,6 +674,16 @@ text-decoration: none;
     .testo-cortissimo {
         display: block;
     }
+    .adv-search {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+
+    .adv-search-name, .adv-search-lastname, .adv-search-spec {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+    }
+
 
 }
 
