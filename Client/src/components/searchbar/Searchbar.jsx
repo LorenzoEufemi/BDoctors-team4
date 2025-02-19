@@ -95,7 +95,7 @@ function SearchBar() {
                     <span className="visually-hidden">Loading...</span>
                 </div>
             )}
-            {error && <div className="alert alert-danger">{error}</div>}
+           
         </div>
     );
 };

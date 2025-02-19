@@ -10,7 +10,7 @@ function AdvancedSearch() {
     const queryParams = new URLSearchParams(location.search);
     const specializationQueryParam = queryParams.get('specialization');
     const backurl = import.meta.env.VITE_BACKEND_URL;
-    const { selectedSpec, nameSpecSelected, doctors, setDoctors, setFilters, filters, setIsSuccess, searchDoctors } = useContext(GlobalContext);
+    const { selectedSpec, nameSpecSelected, doctors, setDoctors, setFilters, filters, setIsSuccess, searchDoctors, error } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
@@ -45,7 +45,8 @@ function AdvancedSearch() {
             <div className="d-flex justify-content-center">
             </div>
             <SearchBar />
-            <button className="btn-back z-3 position-fixed rounded-3" onClick={() => navigate(-1)}>
+            {error &&  <div className="container"><div className="alert alert-danger">{error}</div></div>}
+            <button className="btn-back z-3 position-fixed rounded-3" onClick={() => navigate("/")}>
                 <i className="fa-solid fa-caret-left" style={{ color: "#4FBE89" }}></i>
             </button>
             {
