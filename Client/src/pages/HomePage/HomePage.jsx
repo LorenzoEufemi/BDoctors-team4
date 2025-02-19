@@ -7,11 +7,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function HomePage() {
-    const { isSuccess, setIsSuccess, allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect } = useContext(GlobalContext);
+    const { isSuccess, setIsSuccess, allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect, setPage} = useContext(GlobalContext);
 
     useEffect(() => {
         setSelectedSpec(null)
         setNameSpecSelected("")
+        setPage(1);
     }, []);
 
     useEffect(() => {
