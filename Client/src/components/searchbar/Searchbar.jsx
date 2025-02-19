@@ -33,10 +33,10 @@ function SearchBar() {
 
     return (
         <div className="container mt-4 searchBar-container">
-            <form onSubmit={handleFormSubmit} className="d-flex gap-3 mb-4 ">
+            <form onSubmit={handleFormSubmit} className="d-flex gap-3 mb-4 adv-search">
 
                 {/* Nome Input */}
-                <div className="mb-3 w-25">
+                <div className="mb-3 w-25 adv-search-name">
                     <label htmlFor="firstname" className="form-label fs-5">
                         Nome:
                     </label>
@@ -52,7 +52,7 @@ function SearchBar() {
                 </div>
 
                 {/* Cognome Input */}
-                <div className="mb-3 w-25">
+                <div className="mb-3 w-25 adv-search-lastname">
                     <label htmlFor="lastname" className="form-label fs-5">
                         Cognome:
                     </label>
@@ -68,7 +68,7 @@ function SearchBar() {
                 </div>
 
                 {/* Specializzazione Select */}
-                <div className="mb-3 w-25 ">
+                <div className="mb-3 w-25 adv-search-spec">
                     <label htmlFor="specialization" className="form-label fs-5">
                         Specializzazione:
                     </label>

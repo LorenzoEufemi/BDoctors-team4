@@ -18,7 +18,7 @@ function AdvancedSearch() {
     useEffect(() => {
         setIsSuccess(false);
         if (specializationQueryParam) {
-            console.log(typeof specializationQueryParam )
+            console.log(typeof specializationQueryParam)
             setFilters({
                 ...filters,
                 firstname: "",
