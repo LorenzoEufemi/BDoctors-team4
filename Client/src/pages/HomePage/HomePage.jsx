@@ -7,11 +7,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function HomePage() {
-    const { isSuccess, setIsSuccess, allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect, setPage} = useContext(GlobalContext);
+    const { isSuccess, setIsSuccess, allSpec, setSelectedSpec, setNameSpecSelected, selectedSpec, handleSelect, setFilters, setPage} = useContext(GlobalContext);
+    
+    const defaultFilter = {
+        firstname: "",
+        lastname: "",
+        specialization: null
+    }
+
 
     useEffect(() => {
         setSelectedSpec(null)
         setNameSpecSelected("")
+        setFilters(defaultFilter)
         setPage(1);
     }, []);
 
@@ -25,6 +33,8 @@ function HomePage() {
     const handleSearch = (event) => {
         console.log(event);
     };
+
+ 
 
     return (
         <>
