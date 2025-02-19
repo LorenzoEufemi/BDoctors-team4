@@ -20,6 +20,7 @@ function AdvancedSearch() {
     useEffect(() => {
         setIsSuccess(false);
         if (specializationQueryParam) {
+
             setFilters({
                 ...filters,
                 firstname: "",
