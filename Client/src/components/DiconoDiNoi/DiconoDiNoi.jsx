@@ -48,11 +48,11 @@ function DiconoDiNoi() {
     return (
         <div className="slider-wrapper shadow-lg p-3 mb-5 bg-body-tertiary rounded" >
             
-            <div className='d-flex flex-column align-items-center text-center mb-3' >
+            {/* <div className='d-flex flex-column align-items-center text-center mb-3' >
                 <i className="quote-icon fa-sharp-duotone fa-solid fa-quote-left"></i>
                 <h3>Dicono di noi</h3>      
                 
-            </div>
+            </div> */}
 
             <div className="my-5 " style={{ width: "80%", margin: "auto", padding: "20px" }}>
                 <Slider {...settings}>
