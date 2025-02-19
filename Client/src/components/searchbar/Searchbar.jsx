@@ -32,12 +32,12 @@ function SearchBar() {
     };
 
     return (
-        <div className="container mt-4">
-            <form onSubmit={handleFormSubmit} className="d-flex gap-3 mb-4">
+        <div className="container mt-4 searchBar-container">
+            <form onSubmit={handleFormSubmit} className="d-flex gap-3 mb-4 ">
 
                 {/* Nome Input */}
                 <div className="mb-3 w-25">
-                    <label htmlFor="firstname" className="form-label">
+                    <label htmlFor="firstname" className="form-label fs-5">
                         Nome:
                     </label>
                     <input
@@ -47,13 +47,13 @@ function SearchBar() {
                         value={filters.firstname}
                         onChange={() => handleInputChange(event)}
                         placeholder="Nome"
-                        className="form-control"
+                        className="form-control searchBar-input"
                     />
                 </div>
 
                 {/* Cognome Input */}
                 <div className="mb-3 w-25">
-                    <label htmlFor="lastname" className="form-label">
+                    <label htmlFor="lastname" className="form-label fs-5">
                         Cognome:
                     </label>
                     <input
@@ -63,20 +63,20 @@ function SearchBar() {
                         value={filters.lastname}
                         onChange={() => handleInputChange(event)}
                         placeholder="Cognome"
-                        className="form-control"
+                        className="form-control searchBar-input"
                     />
                 </div>
 
                 {/* Specializzazione Select */}
-                <div className="mb-3 w-25">
-                    <label htmlFor="specialization" className="form-label">
+                <div className="mb-3 w-25 ">
+                    <label htmlFor="specialization" className="form-label fs-5">
                         Specializzazione:
                     </label>
                     <select
                         name="specialization"
                         value={filters.specialization}
                         onChange={() => handleSelectSearch(event)}
-                        className="form-select"
+                        className="form-select searchBar-input"
                     >
                         <option value="">Tutti i dottori</option>
                         {allSpec && allSpec.map((spec) => (
@@ -86,7 +86,7 @@ function SearchBar() {
                         ))}
                     </select>
                 </div>
-                <button type="submit" className="btn text-white align-self-center mt-3" style={{ backgroundColor: "rgba(23, 164, 138, 0.6)" }}>
+                <button type="submit" className="btn text-white align-self-center mt-3 searchBar-btn">
                     Cerca
                 </button>
             </form>

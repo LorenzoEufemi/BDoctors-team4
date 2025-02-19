@@ -10,7 +10,7 @@ function AdvancedSearch() {
     const queryParams = new URLSearchParams(location.search);
     const specializationQueryParam = queryParams.get('specialization');
     const backurl = import.meta.env.VITE_BACKEND_URL;
-    const { selectedSpec, nameSpecSelected, doctors, setDoctors, setFilters, filters,setIsSuccess } = useContext(GlobalContext);
+    const { selectedSpec, nameSpecSelected, doctors, setDoctors, setFilters, filters, setIsSuccess, searchDoctors } = useContext(GlobalContext);
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
@@ -18,6 +18,7 @@ function AdvancedSearch() {
     useEffect(() => {
         setIsSuccess(false);
         if (specializationQueryParam) {
+            console.log(typeof specializationQueryParam )
             setFilters({
                 ...filters,
                 firstname: "",
@@ -33,6 +34,8 @@ function AdvancedSearch() {
                 .catch((error) => {
                     setLoading(false);
                 });
+        } else {
+            searchDoctors();
         }
     }, [specializationQueryParam, backurl]);
 

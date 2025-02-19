@@ -29,6 +29,7 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 62px;
+        background-color: #FBFDFC;
 }
 
 header {
@@ -44,6 +45,10 @@ main {
 
 footer {
     width: 100%;
+}
+
+.footer-icon{
+    color: #2B6394;
 }
 
 .hero-container {
@@ -78,12 +83,25 @@ footer {
 /* HOMEPAGE CARD */
 .hp-card {
     width: 25rem;
+    background-color: #EFF2F0;
     border: 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* other color option #E8ECE9 */
+}
+
+.hp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .hp-card img {
     object-fit: cover;
-    height: 100%;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin-right: 70px;
 }
 
 .testo-corto {
@@ -159,7 +177,79 @@ footer {
     color: white;
 }
 
-/* ADVANCED SERACH PAGE */
+/* HOME PAGE */
+
+.home-btn {
+ padding: 10px 10px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.home-btn:hover {
+    background-color: #2B6394;
+    cursor: pointer;
+}
+
+/* ADVANCED SERACH SEARCHBAR */
+
+.homeSearchBar-input {
+    max-width: 500px;
+        padding: 7px 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 20px;
+        color: #333;
+        transition: border-color 0.3s;
+}
+
+.searchBar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.searchBar-input {
+    
+    max-width: 400px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 20px;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.searchBar-input:focus {
+    border-color: purple;
+    box-shadow: 0 0 8px rgba(79, 190, 137, 0.4);
+}
+
+.searchBar-btn {
+    display: inline-block;
+    background: #4FBE89;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.searchBar-btn:hover {
+    background-color: #2B6394;
+    cursor: pointer;
+}
+
+.searchBar-input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
 
 
 /* DOCTORCARD - IN ADVANCEDSEARCH */
@@ -177,7 +267,6 @@ footer {
 .d-card-body {
     display: flex;
     flex-direction: column;
-    /* Distribuisce spazio tra info e bottone */
     height: 100%;
     padding: 20px;
 }
@@ -204,8 +293,7 @@ footer {
     font-size: 30px;
     font-weight: bold;
     color: #4FBE89;
-    margin: 10px;
-    
+    margin: 10px;   
 }
 
 .d-card-header a {
@@ -256,16 +344,17 @@ text-decoration: none;
     /* Background della pagina */
     margin: 0 auto;
     background-color: #FBFDFC;
+   
 }
 
 .ads-title {
     color: #2B6394;
-    border-bottom: 2px solid #4FBE89;
+    border-bottom: 2px solid purple;
     margin: 20px;
+    /* option #4FBE89 */
 }
 
 .doctor-list {
-
     width: 80%;
     margin: 0 auto;
 }
@@ -569,7 +658,31 @@ text-decoration: none;
 
     .files {
         width: 100%;
-    }
-
-    
+    }  
 }
+
+/* DOCTORCARD HEART */
+/* .red {
+    color: red;
+}
+
+.heart-icon {
+    font-size: 20px ;
+    position: relative; 
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 150px;
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+}
+
+.heart-icon:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+} */

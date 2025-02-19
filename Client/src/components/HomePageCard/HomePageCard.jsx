@@ -23,7 +23,7 @@ function HomePageCard() {
                     <div className="d-flex align-items-center justify-content-center gap-2">
                         <div className='d-flex align-items-center' style={{ width: "30%" }}>
                             <img
-                                src={doc.image ? `${apiUrl}/images/${doc.image}` : "https://picsum.photos/400/400"}
+                                src={doc.image ? `${apiUrl}/images/${doc.image}` : "/placeHolder.webp"}
                                 className="rounded-circle"
                                 alt="Foto profilo"
                             />
