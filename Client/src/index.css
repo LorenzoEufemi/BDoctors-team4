@@ -662,7 +662,7 @@ text-decoration: none;
 }
 
 /* DOCTORCARD HEART */
-.red {
+/* .red {
     color: red;
 }
 
@@ -685,4 +685,4 @@ text-decoration: none;
 .heart-icon:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
-}
+} */

@@ -45,8 +45,8 @@ setClick(!click)
                                     {firstname} {lastname}
                                 </Link>
                             </h5>
-                                <i class={`fa-heart ${click ? "fa-solid red" :"fa-regular" } heart-icon`} onClick={handleHeartClick}>
-                                    <span className="tooltip-text">Salva tra i preferiti</span></i>
+                                {/* <i class={`fa-heart ${click ? "fa-solid red" :"fa-regular" } heart-icon`} onClick={handleHeartClick}>
+                                    <span className="tooltip-text">Salva tra i preferiti</span></i> */}
                                 
                         </div>
                         <p className="card-location"><i class="fa-solid fa-location-dot me-2"></i>{city}, {address}</p>
