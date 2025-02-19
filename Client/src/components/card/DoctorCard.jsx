@@ -50,7 +50,7 @@ function DoctorCard({ dottore }) {
                                     <span className="tooltip-text">Salva tra i preferiti</span></i> */}
 
                                 <div className="d-flex flex-column">
-                                    <p className="card-location"><i class="fa-solid fa-location-dot me-2"></i>{city}, {address}</p>
+                                    <p className="card-location"><i className="fa-solid fa-location-dot me-2"></i>{city}, {address}</p>
                                     <p className="card-phone"> <i className="fa-solid fa-phone me-1"></i>Tel: {`+39 ${phone}`}</p>
                                 </div>
                             </div>
