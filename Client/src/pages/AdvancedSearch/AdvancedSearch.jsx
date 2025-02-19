@@ -87,7 +87,7 @@ function AdvancedSearch() {
                 >
                     Precedente
                 </button>
-                <span style={{ color: "#2B6394" }}>Pagina {page}</span>
+                <span style={{ color: "#2B6394" }}>Pagina {page}/{page}</span>
                 <button
                     onClick={() => handlePageChange(page + 1)}
                     disabled={disableNextButton}
