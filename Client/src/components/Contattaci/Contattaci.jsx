@@ -19,13 +19,13 @@ function Contattaci() {
                 <div className="col-md-6 contact-text">
                     <h2>Contattaci direttamente online</h2>
                     <p>Se hai domande o desideri maggiori informazioni, siamo a tua disposizione.</p>
-                    <a href="mailto:info@example.com" className="btn btn-contact">Contattaci via email</a>
+                    <a href="mailto:info@example.com" className="btn btn-contact mb-3 text-decoration-none">Contattaci via email</a>
                 </div>
                 <div className="col-md-6 contact-card">
                     <img src="/img/contact1.png" alt="Contattaci online" className="img-fluid" />
                 </div>
             </div>
-            <button className="btn-back" onClick={() => navigate(-1)}>
+            <button className="btn-back z-3 position-fixed rounded-3" onClick={() => navigate(-1)}>
                 <i className="fa-solid fa-caret-left" style={{ color: "#4FBE89" }}></i>
             </button>
             {/* Seconda riga - ordine invertito */}
@@ -36,7 +36,7 @@ function Contattaci() {
                 <div className="col-md-6 contact-text">
                     <h2>Contattaci per telefono</h2>
                     <p>Parla con un nostro esperto. Siamo sempre disponibili per aiutarti.</p>
-                    <a href="tel:+1234567890" className="btn btn-contact">Chiama ora</a>
+                    <a href="tel:+1234567890" className="btn btn-contact text-decoration-none">Chiama ora</a>
                 </div>
             </div>
 
@@ -48,7 +48,6 @@ function Contattaci() {
                         <li><a href="mailto:info@example.com">info@example.com</a></li>
                         <li><a href="mailto:support@example.com">support@example.com</a></li>
                     </ul>
-                    <a href="mailto:info@example.com" className="btn btn-contact">Contattaci via email</a>
                 </div>
                 <div className="col-md-6 contact-card">
                     <img src="/img/contact3.jpg" alt="Email" className="img-fluid" />

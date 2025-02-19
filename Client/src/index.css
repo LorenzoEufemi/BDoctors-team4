@@ -522,6 +522,7 @@ text-decoration: none;
 .btn-contact:hover {
     background-color: purple;
     text-decoration: none;
+    color: white
 }
 
 /* ///////////////////// */
