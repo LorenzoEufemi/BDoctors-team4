@@ -222,6 +222,7 @@ function DocRegForm() {
                             {error.lastname && <span className="text-danger">{error.lastname}</span>}
                         </div>
                     </div>
+                    <span className='mt-3' style={{fontSize : "0.6rem"}}>* Campo obbligatorio</span>
                 </div>
 
                 {/* contatti */}
@@ -284,6 +285,7 @@ function DocRegForm() {
                             {error.phone && <span className="text-danger">{error.phone}</span>}
                         </div>
                     </div>
+                    <span className='mt-3' style={{fontSize : "0.6rem"}}>* Campo obbligatorio</span>
                 </div>
             </div>
 
@@ -318,6 +320,7 @@ function DocRegForm() {
                             {error.resume && <span className="text-danger">{error.resume}</span>}
                         </div>
                     </div>
+                    <span className='mt-3' style={{fontSize : "0.6rem"}}>* Campo obbligatorio</span>
                 </div>
 
                 {/* Input Specializzazione */}
@@ -377,6 +380,7 @@ function DocRegForm() {
                             </div>
                         </div>
                     </div>
+                    <span className='mt-3' style={{fontSize : "0.6rem"}}>* Campo obbligatorio</span>
                 </div>
             </div>
 

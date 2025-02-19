@@ -34,7 +34,7 @@ function Contattaci() {
                     <img src="/img/contact2.jpg" alt="Contattaci per telefono" className="img-fluid" />
                 </div>
                 <div className="col-md-6 contact-text">
-                    <h2>Contattaci per telefono</h2>
+                    <h2 className='mt-2'>Contattaci per telefono</h2>
                     <p>Parla con un nostro esperto. Siamo sempre disponibili per aiutarti.</p>
                     <a href="tel:+1234567890" className="btn btn-contact text-decoration-none">Chiama ora</a>
                 </div>
@@ -43,7 +43,7 @@ function Contattaci() {
             {/* Terza riga */}
             <div className="row align-items-center mb-5">
                 <div className="col-md-6 contact-text">
-                    <h2>Contattaci via Email</h2>
+                    <h2 className='mt-2'>Contattaci via Email</h2>
                     <ul>
                         <li><a href="mailto:info@example.com">info@example.com</a></li>
                         <li><a href="mailto:support@example.com">support@example.com</a></li>
