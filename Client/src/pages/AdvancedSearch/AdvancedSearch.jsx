@@ -80,21 +80,21 @@ function AdvancedSearch() {
                     className="btn text-white"
                     style={{
                         backgroundColor: "rgba(23, 164, 138, 0.7)",
-                        opacity: page === 1 ? 0.5 : 1, // Add opacity for disabled state
-                        cursor: page === 1 ? "not-allowed" : "pointer" // Change cursor for disabled state
+                        opacity: page === 1 ? 0.5 : 1, 
+                        cursor: page === 1 ? "not-allowed" : "pointer" 
                     }}
                 >
                     Precedente
                 </button>
-                <span style={{ color: "#2B6394" }}>Pagina {page}/{page}</span>
+                {/* <span style={{ color: "#2B6394" }}>Pagina {page}/{page}</span> */}
                 <button
                     onClick={() => handlePageChange(page + 1)}
                     disabled={disableNextButton}
                     className="btn text-white"
                     style={{
                         backgroundColor: "rgba(23, 164, 138, 0.7)",
-                        opacity: disableNextButton ? 0.5 : 1, // Add opacity for disabled state
-                        cursor: disableNextButton ? "not-allowed" : "pointer" // Change cursor for disabled state
+                        opacity: disableNextButton ? 0.5 : 1, 
+                        cursor: disableNextButton ? "not-allowed" : "pointer" 
                     }}
                 >
                     Successivo

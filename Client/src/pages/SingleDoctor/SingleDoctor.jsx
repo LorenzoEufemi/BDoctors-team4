@@ -12,7 +12,7 @@ function SingleDoctor() {
 
     const [doctorDetal, setDoctorDetal] = useState(null);
     const [controlli, setControlli] = useState(false);
-    
+
 
     useEffect(() => {
         setIsSuccess(false)
@@ -50,7 +50,7 @@ function SingleDoctor() {
                     </div>
                 )
             }
-          
+
             {controlli && (
                 <>
                     <section className="row row-col justyfy-content-between justify-content-md-center">
@@ -61,14 +61,6 @@ function SingleDoctor() {
                             <h1 style={{ color: "#2B6394" }}>{doctorDetal.firstname} {doctorDetal.lastname}</h1>
 
                             <div className="d-flex flex-column gap-1">
-                                <div className="row align-items-center">
-                                    <i className="fa-solid fa-phone col-1"></i>
-                                    <a href="" className="text-decoration-none col-7"> {doctorDetal.phone}</a>
-                                </div>
-                                <div className="row align-items-center">
-                                    <i className="fa-regular fa-at col-1"></i>
-                                    <a href="" className="text-decoration-none col-7"> {doctorDetal.email}</a>
-                                </div>
                                 <div className="row align-items-center">
                                     <i className="fa-solid fa-city col-1"></i>
                                     <span className="text-decoration-none col-7"> {doctorDetal.city}</span>
@@ -89,8 +81,16 @@ function SingleDoctor() {
                                         <span>CV non ancora presente</span>
                                     )}
                                 </div>
+                                <div className="row align-items-center">
+                                    <i class="fa-solid fa-envelope col-1"></i>
+                                    <span className="col-7">
+                                        <a href="mailto:info@example.com" className="text-decoration-none">Contatta il medico</a>
+                                    </span>
+
+                                </div>
+
                             </div>
-                            
+
                             <p className="mt-3">
                                 <Stars vote={parseFloat(doctorDetal.vote_avg)} />
                             </p>
@@ -124,7 +124,7 @@ function SingleDoctor() {
                                                 </div>
                                                 <div className="card-footer">
                                                     <p className="card-text">lasciata il:{" "}
-                                                    {new Date(curItem.created_at).toLocaleDateString("it-IT")}</p>
+                                                        {new Date(curItem.created_at).toLocaleDateString("it-IT")}</p>
                                                 </div>
                                             </div>
                                         </div>
