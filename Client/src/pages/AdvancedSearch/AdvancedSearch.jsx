@@ -11,7 +11,7 @@ function AdvancedSearch() {
     const specializationQueryParam = queryParams.get('specialization');
     const backurl = import.meta.env.VITE_BACKEND_URL;
 
-    const { nameSpecSelected, doctors, setDoctors, setFilters, filters, setIsSuccess, searchDoctors, handlePageChange, disableNextButton, page, error} = useContext(GlobalContext);
+    const { nameSpecSelected, doctors, setDoctors, setFilters, filters, setIsSuccess, searchDoctors, handlePageChange, disableNextButton, page, error } = useContext(GlobalContext);
 
     const navigate = useNavigate();
     const [limit] = useState(10);
@@ -41,14 +41,14 @@ function AdvancedSearch() {
         }
     }, [specializationQueryParam, backurl]);
 
-    
+
     return (
         <div className="advanced-search-container">
             <h1 className="ads-title">Ricerca {nameSpecSelected} </h1>
             <div className="d-flex justify-content-center">
             </div>
             <SearchBar />
-            {error &&  <div className="container"><div className="alert alert-danger">{error}</div></div>}
+            {error && <div className="container"><div className="alert alert-danger">{error}</div></div>}
             <button className="btn-back z-3 position-fixed rounded-3" onClick={() => navigate("/")}>
                 <i className="fa-solid fa-caret-left" style={{ color: "#4FBE89" }}></i>
             </button>
