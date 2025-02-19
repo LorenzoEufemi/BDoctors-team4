@@ -140,6 +140,7 @@ function App() {
 
   // impedisce di andare su una pagina inferiore a 1
   const handlePageChange = (newPage) => {
+  
     if (newPage >= 1) {
       setPage(newPage);
     }
