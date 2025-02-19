@@ -10,15 +10,16 @@ function AdvancedSearch() {
     const queryParams = new URLSearchParams(location.search);
     const specializationQueryParam = queryParams.get('specialization');
     const backurl = import.meta.env.VITE_BACKEND_URL;
-    const { selectedSpec, nameSpecSelected, doctors, setDoctors, setFilters, filters, setIsSuccess, searchDoctors, error } = useContext(GlobalContext);
-    const navigate = useNavigate();
 
+    const { nameSpecSelected, doctors, setDoctors, setFilters, filters, setIsSuccess, searchDoctors, handlePageChange, disableNextButton, page, error} = useContext(GlobalContext);
+
+    const navigate = useNavigate();
+    const [limit] = useState(10);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setIsSuccess(false);
         if (specializationQueryParam) {
-            console.log(typeof specializationQueryParam )
             setFilters({
                 ...filters,
                 firstname: "",
@@ -39,6 +40,7 @@ function AdvancedSearch() {
         }
     }, [specializationQueryParam, backurl]);
 
+    
     return (
         <div className="advanced-search-container">
             <h1 className="ads-title">Ricerca {nameSpecSelected} </h1>
@@ -70,7 +72,36 @@ function AdvancedSearch() {
                         )}
                 </div>
             </div>
+
+            <div className="d-flex justify-content-between my-4 mx-3">
+                <button
+                    onClick={() => handlePageChange(page - 1)}
+                    disabled={page === 1}
+                    className="btn text-white"
+                    style={{
+                        backgroundColor: "rgba(23, 164, 138, 0.7)",
+                        opacity: page === 1 ? 0.5 : 1, // Add opacity for disabled state
+                        cursor: page === 1 ? "not-allowed" : "pointer" // Change cursor for disabled state
+                    }}
+                >
+                    Precedente
+                </button>
+                <span style={{ color: "#2B6394" }}>Pagina {page}</span>
+                <button
+                    onClick={() => handlePageChange(page + 1)}
+                    disabled={disableNextButton}
+                    className="btn text-white"
+                    style={{
+                        backgroundColor: "rgba(23, 164, 138, 0.7)",
+                        opacity: disableNextButton ? 0.5 : 1, // Add opacity for disabled state
+                        cursor: disableNextButton ? "not-allowed" : "pointer" // Change cursor for disabled state
+                    }}
+                >
+                    Successivo
+                </button>
+            </div>
         </div>
+
     );
 };
 
