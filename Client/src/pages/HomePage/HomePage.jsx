@@ -46,7 +46,7 @@ function HomePage() {
                         (allSpec === null) ? <div>
                             <p>aspetta</p>
                         </div> :
-                            <div className="d-flex align-items-center">
+                            <div className="d-flex align-items-center homeInput-wrapper">
                                 <div>
                                     <label htmlFor="" className="testo-lungo text-center" style={{ color: "#2B6394" }}>Seleziona il medico per la specializzazione che ti serve</label>
                                     <label htmlFor="" className="testo-corto text-center" style={{ color: "#2B6394" }}>Seleziona la specializzazione </label>
@@ -80,6 +80,12 @@ function HomePage() {
                 )
             }
             <TopDocs />
+
+            <div className='d-flex flex-column align-items-center text-center mb-3' >
+                <i className="quote-icon fa-sharp-duotone fa-solid fa-quote-left"></i>
+                <h2 style={{ color: "#2B6394" }}>Dicono di noi</h2>      
+                
+            </div>
             <DiconoDiNoi />
         </>
     );
