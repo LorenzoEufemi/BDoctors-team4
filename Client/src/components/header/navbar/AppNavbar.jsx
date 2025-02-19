@@ -32,7 +32,7 @@ function AppNavbar() {
                 <div className="d-flex align-items-center">
                     <NavLink to="/" className="d-flex align-items-center text-decoration-none">
                         <span className="h3 ms-2 text-white mt-4" style={{ lineHeight: '30px' }}>BDoctors</span>
-                        <img src="/whiteLogo.png" alt="Logo" width="80" height="60" className="d-inline-block rounded-circle" />
+                        <img src="/whiteLogo.png" alt="Logo" width="80" height="60" className="d-inline-block " />
                       
                     </NavLink>
                 </div>
