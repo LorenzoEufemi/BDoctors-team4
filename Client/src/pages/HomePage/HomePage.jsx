@@ -39,7 +39,7 @@ function HomePage() {
     return (
         <>
             <div className="hero-container">
-                <div className="hero-content">
+                <div className="hero-content d-flex flex-column justify-content-center">
                     <h1 className="text-center testo-lungo" style={{ color: " rgba(23, 164, 138, 0.7)" }}>Benvenuto su BDoctors</h1>
                     <h1 className="text-center testo-corto" style={{ color: " rgba(23, 164, 138, 0.7)" }}>Benvenuto </h1>
                     {
@@ -47,10 +47,10 @@ function HomePage() {
                             <p>aspetta</p>
                         </div> :
                             <div className="d-flex align-items-center homeInput-wrapper">
-                                <div>
-                                    <label htmlFor="" className="testo-lungo text-center" style={{ color: "#2B6394" }}>Seleziona il medico per la specializzazione che ti serve</label>
-                                    <label htmlFor="" className="testo-corto text-center" style={{ color: "#2B6394" }}>Seleziona la specializzazione </label>
-                                    <label htmlFor="" className="testo-cortissimo text-center" style={{ color: "#2B6394" }}>Specializzazione</label>
+                                <div className="homeSearch">
+                                    <label htmlFor="" className="testo-lungo" style={{ color: "#2B6394" }}>Seleziona il medico per la specializzazione che ti serve</label>
+                                    <label htmlFor="" className="testo-corto" style={{ color: "#2B6394" }}>Seleziona la specializzazione </label>
+                                    <label htmlFor="" className="testo-cortissimo text-center" style={{ color: "#2B6394" }}>Seleziona la Specializzazione</label>
                                     <select onChange={() => handleSelect(event)} className="form-select mb-2 homeSearchBar-input" aria-label="Default select example">
                                         <option value={"null"} name={""}>Tutti i dottori</option>
                                         {
