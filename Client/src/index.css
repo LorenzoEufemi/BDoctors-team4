@@ -676,6 +676,14 @@ text-decoration: none;
         height: 80%;
     }
 
+    .testo-corto {
+        display: none;
+    }
+
+    .testo-cortissimo {
+        display: block;
+    }
+
     .homeInput-wrapper {
         display: flex;
         flex-direction: column;
